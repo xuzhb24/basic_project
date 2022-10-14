@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 /// 实战
 
 class PracticePage extends StatelessWidget {
+  const PracticePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
