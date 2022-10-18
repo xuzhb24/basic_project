@@ -9,6 +9,7 @@ class WidgetPage extends StatelessWidget {
 
   List<String> items = [
     RouterTable.container,
+    RouterTable.box,
   ];
 
   @override

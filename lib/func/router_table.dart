@@ -7,10 +7,12 @@ import '../ui/widget_container.dart';
 class RouterTable {
   static String notFound = '404'; //404页面，缺省页
   static String container = 'Container';
+  static String box = 'Box';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
     container: (context) => ContainerPage(title: container),
+    box: (context) => BoxPage(title: box),
   };
 
   ///路由拦截
