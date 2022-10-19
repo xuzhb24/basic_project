@@ -524,6 +524,7 @@ class RowColumnPage extends BaseStatelessWidget {
   Widget BlackBorder({required String title, required Widget child}) {
     return TitleLayout(
       title: title,
+      centerTitle: false,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
@@ -531,6 +532,189 @@ class RowColumnPage extends BaseStatelessWidget {
         ),
         child: child,
       ),
+    );
+  }
+}
+
+class StackPage extends BaseStatefulWidget {
+  StackPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => StatePageState();
+}
+
+class StatePageState extends State<StackPage> {
+  var _index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      children: [
+        SpaceDivider(),
+        TitleLayout(
+          title: '简单叠加',
+          child: Stack(
+            children: [
+              Container(width: 200, height: 200, color: Colors.red),
+              Container(width: 170, height: 170, color: Colors.blue),
+              Container(width: 140, height: 140, color: Colors.yellow),
+            ],
+          ),
+        ),
+        //未定位的子组件：没有使用Positioned包裹的子组件
+        //Stack未定位的子组件大小由fit参数决定，默认值是StackFit.loose，表示子组件自己决定，
+        //StackFit.expand表示尽可能的大
+        TitleLayout(
+          title: '未定位的子组件大小：StackFit.loose',
+          child: Container(
+            width: 250,
+            height: 250,
+            color: Colors.grey,
+            child: Stack(
+              fit: StackFit.loose,
+              children: [
+                Container(width: 200, height: 200, color: Colors.red),
+                Container(width: 170, height: 170, color: Colors.blue),
+                Container(width: 140, height: 140, color: Colors.yellow),
+              ],
+            ),
+          ),
+        ),
+        TitleLayout(
+          title: '未定位的子组件大小：StackFit.expand',
+          child: Container(
+            width: 250,
+            height: 250,
+            color: Colors.grey,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Container(width: 200, height: 200, color: Colors.red),
+                Container(width: 170, height: 170, color: Colors.blue),
+                Container(width: 140, height: 140, color: Colors.yellow),
+              ],
+            ),
+          ),
+        ),
+        TitleLayout(
+          title: '未定位的子组件对齐方式：Alignment.center',
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(width: 200, height: 200, color: Colors.red),
+              Container(width: 170, height: 170, color: Colors.blue),
+              Container(width: 140, height: 140, color: Colors.yellow),
+            ],
+          ),
+        ),
+        //使用Positioned包裹的子组件就是定位的子组件
+        //Positioned用于定位Stack子组件，Positioned必须是Stack的子组件
+        //提供top、bottom、left、right四种定位属性，分别表示距离上下左右的距离
+        //Positioned提供便捷的构建方式，比如Positioned.fromRect、Positioned.fill等
+        TitleLayout(
+          title: '使用Positioned定位',
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(width: 200, height: 200, color: Colors.red),
+              Positioned(
+                //左边距
+                left: 10,
+                //上边距
+                top: 10,
+                //右边距
+                right: 10,
+                //下边距
+                bottom: 10,
+                child: Container(color: Colors.green),
+              )
+            ],
+          ),
+        ),
+        //IndexedStack是Stack的子类，Stack是将所有的子组件叠加显示，而IndexedStack只显示指定的子组件
+        TitleLayout(
+          title: 'IndexedStack',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IndexedStack(
+                index: _index,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 300,
+                      height: 300,
+                      color: Colors.red,
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.fastfood,
+                        size: 60,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      width: 300,
+                      height: 300,
+                      color: Colors.green,
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.cake,
+                        size: 60,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      width: 300,
+                      height: 300,
+                      color: Colors.yellow,
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.local_cafe,
+                        size: 60,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _index = 0;
+                      });
+                    },
+                    icon: const Icon(Icons.fastfood),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _index = 1;
+                      });
+                    },
+                    icon: const Icon(Icons.cake),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _index = 2;
+                      });
+                    },
+                    icon: const Icon(Icons.local_cafe),
+                  ),
+                ],
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }

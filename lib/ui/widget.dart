@@ -11,6 +11,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.container,
     RouterTable.box,
     RouterTable.row_column,
+    RouterTable.stack,
   ];
 
   @override

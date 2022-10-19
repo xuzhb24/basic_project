@@ -5,6 +5,11 @@ abstract class BaseStatelessWidget extends StatelessWidget {
   final String title; //标题
 }
 
+abstract class BaseStatefulWidget extends StatefulWidget {
+  const BaseStatefulWidget({Key? key, required this.title}) : super(key: key);
+  final String title; //标题
+}
+
 ///列表滚动布局，通过ListView构建
 Widget ListLayout({
   required String title,
@@ -65,7 +70,7 @@ Widget SpaceDivider({double? height = 10.0}) => SizedBox(height: height);
 Widget TitleLayout({
   required String title, //标题
   required Widget child, //内容组件
-  bool centerTitle = false, //标题是否居中
+  bool centerTitle = true, //标题是否居中
 }) {
   return Column(
     children: [
