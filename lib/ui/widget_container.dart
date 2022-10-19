@@ -1,4 +1,3 @@
-import 'package:basic_project/func/util.dart';
 import 'package:basic_project/ui/base.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +35,7 @@ class ContainerPage extends BaseStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Util.buildScrollWidget(
+    return ScrollLayout(
       title: title,
       children: [
         Container(
@@ -161,7 +160,7 @@ class BoxPage extends BaseStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Util.buildScrollWidget(
+    return ScrollLayout(
       title: title,
       children: [
         SpaceDivider(),
@@ -306,7 +305,7 @@ class BoxPage extends BaseStatelessWidget {
         ListView(
           shrinkWrap: true,
           children: [
-            const Text('LimitedBox'),
+            const Text('LimitedBox 父组件不被约束'),
             LimitedBox(
               maxHeight: 100,
               child: Container(color: Colors.green),
@@ -326,6 +325,212 @@ class BoxPage extends BaseStatelessWidget {
           ],
         )
       ],
+    );
+  }
+}
+
+///Row和Column是多子控件的容器类控件，Row控件水平布局，Column控件垂直布局
+class RowColumnPage extends BaseStatelessWidget {
+  RowColumnPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      children: [
+        SpaceDivider(),
+        //mainAxisAlignment：主轴对齐方式，默认值是MainAxisAlignment.start
+        BlackBorder(
+          title: '主轴对齐方式：MainAxisAlignment.start',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '主轴对齐方式：MainAxisAlignment.center',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '主轴对齐方式：MainAxisAlignment.end',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '主轴对齐方式：MainAxisAlignment.spaceBetween',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '主轴对齐方式：MainAxisAlignment.spaceEvenly',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '主轴对齐方式：MainAxisAlignment.spaceAround',
+          child: Row(
+            //spaceAround和spaceEvenly区别是：
+            //spaceAround：第一个子控件距开始位置和最后一个子控件距结尾位置是其他子控件间距的一半
+            //spaceEvenly：所有间距一样
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+        //crossAxisAlignment：交叉轴对齐方式，默认是CrossAxisAlignment.center
+        BlackBorder(
+          title: '交叉轴对齐方式：CrossAxisAlignment.start',
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 100, color: Colors.green),
+              Container(width: 100, height: 150, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '交叉轴对齐方式：CrossAxisAlignment.center',
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 100, color: Colors.green),
+              Container(width: 100, height: 150, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '交叉轴对齐方式：CrossAxisAlignment.end',
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 100, color: Colors.green),
+              Container(width: 100, height: 150, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '交叉轴对齐方式：CrossAxisAlignment.stretch',
+          child: SizedBox(
+            height: 150,
+            child: Row(
+              //CrossAxisAlignment.stretch表示使子控件填满交叉轴
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(width: 100, height: 50, color: Colors.red),
+                Container(width: 100, height: 100, color: Colors.green),
+                Container(width: 100, height: 150, color: Colors.yellow),
+              ],
+            ),
+          ),
+        ),
+        //textDirection
+        BlackBorder(
+          title: '水平方向布局：TextDirection.ltr',
+          child: Row(
+            textDirection: TextDirection.ltr,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 100, color: Colors.green),
+              Container(width: 100, height: 150, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '水平方向布局：TextDirection.rtl',
+          child: Row(
+            textDirection: TextDirection.rtl,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 100, color: Colors.green),
+              Container(width: 100, height: 150, color: Colors.yellow),
+            ],
+          ),
+        ),
+        //verticalDirection，默认值是VerticalDirection.down
+        BlackBorder(
+          title: '垂直方向布局：VerticalDirection.up',
+          child: Column(
+            verticalDirection: VerticalDirection.up,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+        BlackBorder(
+          title: '垂直方向布局：VerticalDirection.down',
+          child: Column(
+            verticalDirection: VerticalDirection.down,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+        //主轴尺寸，默认值是MainAxisSize.max
+        BlackBorder(
+          title: '主轴尺寸：MainAxisSize.min',
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(width: 100, height: 50, color: Colors.red),
+              Container(width: 100, height: 50, color: Colors.green),
+              Container(width: 100, height: 50, color: Colors.yellow),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  //黑色边框
+  Widget BlackBorder({required String title, required Widget child}) {
+    return TitleLayout(
+      title: title,
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black, width: 1.5),
+        ),
+        child: child,
+      ),
     );
   }
 }

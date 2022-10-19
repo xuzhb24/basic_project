@@ -1,4 +1,4 @@
-import 'package:basic_project/func/util.dart';
+import 'package:basic_project/ui/base.dart';
 import 'package:flutter/material.dart';
 
 import '../func/router_table.dart';
@@ -10,10 +10,11 @@ class WidgetPage extends StatelessWidget {
   List<String> items = [
     RouterTable.container,
     RouterTable.box,
+    RouterTable.row_column,
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Util.buildListWidget(title: '组件', items: items);
+    return ListLayout(title: '组件', items: items);
   }
 }
