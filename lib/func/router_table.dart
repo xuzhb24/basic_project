@@ -10,6 +10,7 @@ class RouterTable {
   static String box = 'Box';
   static String row_column = 'Row&Column';
   static String stack = 'Stack';
+  static String wrap = 'Wrap';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -17,6 +18,7 @@ class RouterTable {
     box: (context) => BoxPage(title: box),
     row_column: (context) => RowColumnPage(title: row_column),
     stack: (context) => StackPage(title: stack),
+    wrap: (context) => WrapPage(title: wrap),
   };
 
   ///路由拦截

@@ -519,21 +519,6 @@ class RowColumnPage extends BaseStatelessWidget {
       ],
     );
   }
-
-  //黑色边框
-  Widget BlackBorder({required String title, required Widget child}) {
-    return TitleLayout(
-      title: title,
-      centerTitle: false,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 1.5),
-        ),
-        child: child,
-      ),
-    );
-  }
 }
 
 class StackPage extends BaseStatefulWidget {
@@ -714,6 +699,433 @@ class StatePageState extends State<StackPage> {
             ],
           ),
         )
+      ],
+    );
+  }
+}
+
+class WrapPage extends BaseStatelessWidget {
+  WrapPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      children: [
+        SpaceDivider(),
+        BlackBorder(
+          title: 'Wrap流式布局',
+          child: Wrap(
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: '布局方向\ndirection: Axis.horizontal',
+          child: Wrap(
+            direction: Axis.horizontal,
+            children: List.generate(4, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'direction: Axis.vertical',
+          child: Wrap(
+            direction: Axis.vertical,
+            children: List.generate(4, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: '主轴对齐方式\nalignment: WrapAlignment.start',
+          child: Wrap(
+            alignment: WrapAlignment.start,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'alignment: WrapAlignment.center',
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'alignment: WrapAlignment.end',
+          child: Wrap(
+            alignment: WrapAlignment.end,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'alignment: WrapAlignment.spaceBetween',
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'alignment: WrapAlignment.spaceEvenly',
+          child: Wrap(
+            alignment: WrapAlignment.spaceEvenly,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'alignment: WrapAlignment.spaceAround',
+          child: Wrap(
+            alignment: WrapAlignment.spaceAround,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: '交叉轴对齐方式\ncrossAxisAlignment: WrapCrossAlignment.start',
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.start,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              double height = 50.0 + 5 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: height,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'crossAxisAlignment: WrapCrossAlignment.center',
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              double height = 50.0 + 5 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: height,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'crossAxisAlignment: WrapCrossAlignment.end',
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.end,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              double height = 50.0 + 5 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: height,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        //runAlignment属性控制Wrap的主轴垂直方向每一行的对齐方式，与alignment的区别：
+        //alignment是主轴方向上对齐方式，作用于每一行。
+        //runAlignment是垂直主轴方向上将每一行看作一个整体的对齐方式。
+        BlackBorder(
+          title: '主轴垂直方向每一行的对齐方式\nrunAlignment: WrapAlignment.start',
+          child: Container(
+            height: 200,
+            child: Wrap(
+              runAlignment: WrapAlignment.start,
+              children: List.generate(9, (index) {
+                double width = 50.0 + 10 * index;
+                double height = 50;
+                return Container(
+                  color: Colors.primaries[index],
+                  width: width,
+                  height: height,
+                  alignment: Alignment.center,
+                  child: Text('$index'),
+                );
+              }),
+            ),
+          ),
+        ),
+        BlackBorder(
+          title: 'runAlignment: WrapAlignment.center',
+          child: Container(
+            height: 200,
+            child: Wrap(
+              runAlignment: WrapAlignment.center,
+              children: List.generate(9, (index) {
+                double width = 50.0 + 10 * index;
+                double height = 50;
+                return Container(
+                  color: Colors.primaries[index],
+                  width: width,
+                  height: height,
+                  alignment: Alignment.center,
+                  child: Text('$index'),
+                );
+              }),
+            ),
+          ),
+        ),
+        BlackBorder(
+          title: 'runAlignment: WrapAlignment.end',
+          child: Container(
+            height: 200,
+            child: Wrap(
+              runAlignment: WrapAlignment.end,
+              children: List.generate(9, (index) {
+                double width = 50.0 + 10 * index;
+                double height = 50;
+                return Container(
+                  color: Colors.primaries[index],
+                  width: width,
+                  height: height,
+                  alignment: Alignment.center,
+                  child: Text('$index'),
+                );
+              }),
+            ),
+          ),
+        ),
+        BlackBorder(
+          title: 'runAlignment: WrapAlignment.spaceBetween',
+          child: Container(
+            height: 200,
+            child: Wrap(
+              runAlignment: WrapAlignment.spaceBetween,
+              children: List.generate(9, (index) {
+                double width = 50.0 + 10 * index;
+                double height = 50;
+                return Container(
+                  color: Colors.primaries[index],
+                  width: width,
+                  height: height,
+                  alignment: Alignment.center,
+                  child: Text('$index'),
+                );
+              }),
+            ),
+          ),
+        ),
+        BlackBorder(
+          title: 'runAlignment: WrapAlignment.spaceEvenly',
+          child: Container(
+            height: 200,
+            child: Wrap(
+              runAlignment: WrapAlignment.spaceEvenly,
+              children: List.generate(9, (index) {
+                double width = 50.0 + 10 * index;
+                double height = 50;
+                return Container(
+                  color: Colors.primaries[index],
+                  width: width,
+                  height: height,
+                  alignment: Alignment.center,
+                  child: Text('$index'),
+                );
+              }),
+            ),
+          ),
+        ),
+        BlackBorder(
+          title: 'runAlignment: WrapAlignment.spaceAround',
+          child: Container(
+            height: 200,
+            child: Wrap(
+              runAlignment: WrapAlignment.spaceAround,
+              children: List.generate(9, (index) {
+                double width = 50.0 + 10 * index;
+                double height = 50;
+                return Container(
+                  color: Colors.primaries[index],
+                  width: width,
+                  height: height,
+                  alignment: Alignment.center,
+                  child: Text('$index'),
+                );
+              }),
+            ),
+          ),
+        ),
+        BlackBorder(
+          title: '间隔\nspacing: 10',
+          child: Wrap(
+            spacing: 10,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'runSpacing: 10',
+          child: Wrap(
+            runSpacing: 10,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: '主轴方向上子控件的方向\ntextDirection: TextDirection.ltr',
+          child: Wrap(
+            textDirection: TextDirection.ltr,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'textDirection: TextDirection.rtl',
+          child: Wrap(
+            textDirection: TextDirection.rtl,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: '交叉轴方向上子控件的方向\nverticalDirection: VerticalDirection.up',
+          child: Wrap(
+            verticalDirection: VerticalDirection.up,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
+        BlackBorder(
+          title: 'verticalDirection: VerticalDirection.down',
+          child: Wrap(
+            verticalDirection: VerticalDirection.down,
+            children: List.generate(10, (index) {
+              double width = 50.0 + 10 * index;
+              return Container(
+                color: Colors.primaries[index],
+                width: width,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text('$index'),
+              );
+            }),
+          ),
+        ),
       ],
     );
   }

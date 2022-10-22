@@ -24,17 +24,28 @@ Widget ListLayout({
       itemBuilder: (context, index) {
         return Container(
           margin: EdgeInsets.fromLTRB(10, index == 0 ? 12 : 0, 10, 0),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(items[index]);
-            },
-            style: ButtonStyle(
-              fixedSize: MaterialStateProperty.all(const Size(0, 50)),
-              textStyle:
-                  MaterialStateProperty.all(const TextStyle(fontSize: 16)),
-            ),
-            child: Text(items[index]),
-          ),
+          child: items[index].contains('组件')
+              ? Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    items[index],
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.blue,
+                    ),
+                  ),
+                )
+              : ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(items[index]);
+                  },
+                  style: ButtonStyle(
+                    fixedSize: MaterialStateProperty.all(const Size(0, 50)),
+                    textStyle: MaterialStateProperty.all(
+                        const TextStyle(fontSize: 16)),
+                  ),
+                  child: Text(items[index]),
+                ),
         );
       },
       separatorBuilder: (context, index) => const SizedBox(height: 12),
@@ -85,5 +96,20 @@ Widget TitleLayout({
       child,
       const Divider(),
     ],
+  );
+}
+
+///带黑色边框的标题布局
+Widget BlackBorder({required String title, required Widget child}) {
+  return TitleLayout(
+    title: title,
+    centerTitle: false,
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black, width: 1.5),
+      ),
+      child: child,
+    ),
   );
 }

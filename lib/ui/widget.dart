@@ -8,10 +8,14 @@ class WidgetPage extends StatelessWidget {
   WidgetPage({Key? key}) : super(key: key);
 
   List<String> items = [
+    '容器类组件',
     RouterTable.container,
     RouterTable.box,
     RouterTable.row_column,
     RouterTable.stack,
+    RouterTable.wrap,
+    '元素类组件',
+    '容器类组件',
   ];
 
   @override
