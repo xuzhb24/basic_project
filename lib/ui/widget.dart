@@ -14,8 +14,9 @@ class WidgetPage extends StatelessWidget {
     RouterTable.row_column,
     RouterTable.stack,
     RouterTable.wrap,
+    RouterTable.customScrollView,
     '元素类组件',
-    '容器类组件',
+    '功能性组件',
   ];
 
   @override

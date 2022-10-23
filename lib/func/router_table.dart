@@ -11,6 +11,7 @@ class RouterTable {
   static String row_column = 'Row&Column';
   static String stack = 'Stack';
   static String wrap = 'Wrap';
+  static String customScrollView = 'CustomScrollView';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -19,6 +20,8 @@ class RouterTable {
     row_column: (context) => RowColumnPage(title: row_column),
     stack: (context) => StackPage(title: stack),
     wrap: (context) => WrapPage(title: wrap),
+    customScrollView: (context) =>
+        CustomScrollViewPage(title: customScrollView),
   };
 
   ///路由拦截
