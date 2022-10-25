@@ -12,6 +12,10 @@ class RouterTable {
   static String stack = 'Stack';
   static String wrap = 'Wrap';
   static String customScrollView = 'CustomScrollView';
+  static String nestedScrollView = 'NestedScrollView';
+  static String nestedScrollView1 = 'NestedScrollView1';
+  static String nestedScrollView2 = 'NestedScrollView2';
+  static String nestedScrollView3 = 'NestedScrollView3';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -22,6 +26,12 @@ class RouterTable {
     wrap: (context) => WrapPage(title: wrap),
     customScrollView: (context) =>
         CustomScrollViewPage(title: customScrollView),
+    nestedScrollView: (context) =>
+        NestedScrollViewPage(title: nestedScrollView),
+    nestedScrollView1: (context) => NestedScrollViewPage1(title: '滚动隐藏AppBar'),
+    nestedScrollView2: (context) =>
+        NestedScrollViewPage2(title: 'SliverAppBar展开折叠'),
+    // nestedScrollView3: (context) => NestedScrollViewPage3(title: '与TabBar配合使用'),
   };
 
   ///路由拦截

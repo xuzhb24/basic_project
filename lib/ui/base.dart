@@ -13,43 +13,53 @@ abstract class BaseStatefulWidget extends StatefulWidget {
 ///列表滚动布局，通过ListView构建
 Widget ListLayout({
   required String title,
-  required List<String> items,
+  required List<String> widgetList, //组件列表
+  List<String>? widgetDescList, //各个组件的描述，如果未设置取widgetList的值，有设置要和widgetList一一对应
+  bool centerContent = false, //组件是否居中显示
 }) {
+  var hasDesc = widgetDescList != null &&
+      widgetDescList.isNotEmpty &&
+      widgetDescList.length == widgetList.length;
   return Scaffold(
     appBar: AppBar(
       title: Text(title),
       centerTitle: true,
     ),
-    body: ListView.separated(
-      itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.fromLTRB(10, index == 0 ? 12 : 0, 10, 0),
-          child: items[index].contains('组件')
-              ? Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    items[index],
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.blue,
+    body: Center(
+      child: ListView.separated(
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.fromLTRB(10, index == 0 ? 12 : 0, 10, 0),
+            child: widgetList[index].contains('组件')
+                ? Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      hasDesc ? widgetDescList[index] : widgetList[index],
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.blue,
+                      ),
                     ),
+                  )
+                : ElevatedButton(
+                    onPressed: () {
+                      //跳转到对应的组件页面，页面路由名称取widgetList[index]的值
+                      Navigator.of(context).pushNamed(widgetList[index]);
+                    },
+                    style: ButtonStyle(
+                      fixedSize: MaterialStateProperty.all(const Size(0, 50)),
+                      textStyle: MaterialStateProperty.all(
+                          const TextStyle(fontSize: 16)),
+                    ),
+                    child: Text(
+                        hasDesc ? widgetDescList[index] : widgetList[index]),
                   ),
-                )
-              : ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(items[index]);
-                  },
-                  style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(const Size(0, 50)),
-                    textStyle: MaterialStateProperty.all(
-                        const TextStyle(fontSize: 16)),
-                  ),
-                  child: Text(items[index]),
-                ),
-        );
-      },
-      separatorBuilder: (context, index) => const SizedBox(height: 12),
-      itemCount: items.length,
+          );
+        },
+        separatorBuilder: (context, index) => const SizedBox(height: 12),
+        itemCount: widgetList.length,
+        shrinkWrap: centerContent,
+      ),
     ),
   );
 }

@@ -7,7 +7,7 @@ import '../func/router_table.dart';
 class WidgetPage extends StatelessWidget {
   WidgetPage({Key? key}) : super(key: key);
 
-  List<String> items = [
+  List<String> widgetList = [
     '容器类组件',
     RouterTable.container,
     RouterTable.box,
@@ -15,12 +15,13 @@ class WidgetPage extends StatelessWidget {
     RouterTable.stack,
     RouterTable.wrap,
     RouterTable.customScrollView,
+    RouterTable.nestedScrollView,
     '元素类组件',
     '功能性组件',
   ];
 
   @override
   Widget build(BuildContext context) {
-    return ListLayout(title: '组件', items: items);
+    return ListLayout(title: '组件', widgetList: widgetList);
   }
 }

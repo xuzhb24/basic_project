@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class PracticePage extends StatelessWidget {
   PracticePage({Key? key}) : super(key: key);
 
-  List<String> items = [];
+  List<String> widgetList = [];
 
   @override
   Widget build(BuildContext context) {
-    return ListLayout(title: '实战', items: items);
+    return ListLayout(title: '实战', widgetList: widgetList);
   }
 }
