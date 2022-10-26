@@ -17,6 +17,7 @@ class RouterTable {
   static String nestedScrollView2 = 'NestedScrollView2';
   static String nestedScrollView3 = 'NestedScrollView3';
   static String sliverAppBar = 'SliverAppBar';
+  static String tabBar = 'TabBar';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -34,6 +35,7 @@ class RouterTable {
         NestedScrollViewPage2(title: 'SliverAppBar展开折叠'),
     // nestedScrollView3: (context) => NestedScrollViewPage3(title: '与TabBar配合使用'),
     sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
+    tabBar: (context) => TabBarPage(title: tabBar),
   };
 
   ///路由拦截
