@@ -18,6 +18,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.nestedScrollView,
     RouterTable.sliverAppBar,
     RouterTable.tabBar,
+    RouterTable.pageView,
     '元素类组件',
     '功能性组件',
   ];

@@ -18,6 +18,11 @@ class RouterTable {
   static String nestedScrollView3 = 'NestedScrollView3';
   static String sliverAppBar = 'SliverAppBar';
   static String tabBar = 'TabBar';
+  static String pageView = 'PageView';
+  static String pageView1 = 'PageView1';
+  static String pageView2 = 'PageView2';
+  static String pageView3 = 'PageView3';
+  static String pageView4 = 'PageView4';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -36,6 +41,11 @@ class RouterTable {
     // nestedScrollView3: (context) => NestedScrollViewPage3(title: '与TabBar配合使用'),
     sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     tabBar: (context) => TabBarPage(title: tabBar),
+    pageView: (context) => PageViewPage(title: pageView),
+    pageView1: (context) => PageViewPage1(title: '基础用法'),
+    pageView2: (context) => PageViewPage2(title: '无限滚动'),
+    pageView3: (context) => PageViewPage3(title: '实现指示器'),
+    pageView4: (context) => PageViewPage4(title: '切换动画'),
   };
 
   ///路由拦截
