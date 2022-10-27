@@ -13,16 +13,20 @@ class RouterTable {
   static String wrap = 'Wrap';
   static String customScrollView = 'CustomScrollView';
   static String nestedScrollView = 'NestedScrollView';
-  static String nestedScrollView1 = 'NestedScrollView1';
-  static String nestedScrollView2 = 'NestedScrollView2';
-  static String nestedScrollView3 = 'NestedScrollView3';
+  static String nestedScrollView1 = '滚动隐藏AppBar';
+  static String nestedScrollView2 = 'SliverAppBar展开折叠';
+  static String nestedScrollView3 = '与TabBar配合使用';
   static String sliverAppBar = 'SliverAppBar';
   static String tabBar = 'TabBar';
   static String pageView = 'PageView';
-  static String pageView1 = 'PageView1';
-  static String pageView2 = 'PageView2';
-  static String pageView3 = 'PageView3';
-  static String pageView4 = 'PageView4';
+  static String pageView1 = '基础用法';
+  static String pageView2 = '无限滚动';
+  static String pageView3 = '实现指示器';
+  static String pageView4 = '切换动画';
+  static String listView = 'ListView';
+  static String listView1 = '数据较少时一次加载';
+  static String listView2 = 'ListView.builder';
+  static String listView3 = 'ListView.separated';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -35,17 +39,22 @@ class RouterTable {
         CustomScrollViewPage(title: customScrollView),
     nestedScrollView: (context) =>
         NestedScrollViewPage(title: nestedScrollView),
-    nestedScrollView1: (context) => NestedScrollViewPage1(title: '滚动隐藏AppBar'),
+    nestedScrollView1: (context) =>
+        NestedScrollViewPage1(title: nestedScrollView1),
     nestedScrollView2: (context) =>
-        NestedScrollViewPage2(title: 'SliverAppBar展开折叠'),
+        NestedScrollViewPage2(title: nestedScrollView2),
     // nestedScrollView3: (context) => NestedScrollViewPage3(title: '与TabBar配合使用'),
     sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     tabBar: (context) => TabBarPage(title: tabBar),
     pageView: (context) => PageViewPage(title: pageView),
-    pageView1: (context) => PageViewPage1(title: '基础用法'),
-    pageView2: (context) => PageViewPage2(title: '无限滚动'),
-    pageView3: (context) => PageViewPage3(title: '实现指示器'),
-    pageView4: (context) => PageViewPage4(title: '切换动画'),
+    pageView1: (context) => PageViewPage1(title: pageView1),
+    pageView2: (context) => PageViewPage2(title: pageView2),
+    pageView3: (context) => PageViewPage3(title: pageView3),
+    pageView4: (context) => PageViewPage4(title: pageView4),
+    listView: (context) => ListViewPage(title: listView),
+    listView1: (context) => ListViewPage1(title: listView1),
+    listView2: (context) => ListViewPage2(title: listView2),
+    listView3: (context) => ListViewPage3(title: listView3),
   };
 
   ///路由拦截
