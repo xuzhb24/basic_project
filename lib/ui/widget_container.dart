@@ -1953,3 +1953,51 @@ class ReorderableListViewPageState extends State<ReorderableListViewPage> {
     );
   }
 }
+
+class ExpansionPanelListPage extends BaseStatefulWidget {
+  ExpansionPanelListPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => ExpansionPanelListPageState();
+}
+
+class ExpansionPanelListPageState extends State<ExpansionPanelListPage> {
+  List<bool> _dataList = List.generate(20, (index) => false).toList();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      //注意ExpansionPanelList要被SingleChildScrollView包裹，否则抛出异常
+      body: SingleChildScrollView(
+        child: _buildExpansionPanelList(),
+      ),
+    );
+  }
+
+  _buildExpansionPanelList() {
+    return ExpansionPanelList(
+      //expansionCallback为展开/关闭回调，返回展开/关闭子控件的索引及状态
+      expansionCallback: (index, isExpanded) {
+        setState(() {
+          _dataList[index] = !isExpanded;
+        });
+      },
+      children: _dataList
+          .map(
+            (value) => ExpansionPanel(
+              isExpanded: value,
+              //头部
+              headerBuilder: (context, isExpanded) =>
+                  const ListTile(title: Text('ExpansionPanel')),
+              //展开/关闭子控件
+              body: Container(height: 100, color: Colors.greenAccent),
+            ),
+          )
+          .toList(),
+    );
+  }
+}

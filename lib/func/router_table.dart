@@ -28,6 +28,7 @@ class RouterTable {
   static String listView2 = 'ListView.builder';
   static String listView3 = 'ListView.separated';
   static String reorderableListView = 'ReorderableListView';
+  static String expansionPanelList = 'ExpansionPanelList';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -58,6 +59,8 @@ class RouterTable {
     listView3: (context) => ListViewPage3(title: listView3),
     reorderableListView: (context) =>
         ReorderableListViewPage(title: reorderableListView),
+    expansionPanelList: (context) =>
+        ExpansionPanelListPage(title: expansionPanelList),
   };
 
   ///路由拦截
