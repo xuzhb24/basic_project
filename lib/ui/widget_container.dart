@@ -2001,3 +2001,118 @@ class ExpansionPanelListPageState extends State<ExpansionPanelListPage> {
     );
   }
 }
+
+class MergeableMaterialPage extends BaseStatelessWidget {
+  MergeableMaterialPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      centerContent: true,
+      widgetList: [
+        RouterTable.mergeableMaterial1,
+        RouterTable.mergeableMaterial2,
+      ],
+    );
+  }
+}
+
+class MergeableMaterialPage1 extends BaseStatelessWidget {
+  MergeableMaterialPage1({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        //MergeableMaterial，它展示多个MergeableMaterialItem组件，当子组件发生变化时，以动画的方式打开或者关闭子组件，
+        //MergeableMaterial的父控件需要在主轴方向是一个没有限制的控件，比如SingleChildScrollView、Row、Column等
+        child: MergeableMaterial(
+          //增加分割线和阴影
+          hasDividers: true,
+          dividerColor: Colors.blue,
+          //阴影值不能随便设置，只能设置如下值：1, 2, 3, 4, 6, 8, 9, 12, 16, 24
+          elevation: 24,
+          //MergeableMaterial的子控件只能是MaterialSlice和MaterialGap
+          children: [
+            //MaterialSlice是带子控件的控件，显示实际内容，MaterialGap用于分割，只能放在MaterialSlice中间。
+            MaterialSlice(key: const ValueKey(1), child: _buildItem(1)),
+            const MaterialGap(key: ValueKey(2)),
+            MaterialSlice(key: const ValueKey(3), child: _buildItem(3)),
+            const MaterialGap(key: ValueKey(4)),
+            MaterialSlice(key: const ValueKey(5), child: _buildItem(5)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildItem(int index) {
+    return Container(
+      height: 45,
+      color: Colors.primaries[index % Colors.primaries.length],
+    );
+  }
+}
+
+class MergeableMaterialPage2 extends BaseStatefulWidget {
+  MergeableMaterialPage2({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => MergeableMaterialPage2State();
+}
+
+class MergeableMaterialPage2State extends State<MergeableMaterialPage2> {
+  bool _expand = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: 45,
+            color: Colors.green.withOpacity(.3),
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              icon: Icon(Icons.arrow_drop_down),
+              onPressed: () {
+                setState(() {
+                  _expand = !_expand;
+                });
+              },
+            ),
+          ),
+          //系统控件ExpansionPanelList就是使用此控件实现的。
+          _expand
+              ? MergeableMaterial(
+                  hasDividers: true,
+                  elevation: 24,
+                  children: [
+                    MaterialSlice(
+                      key: const ValueKey(1),
+                      child: Container(
+                        height: 200,
+                        color: Colors.green.withOpacity(.3),
+                      ),
+                    ),
+                  ],
+                )
+              : Container(),
+          Container(
+            height: 45,
+            color: Colors.red.withOpacity(.3),
+          ),
+        ],
+      ),
+    );
+  }
+}

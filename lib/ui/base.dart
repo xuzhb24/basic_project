@@ -1,3 +1,4 @@
+import 'package:basic_project/func/router_table.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseStatelessWidget extends StatelessWidget {
@@ -51,8 +52,8 @@ Widget ListLayout({
                       textStyle: MaterialStateProperty.all(
                           const TextStyle(fontSize: 16)),
                     ),
-                    child: Text(
-                        hasDesc ? widgetDescList[index] : widgetList[index]),
+                    child: Text(RouterTable.pickTitle(
+                        hasDesc ? widgetDescList[index] : widgetList[index])),
                   ),
           );
         },

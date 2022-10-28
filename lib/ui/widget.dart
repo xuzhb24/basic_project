@@ -22,6 +22,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.listView,
     RouterTable.reorderableListView,
     RouterTable.expansionPanelList,
+    RouterTable.mergeableMaterial,
     '元素类组件',
     '功能性组件',
   ];
