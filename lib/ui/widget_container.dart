@@ -1886,3 +1886,70 @@ class ListViewPage3 extends BaseStatelessWidget {
     );
   }
 }
+
+class ReorderableListViewPage extends BaseStatefulWidget {
+  ReorderableListViewPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => ReorderableListViewPageState();
+}
+
+class ReorderableListViewPageState extends State<ReorderableListViewPage> {
+  final List<String> _items = List.generate(20, (index) => '$index');
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      //ReorderableListView是通过长按拖动某一项到另一个位置来重新排序的列表组件，没有“懒加载”模式，需要一次构建所有的子组件，
+      //所以ReorderableListView并不适合加载大量数据的列表，它适用于有限集合且需要排序的情况，比如手机系统里面设置语言的功能，通过拖动对语言排序。
+      body: ReorderableListView(
+        //header参数显示在列表的顶部
+        header: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          alignment: Alignment.center,
+          child: const Text(
+            'ReorderableListView头部',
+            style: TextStyle(fontSize: 20, color: Colors.red),
+          ),
+        ),
+        //scrollDirection参数表示滚动到方向，默认为垂直
+        scrollDirection: Axis.vertical,
+        //reverse参数设置为true且ReorderableListView的滚动方向为垂直时，滚动条直接滑动到底部，如果是水平方向则滚动条直接滑动到右边，默认为false
+        reverse: false,
+        //ReorderableListView需要设置children和onReorder属性，children是子控件，onReorder是拖动完成后的回调
+        children: [
+          for (String item in _items)
+            Container(
+              //每个子控件必须设置唯一的key
+              key: ValueKey(item),
+              height: 100,
+              margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              decoration: BoxDecoration(
+                color:
+                    Colors.primaries[int.parse(item) % Colors.primaries.length],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                item,
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            )
+        ],
+        //onReorder是拖动完成的回调，第一个参数是旧的数据索引，第二个参数是拖动到位置的索引，回调里面需要对数据进行排序并通过setState刷新数据。
+        onReorder: (oldIndex, newIndex) {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          var child = _items.removeAt(oldIndex);
+          _items.insert(newIndex, child);
+          setState(() {});
+        },
+      ),
+    );
+  }
+}

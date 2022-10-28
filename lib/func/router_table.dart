@@ -27,6 +27,7 @@ class RouterTable {
   static String listView1 = '数据较少时一次加载';
   static String listView2 = 'ListView.builder';
   static String listView3 = 'ListView.separated';
+  static String reorderableListView = 'ReorderableListView';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -55,6 +56,8 @@ class RouterTable {
     listView1: (context) => ListViewPage1(title: listView1),
     listView2: (context) => ListViewPage2(title: listView2),
     listView3: (context) => ListViewPage3(title: listView3),
+    reorderableListView: (context) =>
+        ReorderableListViewPage(title: reorderableListView),
   };
 
   ///路由拦截
