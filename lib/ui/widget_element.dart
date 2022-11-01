@@ -1,3 +1,4 @@
+import 'package:basic_project/func/router_table.dart';
 import 'package:basic_project/ui/base.dart';
 import 'package:flutter/material.dart';
 
@@ -194,4 +195,93 @@ class AppBarPageState extends State<AppBarPage>
       ),
     );
   }
+}
+
+class BottomNavigationBarPage extends BaseStatelessWidget {
+  BottomNavigationBarPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      centerContent: true,
+      widgetList: [
+        RouterTable.bottomNavigationBar1,
+        RouterTable.bottomNavigationBar2,
+      ],
+    );
+  }
+}
+
+class BottomNavigationBarPageX extends BaseStatefulWidget {
+  BottomNavigationBarPageX({required super.title, required this.type});
+
+  final BottomNavigationBarType type;
+
+  @override
+  State<StatefulWidget> createState() => BottomNavigationBarPageXState();
+}
+
+class BottomNavigationBarPageXState extends State<BottomNavigationBarPageX> {
+  int _curIndex = 0;
+  Widget? _curBody;
+
+  @override
+  void initState() {
+    super.initState();
+    _curBody = HomePage();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: _curBody,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _onTap,
+        //BottomNavigationBar有2种显示模式：fixed、shifting
+        type: widget.type,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Colors.black,
+        currentIndex: _curIndex,
+        //背景颜色
+        backgroundColor: Colors.white,
+        //图标大小
+        iconSize: 20,
+        selectedFontSize: 12,
+        unselectedFontSize: 8,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: '书籍'),
+          BottomNavigationBarItem(icon: Icon(Icons.perm_identity), label: '我的'),
+        ],
+      ),
+    );
+  }
+
+  _onTap(int index) {
+    switch (index) {
+      case 0:
+        _curBody = HomePage();
+        break;
+      case 1:
+        _curBody = BookPage();
+        break;
+      case 2:
+        _curBody = MyPage();
+        break;
+    }
+    setState(() {
+      _curIndex = index;
+    });
+  }
+
+  HomePage() => Container(color: Colors.red);
+
+  BookPage() => Container(color: Colors.green);
+
+  MyPage() => Container(color: Colors.yellow);
 }

@@ -36,6 +36,9 @@ class RouterTable {
   static String mergeableMaterial2 =
       'MergeableMaterial$div实现ExpansionPanelList效果';
   static String appBar = 'AppBar';
+  static String bottomNavigationBar = 'BottomNavigationBar';
+  static String bottomNavigationBar1 = 'BottomNavigationBar${div}fixed';
+  static String bottomNavigationBar2 = 'BottomNavigationBar${div}shifting';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -75,6 +78,12 @@ class RouterTable {
     mergeableMaterial2: (context) =>
         MergeableMaterialPage2(title: pickTitle(mergeableMaterial2)),
     appBar: (context) => AppBarPage(title: appBar),
+    bottomNavigationBar: (context) =>
+        BottomNavigationBarPage(title: bottomNavigationBar),
+    bottomNavigationBar1: (context) => BottomNavigationBarPageX(
+        title: bottomNavigationBar, type: BottomNavigationBarType.fixed),
+    bottomNavigationBar2: (context) => BottomNavigationBarPageX(
+        title: bottomNavigationBar, type: BottomNavigationBarType.shifting),
   };
 
   ///路由拦截
