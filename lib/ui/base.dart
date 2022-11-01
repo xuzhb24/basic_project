@@ -69,19 +69,22 @@ Widget ListLayout({
 Widget ScrollLayout({
   required String title,
   required List<Widget> children,
+  bool centerContent = false, //组件是否居中显示
 }) {
   return Scaffold(
     appBar: AppBar(
       title: Text(title),
       centerTitle: true,
     ),
-    body: SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: children,
-        ),
-      ),
-    ),
+    body: centerContent
+        ? Center(
+            child: SingleChildScrollView(
+              child: Center(child: Column(children: children)),
+            ),
+          )
+        : SingleChildScrollView(
+            child: Center(child: Column(children: children)),
+          ),
   );
 }
 
@@ -123,4 +126,9 @@ Widget BlackBorder({required String title, required Widget child}) {
       child: child,
     ),
   );
+}
+
+//跳转到某个页面
+void navigatorToPage(BuildContext context, WidgetBuilder builder) {
+  Navigator.push(context, MaterialPageRoute(builder: builder));
 }

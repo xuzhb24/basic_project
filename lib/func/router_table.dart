@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/widget_container.dart';
+import '../ui/widget_element.dart';
 
 ///页面跳转管理
 class RouterTable {
@@ -34,6 +35,7 @@ class RouterTable {
   static String mergeableMaterial1 = 'MergeableMaterial$div基础用法';
   static String mergeableMaterial2 =
       'MergeableMaterial$div实现ExpansionPanelList效果';
+  static String appBar = 'AppBar';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -72,6 +74,7 @@ class RouterTable {
         MergeableMaterialPage1(title: pickTitle(mergeableMaterial1)),
     mergeableMaterial2: (context) =>
         MergeableMaterialPage2(title: pickTitle(mergeableMaterial2)),
+    appBar: (context) => AppBarPage(title: appBar),
   };
 
   ///路由拦截

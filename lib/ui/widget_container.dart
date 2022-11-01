@@ -31,7 +31,7 @@ import '../func/constant.dart';
  * ExpansionPanelList：展开/关闭组件
  */
 
-///Container
+///容器类组件
 class ContainerPage extends BaseStatelessWidget {
   const ContainerPage({required super.title});
 
@@ -527,10 +527,10 @@ class StackPage extends BaseStatefulWidget {
   StackPage({required super.title});
 
   @override
-  State<StatefulWidget> createState() => StatePageState();
+  State<StatefulWidget> createState() => StackPageState();
 }
 
-class StatePageState extends State<StackPage> {
+class StackPageState extends State<StackPage> {
   var _index = 0;
 
   @override
