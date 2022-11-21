@@ -27,6 +27,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.appBar,
     RouterTable.bottomNavigationBar,
     RouterTable.button,
+    RouterTable.form,
     '功能性组件',
   ];
 
