@@ -667,3 +667,186 @@ class FormPageState extends State<FormPage> {
     );
   }
 }
+
+class ChipPage extends BaseStatefulWidget {
+  ChipPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => ChipPageState();
+}
+
+class ChipPageState extends State<ChipPage> {
+  bool _selected = false;
+  int _selectIndex = 0;
+  List<String> _filters = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      children: [
+        SpaceDivider(),
+        //Material风格标签控件，此控件是其他标签控件的基类
+        const RawChip(label: Text('RawChip')),
+        const Divider(),
+        TitleLayout(
+          title: '设置禁用状态',
+          child: const RawChip(
+            label: Text('RawChip'),
+            isEnabled: false,
+          ),
+        ),
+        TitleLayout(
+          title: '设置左侧控件',
+          child: const RawChip(
+            avatar: CircleAvatar(child: Text('R')),
+            label: Text('RawChip'),
+          ),
+        ),
+        TitleLayout(
+          title: '设置label的样式和内边距',
+          child: const RawChip(
+            label: Text('RawChip'),
+            labelStyle: TextStyle(color: Colors.blue),
+            labelPadding: EdgeInsets.symmetric(horizontal: 10),
+          ),
+        ),
+        TitleLayout(
+          title: '设置删除相关属性',
+          child: RawChip(
+            label: const Text('RawChip'),
+            //点击删除图标，回调onDeleted
+            onDeleted: () {
+              print('RawChip onDeleted');
+            },
+            deleteIcon: const Icon(Icons.delete),
+            deleteIconColor: Colors.red,
+            deleteButtonTooltipMessage: '删除',
+          ),
+        ),
+        TitleLayout(
+          title: '设置形状、背景颜色及内边距',
+          child: RawChip(
+            label: const Text('RawChip'),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            backgroundColor: Colors.blue,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+          ),
+        ),
+        TitleLayout(
+          title: '设置阴影',
+          child: const RawChip(
+            label: Text('RawChip'),
+            elevation: 8,
+            shadowColor: Colors.blue,
+            //配置组件点击区域大小的属性，有2个值，分别为：
+            //padded：最小点击区域为48*48
+            //shrinkWrap：子组件的实际大小
+            materialTapTargetSize: MaterialTapTargetSize.padded,
+          ),
+        ),
+        TitleLayout(
+          title: '设置选中状态、颜色',
+          child: RawChip(
+            label: const Text('RawChip'),
+            selected: _selected,
+            onSelected: (v) {
+              setState(() {
+                _selected = v;
+              });
+            },
+            selectedColor: Colors.blue,
+            selectedShadowColor: Colors.red,
+          ),
+        ),
+        TitleLayout(
+          title: '设置选中状态下“前置对勾”图标',
+          child: const RawChip(
+            label: Text('RawChip'),
+            selected: true,
+            //showCheckmark为false时，无“前置对勾”图标
+            showCheckmark: true,
+            checkmarkColor: Colors.red,
+          ),
+        ),
+        TitleLayout(
+          title: '设置点击属性',
+          child: RawChip(
+            label: const Text('RawChip'),
+            onPressed: () {
+              print('RawChip onPressed');
+            },
+            //点击时有水波纹效果
+            pressElevation: 12,
+          ),
+        ),
+        //Chip是一个简单的标签控件，仅显示信息和删除相关属性，是一个简化版的RawChip，用法和RawChip一样。
+        const Chip(label: Text('Chip')),
+        const Divider(),
+        //InputChip以紧凑的形式表示一条复杂的信息，例如实体（人，地方或事物）或对话文本。InputChip 本质上也是RawChip，用法和RawChip一样。
+        const InputChip(label: Text('InputChip')),
+        const Divider(),
+        //ChoiceChip允许从一组选项中进行单个选择，创建一个类似于单选按钮的标签，本质上ChoiceChip也是一个RawChip，ChoiceChip本身不具备单选属性。
+        TitleLayout(
+          title: 'ChoiceChip实现单选',
+          child: Wrap(
+            spacing: 15,
+            children: List.generate(
+              10,
+              (index) => ChoiceChip(
+                label: Text('ChoiceChip$index'),
+                selected: _selectIndex == index,
+                onSelected: (v) {
+                  setState(() {
+                    _selectIndex = index;
+                  });
+                },
+                selectedColor: Colors.blue,
+              ),
+            ).toList(),
+          ),
+        ),
+        //FilterChip可以作为过滤标签，本质上也是一个RawChip
+        TitleLayout(
+          title: 'FilterChip实现多选',
+          child: Column(
+            children: [
+              Wrap(
+                spacing: 15,
+                children: List.generate(
+                  10,
+                  (index) => FilterChip(
+                    label: Text('FilterChip$index'),
+                    selected: _filters.contains('$index'),
+                    onSelected: (v) {
+                      setState(() {
+                        if (v) {
+                          _filters.add('$index');
+                        } else {
+                          _filters
+                              .removeWhere((element) => element == '$index');
+                        }
+                      });
+                    },
+                  ),
+                ).toList(),
+              ),
+            ],
+          ),
+        ),
+        //ActionChip显示与主要内容有关的一组动作，本质上也是一个RawChip，效果很像按钮类控件。
+        ActionChip(
+          avatar: CircleAvatar(
+            backgroundColor: Colors.grey.shade800,
+            child: const Text('A'),
+          ),
+          label: const Text('ActionChip'),
+          onPressed: () {
+            print('ActionChip onPressed');
+          },
+        ),
+      ],
+    );
+  }
+}

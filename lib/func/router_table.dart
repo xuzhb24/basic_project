@@ -41,6 +41,7 @@ class RouterTable {
   static String bottomNavigationBar2 = 'BottomNavigationBar${div}shifting';
   static String button = 'Button';
   static String form = 'Form';
+  static String chip = 'Chip';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -88,6 +89,7 @@ class RouterTable {
         title: bottomNavigationBar, type: BottomNavigationBarType.shifting),
     button: (context) => ButtonPage(title: button),
     form: (context) => FormPage(title: form),
+    chip: (context) => ChipPage(title: chip),
   };
 
   ///路由拦截
