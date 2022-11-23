@@ -1,3 +1,4 @@
+import 'package:basic_project/func/NoShadowScrollBehavior.dart';
 import 'package:basic_project/func/router_table.dart';
 import 'package:flutter/material.dart';
 
@@ -26,40 +27,42 @@ Widget ListLayout({
       title: Text(title),
       centerTitle: true,
     ),
-    body: Center(
-      child: ListView.separated(
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.fromLTRB(10, index == 0 ? 12 : 0, 10, 0),
-            child: widgetList[index].contains('组件')
-                ? Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      hasDesc ? widgetDescList[index] : widgetList[index],
-                      style: const TextStyle(
-                        fontSize: 18,
-                        color: Colors.blue,
+    body: NoShadowScrollLayout(
+      Center(
+        child: ListView.separated(
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.fromLTRB(10, index == 0 ? 12 : 0, 10, 0),
+              child: widgetList[index].contains('组件')
+                  ? Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        hasDesc ? widgetDescList[index] : widgetList[index],
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.blue,
+                        ),
                       ),
+                    )
+                  : ElevatedButton(
+                      onPressed: () {
+                        //跳转到对应的组件页面，页面路由名称取widgetList[index]的值
+                        Navigator.of(context).pushNamed(widgetList[index]);
+                      },
+                      style: ButtonStyle(
+                        fixedSize: MaterialStateProperty.all(const Size(0, 50)),
+                        textStyle: MaterialStateProperty.all(
+                            const TextStyle(fontSize: 16)),
+                      ),
+                      child: Text(RouterTable.pickTitle(
+                          hasDesc ? widgetDescList[index] : widgetList[index])),
                     ),
-                  )
-                : ElevatedButton(
-                    onPressed: () {
-                      //跳转到对应的组件页面，页面路由名称取widgetList[index]的值
-                      Navigator.of(context).pushNamed(widgetList[index]);
-                    },
-                    style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(const Size(0, 50)),
-                      textStyle: MaterialStateProperty.all(
-                          const TextStyle(fontSize: 16)),
-                    ),
-                    child: Text(RouterTable.pickTitle(
-                        hasDesc ? widgetDescList[index] : widgetList[index])),
-                  ),
-          );
-        },
-        separatorBuilder: (context, index) => const SizedBox(height: 12),
-        itemCount: widgetList.length,
-        shrinkWrap: centerContent,
+            );
+          },
+          separatorBuilder: (context, index) => const SizedBox(height: 12),
+          itemCount: widgetList.length,
+          shrinkWrap: centerContent,
+        ),
       ),
     ),
   );
@@ -82,11 +85,17 @@ Widget ScrollLayout({
               child: Center(child: Column(children: children)),
             ),
           )
-        : SingleChildScrollView(
-            child: Center(child: Column(children: children)),
+        : NoShadowScrollLayout(
+            SingleChildScrollView(
+              child: Center(child: Column(children: children)),
+            ),
           ),
   );
 }
+
+///滚动组件Android去除水波纹效果，iOS保留软性回弹效果
+Widget NoShadowScrollLayout(Widget child) =>
+    ScrollConfiguration(behavior: NoShadowScrollBehavior(), child: child);
 
 ///空白间距
 Widget SpaceDivider({double? height = 10.0}) => SizedBox(height: height);
