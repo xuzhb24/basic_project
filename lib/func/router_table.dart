@@ -42,6 +42,7 @@ class RouterTable {
   static String button = 'Button';
   static String form = 'Form';
   static String chip = 'Chip';
+  static String inkWell = 'InkWell';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -90,6 +91,7 @@ class RouterTable {
     button: (context) => ButtonPage(title: button),
     form: (context) => FormPage(title: form),
     chip: (context) => ChipPage(title: chip),
+    inkWell: (context) => InkWellPage(title: inkWell),
   };
 
   ///路由拦截

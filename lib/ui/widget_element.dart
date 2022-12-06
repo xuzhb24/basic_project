@@ -850,3 +850,58 @@ class ChipPageState extends State<ChipPage> {
     );
   }
 }
+
+class InkWellPage extends BaseStatelessWidget {
+  InkWellPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      children: [
+        SpaceDivider(),
+        TitleLayout(
+          title: "InkWell",
+          child: InkWell(
+            //onTap是点击事件回调，如果不设置无法出现“水波纹”效果
+            onTap: () {
+              print('点击回调');
+            },
+            //设置水波纹颜色
+            splashColor: Colors.red,
+            //设置高亮颜色颜色，高亮颜色是按住时显示的颜色
+            highlightColor: Colors.blue,
+            child: const Text(
+              '这是InkWell点击效果',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
+        TitleLayout(
+          title: 'Ink',
+          child: Ink(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFFDE2F21), Color(0xFFEC592F)]),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            child: InkWell(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                child: const Text(
+                  '这是Ink的点击效果',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+              onTap: () {},
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
