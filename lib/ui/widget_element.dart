@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:basic_project/func/router_table.dart';
 import 'package:basic_project/ui/base.dart';
 import 'package:flutter/material.dart';
@@ -903,5 +906,180 @@ class InkWellPage extends BaseStatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class CustomPaintPage extends BaseStatelessWidget {
+  CustomPaintPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      children: [
+        SpaceDivider(),
+        _buildPainter('绘制点 drawPoints', PointsPainter()),
+        _buildPainter('绘制线 drawLine', LinePainter()),
+        _buildPainter('绘制路径 drawPath', PathPainter(PaintingStyle.stroke)),
+        _buildPainter('绘制路径 drawPath', PathPainter(PaintingStyle.fill)),
+        _buildPainter('绘制圆形 drawCircle', CirclePainter()),
+        _buildPainter('绘制椭圆 drawOval', OvalPainter(), height: 50),
+        _buildPainter('绘制弧 drawArc', ArcPainter()),
+        _buildPainter('绘制圆角矩形 drawRRect', RRectPainter()),
+      ],
+    );
+  }
+
+  _buildPainter(
+    String title,
+    CustomPainter? painter, {
+    double width = 100,
+    double height = 100,
+  }) {
+    return TitleLayout(
+      title: title,
+      child: CustomPaint(
+        size: Size(width, height),
+        painter: painter,
+      ),
+    );
+  }
+}
+
+class PointsPainter extends CustomPainter {
+  final Paint _paint = Paint()
+    ..color = Colors.red
+    ..strokeWidth = 6;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var points = [
+      const Offset(0, 0),
+      Offset(size.width / 2, size.height / 2),
+      Offset(size.width, size.height),
+    ];
+    //PointMode有3种模式：
+    //points：点
+    //lines：将2个点绘制为线段，如果点的个数为奇数，最后一个点将会被忽略
+    //polygon：将整个点绘制为一条线
+    canvas.drawPoints(PointMode.points, points, _paint);
+  }
+
+  @override
+  bool shouldRepaint(PointsPainter oldDelegate) {
+    return this != oldDelegate;
+  }
+}
+
+class LinePainter extends CustomPainter {
+  final Paint _paint = Paint()
+    ..color = Colors.red
+    ..strokeWidth = 3;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawLine(
+        const Offset(0, 0), Offset(size.width, size.height), _paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return this != oldDelegate;
+  }
+}
+
+class PathPainter extends CustomPainter {
+  PathPainter(this.style);
+
+  final PaintingStyle style;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    print('size:$size');
+    final Paint paint = Paint()
+      ..color = Colors.red
+      ..style = style
+      ..strokeWidth = 3;
+    var path = Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width, 0)
+      ..lineTo(size.width, size.height)
+      ..close();
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return this != oldDelegate;
+  }
+}
+
+class CirclePainter extends CustomPainter {
+  final _paint = Paint()
+    ..color = Colors.red
+    ..strokeWidth = 3;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawCircle(Offset(size.width / 2, size.height / 2), 20, _paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return this != oldDelegate;
+  }
+}
+
+class OvalPainter extends CustomPainter {
+  final _paint = Paint()
+    ..color = Colors.red
+    ..strokeWidth = 3;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawOval(Rect.fromLTRB(0, 0, size.width, size.height), _paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return this != oldDelegate;
+  }
+}
+
+class ArcPainter extends CustomPainter {
+  final _paint = Paint()
+    ..color = Colors.red
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 3;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawArc(
+        Rect.fromLTRB(0, 0, size.width, size.height), 0, pi / 2, true, _paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return this != oldDelegate;
+  }
+}
+
+class RRectPainter extends CustomPainter {
+  final _paint = Paint()
+    ..color = Colors.red
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 3;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawRRect(
+        RRect.fromLTRBR(
+            0, 0, size.width, size.height, const Radius.circular(10)),
+        _paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return this != oldDelegate;
   }
 }
