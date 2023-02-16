@@ -44,6 +44,7 @@ class RouterTable {
   static String chip = 'Chip';
   static String inkWell = 'InkWell';
   static String customPaint = 'CustomPaint';
+  static String dialog = 'Dialog';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -94,6 +95,7 @@ class RouterTable {
     chip: (context) => ChipPage(title: chip),
     inkWell: (context) => InkWellPage(title: inkWell),
     customPaint: (context) => CustomPaintPage(title: customPaint),
+    dialog: (context) => DialogPage(title: dialog),
   };
 
   ///路由拦截

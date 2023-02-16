@@ -31,6 +31,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.chip,
     RouterTable.inkWell,
     RouterTable.customPaint,
+    RouterTable.dialog,
     '功能性组件',
   ];
 

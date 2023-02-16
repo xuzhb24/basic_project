@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:basic_project/func/router_table.dart';
 import 'package:basic_project/ui/base.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /**
@@ -1081,5 +1082,154 @@ class RRectPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return this != oldDelegate;
+  }
+}
+
+class DialogPage extends BaseStatelessWidget {
+  DialogPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      children: [
+        SpaceDivider(),
+        _buildDialog("AlertDialog默认样式", "showDialog", () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('提示'),
+                  content: const Text('确认删除吗？'),
+                  actions: [
+                    TextButton(onPressed: () {}, child: const Text('取消')),
+                    TextButton(onPressed: () {}, child: const Text('确认')),
+                  ],
+                );
+              });
+        }),
+        _buildDialog("AlertDialog自定义样式", "showDialog", () async {
+          var result = await showDialog(
+              context: context,
+              barrierDismissible: false, //控制点击空白处是否退出对话框
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text('提示'),
+                  content: const Text('确认删除吗？'),
+                  backgroundColor: Colors.lightBlueAccent,
+                  elevation: 24,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop('cancel');
+                        },
+                        child: const Text('取消')),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop('ok');
+                        },
+                        child: const Text('确认')),
+                  ],
+                );
+              });
+          print('$result');
+        }),
+        _buildDialog('CupertinoAlertDialog样式', "showCupertinoDialog", () {
+          showCupertinoDialog(
+              context: context,
+              builder: (context) {
+                return CupertinoAlertDialog(
+                  title: const Text('提示'),
+                  content: const Text('确认删除吗？'),
+                  actions: [
+                    CupertinoDialogAction(
+                        child: const Text('取消'),
+                        onPressed: () {
+                          Navigator.of(context).pop('cancel');
+                        }),
+                    CupertinoDialogAction(
+                        child: const Text('确定'),
+                        onPressed: () {
+                          Navigator.of(context).pop('ok');
+                        }),
+                  ],
+                );
+              });
+        }),
+        _buildDialog('SimpleDialog样式', "showDialog", () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return SimpleDialog(
+                  title: const Text('提示'),
+                  children: [
+                    Container(
+                      height: 80,
+                      alignment: Alignment.center,
+                      child: const Text('确认删除吗？'),
+                    ),
+                    const Divider(height: 1),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop('cancel');
+                      },
+                      child: const Text('取消'),
+                    ),
+                    const Divider(height: 1),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop('ok');
+                      },
+                      child: const Text('确定'),
+                    ),
+                  ],
+                );
+              });
+        }),
+        _buildDialog('Dialog样式', "showDialog", () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  child: SizedBox(
+                    height: 200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('提示', style: TextStyle(fontSize: 25)),
+                        const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10)),
+                        const Text('确认删除吗？'),
+                        const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                                onPressed: () {}, child: const Text('取消')),
+                            TextButton(
+                                onPressed: () {}, child: const Text('确定')),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              });
+        }),
+      ],
+    );
+  }
+
+  _buildDialog(String title, String btnText, VoidCallback? onPressed) {
+    return TitleLayout(
+      title: title,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(btnText),
+      ),
+    );
   }
 }
