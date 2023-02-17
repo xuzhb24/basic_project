@@ -1233,3 +1233,159 @@ class DialogPage extends BaseStatelessWidget {
     );
   }
 }
+
+class DateTimePage extends BaseStatefulWidget {
+  DateTimePage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => DateTimePageState();
+}
+
+class DateTimePageState extends State<DateTimePage> {
+  var _dateTime = DateTime.now();
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      children: [
+        SpaceDivider(),
+        _buildPicker('DatePicker', 'showDatePicker', () async {
+          var result = await showDatePicker(
+              context: context,
+              //添加国际化支持
+              locale: const Locale('zh'),
+              //初始化时间，通常情况下设置为当前时间
+              initialDate: DateTime.now(),
+              //开始时间，设置后，选择器不能选择小于此值的时间
+              firstDate: DateTime(2020),
+              //结束时间，设置后，选择器不能选择大于此值的时间
+              lastDate: DateTime(2030),
+              //控制可选日期，返回true表示日期可选，如下表示后天之前的时间可选
+              selectableDayPredicate: (day) =>
+                  day.difference(DateTime.now()).inDays < 2,
+              //设置子控件，比如设置深色主题用法如下
+              builder: (context, child) {
+                return Theme(data: ThemeData.dark(), child: child!);
+              });
+          print('$result');
+        }),
+        _buildPicker('TimePicker', 'showTimePicker', () async {
+          var result = await showTimePicker(
+              context: context,
+              //初始化时间
+              initialTime: TimeOfDay.now(),
+              //控制子控件，可以向DatePicker一样设置深色主题，还可以设置其显示24小时
+              builder: (context, child) =>
+                  Theme(data: ThemeData.dark(), child: child!)
+              //设置其显示24小时
+              // builder: (context, child) => MediaQuery(
+              //     data: MediaQuery.of(context)
+              //         .copyWith(alwaysUse24HourFormat: true),
+              //     child: child!),
+              //添加国际化支持,但showTimePicker并没有local参数，使用builder参数设置
+              // builder: (context, child) => Localizations(
+              //     locale: const Locale('en'),
+              //     delegates: const <LocalizationsDelegate>[
+              //       GlobalMaterialLocalizations.delegate,
+              //       GlobalWidgetsLocalizations.delegate,
+              //     ],
+              //     child: child),
+              );
+          print('$result');
+        }),
+        _buildPicker('CalendarDatePicker', 'showDialog', () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  insetPadding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
+                    height: 300,
+                    child: CalendarDatePicker(
+                      //可选日期的开始值
+                      firstDate: DateTime(2020),
+                      //可选日期的结束值
+                      lastDate: DateTime(2026),
+                      //选中的日期，选中的日期有圆形背景
+                      initialDate: DateTime(2022, 9, 13),
+                      //当前日期,文字高亮
+                      currentDate: DateTime(2022, 9, 11),
+                      //用户选择的日期发生变化时回调
+                      onDateChanged: (date) {
+                        print('$date');
+                      },
+                    ),
+                  ),
+                );
+              });
+        }),
+        _buildPicker('CupertinoDatePicker', 'showDialog', () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  insetPadding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
+                    height: 300,
+                    child: CupertinoDatePicker(
+                      //初始化时间
+                      initialDateTime: _dateTime,
+                      //使用24小时制
+                      use24hFormat: true,
+                      //设置日期的格式：time(只显示时间)date(只显示日期)dateAndTime(日期和时间都显示)
+                      mode: CupertinoDatePickerMode.dateAndTime,
+                      //最小日期
+                      minimumDate: DateTime.now().add(const Duration(days: -1)),
+                      //最大日期
+                      maximumDate: DateTime.now().add(const Duration(days: 1)),
+                      //日期变化回调
+                      onDateTimeChanged: (date) {
+                        setState(() {
+                          _dateTime = date;
+                        });
+                      },
+                    ),
+                  ),
+                );
+              });
+        }),
+        _buildPicker('CupertinoTimerPicker', 'showDialog', () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  insetPadding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
+                    height: 300,
+                    child: CupertinoTimerPicker(
+                      //初始化时间
+                      initialTimerDuration: Duration(
+                          hours: DateTime.now().hour,
+                          minutes: DateTime.now().minute,
+                          seconds: DateTime.now().second),
+                      //设置日期的格式：time(只显示时间)date(只显示日期)dateAndTime(日期和时间都显示)
+                      mode: CupertinoTimerPickerMode.hms,
+                      //日期变化回调
+                      onTimerDurationChanged: (duration) {
+                        print('$duration');
+                      },
+                    ),
+                  ),
+                );
+              });
+        }),
+      ],
+    );
+  }
+
+  _buildPicker(String title, String btnText, VoidCallback? onPressed) {
+    return TitleLayout(
+      title: title,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(btnText),
+      ),
+    );
+  }
+}

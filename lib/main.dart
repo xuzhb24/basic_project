@@ -4,6 +4,7 @@ import 'package:basic_project/ui/practice.dart';
 import 'package:basic_project/ui/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'func/router_table.dart';
 
@@ -29,6 +30,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //添加国际化支持
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('zh', 'CH'),
+        Locale('en', 'US'),
+      ],
+      locale: const Locale('zh'),
       //页面跳转管理
       navigatorKey: navigationKey,
       onGenerateRoute: RouterTable.onGenerateRoute,

@@ -45,6 +45,7 @@ class RouterTable {
   static String inkWell = 'InkWell';
   static String customPaint = 'CustomPaint';
   static String dialog = 'Dialog';
+  static String dateTime = 'DateTime';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -96,6 +97,7 @@ class RouterTable {
     inkWell: (context) => InkWellPage(title: inkWell),
     customPaint: (context) => CustomPaintPage(title: customPaint),
     dialog: (context) => DialogPage(title: dialog),
+    dateTime: (context) => DateTimePage(title: dateTime),
   };
 
   ///路由拦截
