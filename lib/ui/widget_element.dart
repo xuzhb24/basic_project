@@ -1389,3 +1389,97 @@ class DateTimePageState extends State<DateTimePage> {
     );
   }
 }
+
+class OpacityPage extends BaseStatefulWidget {
+  OpacityPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => OpacityPageState();
+}
+
+class OpacityPageState extends State<OpacityPage> {
+  bool _click = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      children: [
+        SpaceDivider(),
+        TitleLayout(
+          title: 'Opacity',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                color: Colors.red,
+                alignment: Alignment.center,
+                child: const Text('1', style: TextStyle(color: Colors.white)),
+              ),
+              Opacity(
+                opacity: 0.2,
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  color: Colors.green,
+                  alignment: Alignment.center,
+                  child: const Text('2', style: TextStyle(color: Colors.white)),
+                ),
+              ),
+              Container(
+                width: 80,
+                height: 80,
+                color: Colors.blue,
+                alignment: Alignment.center,
+                child: const Text('3', style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          ),
+        ),
+        TitleLayout(
+          title: 'AnimatedOpacity',
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _click = !_click;
+                  });
+                },
+                child: const Text('开始动画'),
+              ),
+              Stack(
+                children: [
+                  Image.network(
+                      'https://img2.baidu.com/it/u=1003272215,1878948666&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800'),
+                  Positioned.fill(
+                    child: AnimatedOpacity(
+                      onEnd: () {
+                        setState(() {
+                          _click = !_click;
+                        });
+                      },
+                      duration: const Duration(seconds: 3),
+                      opacity: _click ? 0.2 : 0.8,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.white, Colors.grey],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

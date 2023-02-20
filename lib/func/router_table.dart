@@ -46,6 +46,7 @@ class RouterTable {
   static String customPaint = 'CustomPaint';
   static String dialog = 'Dialog';
   static String dateTime = 'DateTime';
+  static String opacity = 'Opacity';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -98,6 +99,7 @@ class RouterTable {
     customPaint: (context) => CustomPaintPage(title: customPaint),
     dialog: (context) => DialogPage(title: dialog),
     dateTime: (context) => DateTimePage(title: dateTime),
+    opacity: (context) => OpacityPage(title: opacity),
   };
 
   ///路由拦截
