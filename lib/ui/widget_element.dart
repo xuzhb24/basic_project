@@ -1483,3 +1483,85 @@ class OpacityPageState extends State<OpacityPage> {
     );
   }
 }
+
+class AnimatedListPage extends BaseStatefulWidget {
+  AnimatedListPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => AnimatedListPageState();
+}
+
+class AnimatedListPageState extends State<AnimatedListPage>
+    with SingleTickerProviderStateMixin {
+  List<int> _list = [];
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+
+  void _addItem() {
+    final int index = _list.length;
+    _list.insert(index, index);
+    _listKey.currentState?.insertItem(index);
+  }
+
+  void _removeItem() {
+    final int index = _list.length - 1;
+    var item = _list[index].toString();
+    _listKey.currentState?.removeItem(
+        index, (context, animation) => _buildItem(item, animation));
+    _list.removeAt(index);
+  }
+
+  Widget _buildItem(String item, Animation<double> animation) {
+    //实现“左进右出”的动画效果
+    // return SlideTransition(
+    //   position: animation
+    //       .drive(CurveTween(curve: Curves.easeIn))
+    //       .drive(Tween(begin: const Offset(1, 1), end: const Offset(0, 1))),
+    //   child: Card(
+    //     color: Colors.blue,
+    //     child: ListTile(
+    //       title: Text(item),
+    //     ),
+    //   ),
+    // );
+    //实现从上掉落的效果
+    return SizeTransition(
+      sizeFactor: animation,
+      child: Card(
+        color: Colors.blue,
+        child: ListTile(title: Text(item)),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: AnimatedList(
+        key: _listKey,
+        //item的个数
+        initialItemCount: _list.length,
+        //一个函数，列表的每一个索引会调用，这个函数有一个animation参数，可以设置成任何一个动画
+        itemBuilder: (context, index, animation) =>
+            _buildItem(_list[index].toString(), animation),
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          FloatingActionButton(
+            onPressed: () => _addItem(),
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(width: 60),
+          FloatingActionButton(
+            onPressed: () => _removeItem(),
+            child: const Icon(Icons.remove),
+          )
+        ],
+      ),
+    );
+  }
+}

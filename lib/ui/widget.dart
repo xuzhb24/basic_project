@@ -34,6 +34,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.dialog,
     RouterTable.dateTime,
     RouterTable.opacity,
+    RouterTable.animatedList,
     '功能性组件',
   ];
 
