@@ -1692,9 +1692,9 @@ class DataTablePageState extends State<DataTablePage> {
             ],
             rows: sortData
                 .map((user) => DataRow(cells: [
-              DataCell(Text(user.name)),
-              DataCell(Text('${user.age}')),
-            ]))
+                      DataCell(Text(user.name)),
+                      DataCell(Text('${user.age}')),
+                    ]))
                 .toList(),
           ),
         ),
@@ -1756,6 +1756,119 @@ class DataTablePageState extends State<DataTablePage> {
           DataColumn(label: Text('出生月份')),
         ],
         rows: dataRows,
+      ),
+    );
+  }
+}
+
+class DraggablePage extends BaseStatefulWidget {
+  DraggablePage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => DraggablePageState();
+}
+
+class DraggablePageState extends State<DraggablePage> {
+  var _dragData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            //LongPressDraggable继承自Draggable，因此用法和Draggable完全一样，唯一的区别就是LongPressDraggable触发拖动的方式是长按，而Draggable触发拖动的方式是按下。
+            Draggable(
+              //data参数和DragTarget配合使用的，当用户将控件拖动到DragTarget时此数据会传递给DragTarget
+              data: const Color(0x000000FF),
+              //控制拖动的方向，比如只允许垂直方向移动
+              // axis: Axis.vertical,
+              //feedback参数是拖动时跟随移动的组件
+              feedback: _buildContainer(Colors.blue),
+              //child参数是子控件
+              child: _buildContainer(Colors.red),
+              //如果想在拖动的时候子组件显示其他样式可以使用childWhenDragging参数
+              // childWhenDragging: _buildContainer(Colors.grey),
+              //onDragStarted：开始拖动时回调
+              onDragStarted: () {
+                print('Draggable onDragStarted');
+              },
+              //onDragEnd：拖动结束时回调
+              onDragEnd: (DraggableDetails details) {
+                print('Draggable onDragEnd:$details');
+              },
+              //onDraggableCanceled：未拖动到DragTarget控件上时回调
+              onDraggableCanceled: (Velocity velocity, Offset offset) {
+                print(
+                    'Draggable onDraggableCanceled velocity:$velocity,offset:$offset');
+              },
+              //onDragCompleted：拖动到DragTarget控件上时回调
+              onDragCompleted: () {
+                print('DraggableonDragCompleted');
+              },
+            ),
+            const SizedBox(height: 200),
+            DragTarget(
+              //当onWillAccept返回true时， candidateData参数的数据是Draggable的data数据。
+              //当onWillAccept返回false时， rejectedData参数的数据是Draggable的data数据，
+              builder: (context, candidateData, rejectedData) {
+                print(
+                    'candidateData:$candidateData,rejectedData:$rejectedData');
+                return _dragData == null
+                    ? _buildContainer(
+                        Colors.red,
+                        text: "DragTarget",
+                        border: true,
+                        textColor: Colors.red,
+                      )
+                    : _buildContainer(Colors.blue);
+              },
+              //onWillAccept：拖到该控件上时调用，需要返回true或者false，返回true，松手后会回调onAccept，否则回调onLeave。
+              onWillAccept: (color) {
+                print('DragTarget onWillAccept:$color');
+                return true;
+              },
+              //onAccept：onWillAccept返回true时，用户松手后调用。
+              onAccept: (color) {
+                setState(() {
+                  _dragData = color;
+                });
+                print('DragTarget onAccept:$color');
+              },
+              //onLeave：onWillAccept返回false时，用户松手后调用。
+              onLeave: (color) {
+                print('DragTarget onLeave:$color');
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildContainer(Color color,
+      {String text = 'Draggable',
+      bool border = false,
+      Color textColor = Colors.white}) {
+    return Container(
+      width: 120,
+      height: 120,
+      alignment: Alignment.center,
+      decoration: border
+          ? BoxDecoration(
+              border: Border.all(color: color),
+              borderRadius: BorderRadius.circular(10),
+            )
+          : BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(10),
+            ),
+      child: Text(
+        text,
+        style: TextStyle(color: textColor, fontSize: 18),
       ),
     );
   }

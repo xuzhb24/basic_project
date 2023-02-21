@@ -49,6 +49,7 @@ class RouterTable {
   static String opacity = 'Opacity';
   static String animatedList = 'AnimatedList';
   static String dataTable = 'DataTable';
+  static String draggable = 'Draggable';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -104,6 +105,7 @@ class RouterTable {
     opacity: (context) => OpacityPage(title: opacity),
     animatedList: (context) => AnimatedListPage(title: animatedList),
     dataTable: (context) => DataTablePage(title: dataTable),
+    draggable: (context) => DraggablePage(title: draggable),
   };
 
   ///路由拦截

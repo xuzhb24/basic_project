@@ -36,6 +36,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.opacity,
     RouterTable.animatedList,
     RouterTable.dataTable,
+    RouterTable.draggable,
     '功能性组件',
   ];
 
