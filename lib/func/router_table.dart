@@ -48,6 +48,7 @@ class RouterTable {
   static String dateTime = 'DateTime';
   static String opacity = 'Opacity';
   static String animatedList = 'AnimatedList';
+  static String dataTable = 'DataTable';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -102,6 +103,7 @@ class RouterTable {
     dateTime: (context) => DateTimePage(title: dateTime),
     opacity: (context) => OpacityPage(title: opacity),
     animatedList: (context) => AnimatedListPage(title: animatedList),
+    dataTable: (context) => DataTablePage(title: dataTable),
   };
 
   ///路由拦截
