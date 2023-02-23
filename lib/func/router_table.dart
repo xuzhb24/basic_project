@@ -55,6 +55,9 @@ class RouterTable {
   static String willPopScope1 = 'WillPopScope$div询问用户是否退出(弹出对话框)';
   static String willPopScope2 = 'WillPopScope$div询问用户是否退出(再次点击退出)';
   static String willPopScope3 = 'WillPopScope${div}App中有多个Navigator';
+  static String navigator = 'Navigator';
+  static String navigator1 = 'Navigator$div弹窗内跳转';
+  static String navigator2 = 'Navigator${div}Tab内跳转';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -118,6 +121,9 @@ class RouterTable {
         WillPopScopePage2(title: pickTitle(willPopScope2)),
     willPopScope3: (context) =>
         WillPopScopePage3(title: pickTitle(willPopScope3)),
+    navigator: (context) => NavigatorPage(title: navigator),
+    navigator1: (context) => NavigatorPage1(title: pickTitle(navigator1)),
+    navigator2: (context) => NavigatorPage2(),
   };
 
   ///路由拦截
