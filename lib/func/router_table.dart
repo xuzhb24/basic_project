@@ -1,3 +1,4 @@
+import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,10 @@ class RouterTable {
   static String animatedList = 'AnimatedList';
   static String dataTable = 'DataTable';
   static String draggable = 'Draggable';
+  static String willPopScope = 'WillPopScope';
+  static String willPopScope1 = 'WillPopScope$div询问用户是否退出(弹出对话框)';
+  static String willPopScope2 = 'WillPopScope$div询问用户是否退出(再次点击退出)';
+  static String willPopScope3 = 'WillPopScope${div}App中有多个Navigator';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -106,6 +111,13 @@ class RouterTable {
     animatedList: (context) => AnimatedListPage(title: animatedList),
     dataTable: (context) => DataTablePage(title: dataTable),
     draggable: (context) => DraggablePage(title: draggable),
+    willPopScope: (context) => WillPopScopePage(title: willPopScope),
+    willPopScope1: (context) =>
+        WillPopScopePage1(title: pickTitle(willPopScope1)),
+    willPopScope2: (context) =>
+        WillPopScopePage2(title: pickTitle(willPopScope2)),
+    willPopScope3: (context) =>
+        WillPopScopePage3(title: pickTitle(willPopScope3)),
   };
 
   ///路由拦截

@@ -51,10 +51,6 @@ import '../entity/User.dart';
  * Opacity/AnimatedOpacity：占位
  * DataTable：表格控件
  * Draggable：拖动组件
- * WillPopScope：页面拦截
- * Navigator：管理路由
- * MediaQuery：获取设备信息
- * FutureBuilder：执行异步任务
  */
 
 ///元素类组件

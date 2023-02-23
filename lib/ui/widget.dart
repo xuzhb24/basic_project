@@ -38,6 +38,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.dataTable,
     RouterTable.draggable,
     '功能性组件',
+    RouterTable.willPopScope,
   ];
 
   @override
