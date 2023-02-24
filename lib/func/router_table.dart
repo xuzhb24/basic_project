@@ -58,6 +58,11 @@ class RouterTable {
   static String navigator = 'Navigator';
   static String navigator1 = 'Navigator$div弹窗内跳转';
   static String navigator2 = 'Navigator${div}Tab内跳转';
+  static String futureBuilder = 'FutureBuilder';
+  static String futureBuilder1 = 'FutureBuilder$div模拟加载完成';
+  static String futureBuilder2 = 'FutureBuilder$div模拟加载失败';
+  static String futureBuilder3 = 'FutureBuilder$div模拟列表数据加载完成';
+  static String futureBuilder4 = 'FutureBuilder$div模拟列表数据加载失败';
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -124,6 +129,15 @@ class RouterTable {
     navigator: (context) => NavigatorPage(title: navigator),
     navigator1: (context) => NavigatorPage1(title: pickTitle(navigator1)),
     navigator2: (context) => NavigatorPage2(),
+    futureBuilder: (context) => FutureBuilderPage(title: futureBuilder),
+    futureBuilder1: (context) =>
+        FutureBuilderPage1(title: pickTitle(futureBuilder1)),
+    futureBuilder2: (context) =>
+        FutureBuilderPage2(title: pickTitle(futureBuilder2)),
+    futureBuilder3: (context) =>
+        FutureBuilderPage3(title: pickTitle(futureBuilder3)),
+    futureBuilder4: (context) =>
+        FutureBuilderPage4(title: pickTitle(futureBuilder4)),
   };
 
   ///路由拦截

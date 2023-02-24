@@ -424,3 +424,279 @@ class DetailPage extends StatelessWidget {
     );
   }
 }
+
+class FutureBuilderPage extends BaseStatelessWidget {
+  FutureBuilderPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      centerContent: true,
+      widgetList: [
+        RouterTable.futureBuilder1,
+        RouterTable.futureBuilder2,
+        RouterTable.futureBuilder3,
+        RouterTable.futureBuilder4,
+      ],
+    );
+  }
+}
+
+class FutureBuilderPage1 extends BaseStatefulWidget {
+  FutureBuilderPage1({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => FutureBuilderPage1State();
+}
+
+class FutureBuilderPage1State extends State<FutureBuilderPage1> {
+  var _future; //防止FutureBuilder重绘
+
+  @override
+  void initState() {
+    super.initState();
+    //FutureBuilder在重建时判断旧的future和新的future是否相等，如果不相等才会重建，所以我们只需要让其相等即可
+    _future = future();
+  }
+
+  future() async {
+    return Future.delayed(const Duration(seconds: 3), () {
+      return "加载完成";
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: FutureBuilder(
+        future: _future,
+        builder: (context, snapshot) {
+          var widget;
+          //ConnectionState的状态包含四种：none、waiting、active、done，
+          //但我们只需要关注done状态，此状态表示Future执行完成，
+          //snapshot参数的类型是AsyncSnapshot<T>。
+          if (snapshot.connectionState == ConnectionState.done) {
+            //加载失败
+            if (snapshot.hasError) {
+              widget = const Icon(
+                Icons.error,
+                color: Colors.red,
+                size: 48,
+              );
+            } else {
+              //加载成功
+              widget = const Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 36,
+              );
+            }
+          } else {
+            //加载中
+            widget = const Padding(
+              padding: EdgeInsets.all(20),
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Center(
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ),
+              child: widget,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class FutureBuilderPage2 extends BaseStatelessWidget {
+  FutureBuilderPage2({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    var future = Future.delayed(const Duration(seconds: 3), () {
+      return Future.error('加载失败');
+    });
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: FutureBuilder(
+        future: future,
+        builder: (context, snapshot) {
+          var widget;
+          //ConnectionState的状态包含四种：none、waiting、active、done，
+          //但我们只需要关注done状态，此状态表示Future执行完成，
+          //snapshot参数的类型是AsyncSnapshot<T>。
+          if (snapshot.connectionState == ConnectionState.done) {
+            //加载失败
+            if (snapshot.hasError) {
+              widget = const Icon(
+                Icons.error,
+                color: Colors.red,
+                size: 48,
+              );
+            } else {
+              //加载成功
+              widget = const Icon(
+                Icons.check_circle,
+                color: Colors.green,
+                size: 36,
+              );
+            }
+          } else {
+            //加载中
+            widget = const Padding(
+              padding: EdgeInsets.all(20),
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Center(
+            child: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ),
+              child: widget,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class FutureBuilderPage3 extends BaseStatelessWidget {
+  FutureBuilderPage3({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    var future = Future.delayed(const Duration(seconds: 3), () => "加载成功");
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: FutureBuilder(
+        future: future,
+        builder: (context, snapshot) {
+          var widget;
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              widget = _loadingErrorWidget();
+            } else {
+              widget = _dataWidget();
+            }
+          } else {
+            widget = _loadingWidget();
+          }
+          return widget;
+        },
+      ),
+    );
+  }
+
+  //构建loading控件
+  _loadingWidget() {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  //构建网络加载失败控件
+  _loadingErrorWidget() {
+    return const Center(child: Text('数据加载失败，请重试!'));
+  }
+
+  //数据加载成功，构建数据展示控件
+  _dataWidget() {
+    return ListView.separated(
+      itemBuilder: (context, index) => Container(
+        height: 60,
+        alignment: Alignment.center,
+        child: Text(
+          '$index',
+          style: const TextStyle(fontSize: 20),
+        ),
+      ),
+      separatorBuilder: (context, index) => const Divider(),
+      itemCount: 10,
+    );
+  }
+}
+
+class FutureBuilderPage4 extends BaseStatelessWidget {
+  FutureBuilderPage4({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    var future =
+        Future.delayed(const Duration(seconds: 3), () => Future.error('加载失败'));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: FutureBuilder(
+        future: future,
+        builder: (context, snapshot) {
+          var widget;
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              widget = _loadingErrorWidget();
+            } else {
+              widget = _dataWidget();
+            }
+          } else {
+            widget = _loadingWidget();
+          }
+          return widget;
+        },
+      ),
+    );
+  }
+
+  //构建loading控件
+  _loadingWidget() {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  //构建网络加载失败控件
+  _loadingErrorWidget() {
+    return const Center(child: Text('数据加载失败，请重试!'));
+  }
+
+  //数据加载成功，构建数据展示控件
+  _dataWidget() {
+    return ListView.separated(
+      itemBuilder: (context, index) => Container(
+        height: 60,
+        alignment: Alignment.center,
+        child: Text(
+          '$index',
+          style: const TextStyle(fontSize: 20),
+        ),
+      ),
+      separatorBuilder: (context, index) => const Divider(),
+      itemCount: 10,
+    );
+  }
+}

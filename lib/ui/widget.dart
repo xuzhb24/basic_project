@@ -40,6 +40,7 @@ class WidgetPage extends StatelessWidget {
     '功能性组件',
     RouterTable.willPopScope,
     RouterTable.navigator,
+    RouterTable.futureBuilder,
   ];
 
   @override
