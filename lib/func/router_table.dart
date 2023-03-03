@@ -11,6 +11,7 @@ class RouterTable {
   static String div = '\$';
   static String notFound = '404'; //404页面，缺省页
   static String text = 'Text';
+  static String richText = 'RichText';
 
   static String form = 'Form';
   static String button = 'Button';
@@ -70,6 +71,7 @@ class RouterTable {
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
     text: (context) => TextPage(title: text),
+    richText: (context) => RichTextPage(title: richText),
 
     form: (context) => FormPage(title: form),
     button: (context) => ButtonPage(title: button),
