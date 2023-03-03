@@ -56,6 +56,10 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        //设置全局字体样式
+        // textTheme: const TextTheme(
+        //   bodyText2: TextStyle(color: Colors.red, fontSize: 20),
+        // ),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );

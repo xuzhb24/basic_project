@@ -1,3 +1,4 @@
+import 'package:basic_project/ui/widget/widget_text.dart';
 import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ import '../ui/widget_element.dart';
 class RouterTable {
   static String div = '\$';
   static String notFound = '404'; //404页面，缺省页
+  static String text = 'Text';
+
   static String form = 'Form';
   static String button = 'Button';
   static String row_column = 'Row&Column';
@@ -66,6 +69,8 @@ class RouterTable {
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
+    text: (context) => TextPage(title: text),
+
     form: (context) => FormPage(title: form),
     button: (context) => ButtonPage(title: button),
     row_column: (context) => RowColumnPage(title: row_column),

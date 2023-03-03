@@ -9,6 +9,7 @@ class WidgetPage extends StatelessWidget {
 
   List<String> widgetList = [
     '文本组件',
+    RouterTable.text,
     '基础组件',
     RouterTable.button,
     RouterTable.form,
