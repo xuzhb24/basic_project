@@ -33,7 +33,8 @@ Widget ListLayout({
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.fromLTRB(10, index == 0 ? 12 : 0, 10, 0),
-              child: widgetList[index].contains('组件')
+              child: widgetList[index].contains('组件') &&
+                      !widgetList[index].contains('实战')
                   ? Container(
                       alignment: Alignment.center,
                       child: Text(

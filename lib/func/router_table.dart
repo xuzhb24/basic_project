@@ -3,6 +3,7 @@ import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/practice/practice_text.dart';
 import '../ui/widget_container.dart';
 import '../ui/widget_element.dart';
 
@@ -13,6 +14,7 @@ class RouterTable {
   static String text = 'Text';
   static String richText = 'RichText';
   static String textField = 'TextField';
+  static String textPractice = '文本组件实战';
 
   static String form = 'Form';
   static String button = 'Button';
@@ -74,6 +76,7 @@ class RouterTable {
     text: (context) => TextPage(title: text),
     richText: (context) => RichTextPage(title: richText),
     textField: (context) => TextFieldPage(title: textField),
+    textPractice: (context) => TextPracticePage(title: textPractice),
 
     form: (context) => FormPage(title: form),
     button: (context) => ButtonPage(title: button),
