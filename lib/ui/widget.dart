@@ -11,6 +11,7 @@ class WidgetPage extends StatelessWidget {
     '文本组件',
     RouterTable.text,
     RouterTable.richText,
+    RouterTable.textField,
     '基础组件',
     RouterTable.button,
     RouterTable.form,

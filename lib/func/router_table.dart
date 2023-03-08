@@ -12,6 +12,7 @@ class RouterTable {
   static String notFound = '404'; //404页面，缺省页
   static String text = 'Text';
   static String richText = 'RichText';
+  static String textField = 'TextField';
 
   static String form = 'Form';
   static String button = 'Button';
@@ -72,6 +73,7 @@ class RouterTable {
     notFound: (context) => const NotFoundPage(),
     text: (context) => TextPage(title: text),
     richText: (context) => RichTextPage(title: richText),
+    textField: (context) => TextFieldPage(title: textField),
 
     form: (context) => FormPage(title: form),
     button: (context) => ButtonPage(title: button),
