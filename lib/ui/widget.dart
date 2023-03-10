@@ -15,6 +15,7 @@ class WidgetPage extends StatelessWidget {
     '基础组件',
     RouterTable.button,
     RouterTable.form,
+    RouterTable.radio,
     '布局组件',
     RouterTable.row_column,
     RouterTable.stack,

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/practice/practice_text.dart';
+import '../ui/widget/widget_basic.dart';
 import '../ui/widget_container.dart';
 import '../ui/widget_element.dart';
 
@@ -15,9 +16,10 @@ class RouterTable {
   static String richText = 'RichText';
   static String textField = 'TextField';
   static String textPractice = '文本组件实战';
-
-  static String form = 'Form';
   static String button = 'Button';
+  static String form = 'Form';
+  static String radio = 'Radio';
+
   static String row_column = 'Row&Column';
   static String stack = 'Stack';
   static String wrap = 'Wrap';
@@ -77,9 +79,10 @@ class RouterTable {
     richText: (context) => RichTextPage(title: richText),
     textField: (context) => TextFieldPage(title: textField),
     textPractice: (context) => TextPracticePage(title: textPractice),
-
-    form: (context) => FormPage(title: form),
     button: (context) => ButtonPage(title: button),
+    form: (context) => FormPage(title: form),
+    radio: (context) => RadioPage(title: radio),
+
     row_column: (context) => RowColumnPage(title: row_column),
     stack: (context) => StackPage(title: stack),
     wrap: (context) => WrapPage(title: wrap),
