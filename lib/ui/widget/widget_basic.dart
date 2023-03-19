@@ -383,3 +383,93 @@ class RadioPageState extends State<RadioPage> {
     );
   }
 }
+
+class CheckboxPage extends BaseStatefulWidget {
+  CheckboxPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => CheckboxPageState();
+}
+
+class CheckboxPageState extends State<CheckboxPage> {
+  var _checkValue = false;
+  var _checkValue1 = false;
+  var _checkValue2 = false;
+  var _checkValue3 = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: 'Checkbox',
+      centerContent: true,
+      children: [
+        TitleLayout(
+          title: 'Checkbox',
+          child: Checkbox(
+            //value值为bool类型，true表示选择状态
+            value: _checkValue,
+            //activeColor为激活状态下颜色，是矩形区域内的颜色
+            activeColor: Colors.red,
+            //checkColor是选中后“对勾”的颜色
+            checkColor: Colors.blue,
+            //onChanged为发生变化时回调，即点击控件时回调，方法内的参数为新的值
+            onChanged: (value) {
+              setState(() {
+                _checkValue = value!;
+              });
+            },
+          ),
+        ),
+        TitleLayout(
+          title: 'CheckboxListTile',
+          child: Column(
+            children: [
+              //CheckboxListTile默认是充满父组件的，因此需要Container限制其宽度
+              SizedBox(
+                width: 129,
+                child: CheckboxListTile(
+                  title: const Text('语文'),
+                  //ListTileControlAffinity取值范围说明如下
+                  //leading：勾选框在开头位置
+                  //trailing：勾选框在结尾位置
+                  //platform：根据平台确定
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: _checkValue1,
+                  onChanged: (value) {
+                    setState(() {
+                      _checkValue1 = value!;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(
+                width: 129,
+                child: CheckboxListTile(
+                  title: const Text('数学'),
+                  value: _checkValue2,
+                  onChanged: (value) {
+                    setState(() {
+                      _checkValue2 = value!;
+                    });
+                  },
+                ),
+              ),
+              CheckboxListTile(
+                title: const Text('英语'),
+                value: _checkValue3,
+                //设置其子标题和第二图标
+                subtitle: const Text('子标题'),
+                secondary: const Icon(Icons.person),
+                onChanged: (value) {
+                  setState(() {
+                    _checkValue3 = value!;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
