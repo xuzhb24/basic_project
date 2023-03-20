@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../base.dart';
@@ -404,7 +405,7 @@ class CheckboxPageState extends State<CheckboxPage> {
       centerContent: true,
       children: [
         TitleLayout(
-          title: 'Checkbox',
+          title: widget.title,
           child: Checkbox(
             //value值为bool类型，true表示选择状态
             value: _checkValue,
@@ -467,6 +468,160 @@ class CheckboxPageState extends State<CheckboxPage> {
                 },
               ),
             ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SliderPage extends BaseStatefulWidget {
+  SliderPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => SliderPageState();
+}
+
+class SliderPageState extends State<SliderPage> {
+  double _sliderValue1 = 0;
+  double _sliderValue2 = 50;
+  double _sliderValue3 = 0;
+  double _sliderValue4 = 0;
+  double _sliderValue5 = 0;
+  double _sliderValue6 = 0;
+  RangeValues _rangeValues = const RangeValues(0, 25);
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      children: [
+        TitleLayout(
+          title: '基础用法',
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('值：$_sliderValue1'),
+                Slider(
+                  //value：当前值
+                  value: _sliderValue1,
+                  //onChanged：滑块值改变时回调
+                  onChanged: (value) {
+                    setState(() {
+                      _sliderValue1 = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        TitleLayout(
+          title: '设置滑动范围',
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('值：$_sliderValue2'),
+                Slider(
+                  value: _sliderValue2,
+                  min: 25,
+                  max: 100,
+                  onChanged: (value) {
+                    setState(() {
+                      _sliderValue2 = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        TitleLayout(
+          title: '设置滑块的滑动为离散的',
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('值：$_sliderValue3'),
+                Slider(
+                  value: _sliderValue3,
+                  label: '$_sliderValue3',
+                  min: 0,
+                  max: 100,
+                  divisions: 4,
+                  onChanged: (value) {
+                    setState(() {
+                      _sliderValue3 = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        TitleLayout(
+          title: '自定义样式',
+          child: SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              activeTrackColor: Colors.red,
+              thumbColor: Colors.blue,
+              overlayColor: Colors.green,
+              valueIndicatorColor: Colors.purpleAccent,
+            ),
+            child: Slider(
+              value: _sliderValue4,
+              label: '$_sliderValue4',
+              min: 0,
+              max: 100,
+              divisions: 4,
+              onChanged: (value) {
+                setState(() {
+                  _sliderValue4 = value;
+                });
+              },
+            ),
+          ),
+        ),
+        //RangeSlider和Slider几乎一样，RangeSlider是范围滑块，想要选择一段值，可以使用RangeSlider。
+        TitleLayout(
+          title: 'RangeSlider',
+          child: RangeSlider(
+            values: _rangeValues,
+            labels: RangeLabels('${_rangeValues.start}', '${_rangeValues.end}'),
+            min: 0,
+            max: 100,
+            divisions: 4,
+            onChanged: (value) {
+              setState(() {
+                _rangeValues = value;
+              });
+            },
+          ),
+        ),
+        //ios风格的Slider，使用CupertinoSlider
+        TitleLayout(
+          title: 'iOS风格的Slider',
+          child: CupertinoSlider(
+            value: _sliderValue5,
+            onChanged: (value) {
+              setState(() {
+                _sliderValue5 = value;
+              });
+            },
+          ),
+        ),
+        //当然也可以根据平台显示不同风格的Slider，ios平台显示CupertinoSlider效果，其他平台显示Material风格
+        TitleLayout(
+          title: '根据平台显示不同风格的Slider',
+          child: Slider.adaptive(
+            value: _sliderValue6,
+            onChanged: (value) {
+              setState(() {
+                _sliderValue6 = value;
+              });
+            },
           ),
         ),
       ],
