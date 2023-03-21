@@ -496,6 +496,7 @@ class SliderPageState extends State<SliderPage> {
     return ScrollLayout(
       title: widget.title,
       children: [
+        SpaceDivider(),
         TitleLayout(
           title: '基础用法',
           child: Center(
@@ -620,6 +621,97 @@ class SliderPageState extends State<SliderPage> {
             onChanged: (value) {
               setState(() {
                 _sliderValue6 = value;
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SwitchPage extends BaseStatefulWidget {
+  SwitchPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => SwitchPageState();
+}
+
+class SwitchPageState extends State<SwitchPage> {
+  var _switchValue1 = false;
+  var _switchValue2 = false;
+  var _switchValue3 = false;
+  var _switchValue4 = false;
+  var _switchValue5 = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      centerContent: true,
+      children: [
+        TitleLayout(
+          title: '基础用法',
+          child: Switch(
+            value: _switchValue1,
+            onChanged: (value) {
+              setState(() {
+                _switchValue1 = value;
+              });
+            },
+          ),
+        ),
+        TitleLayout(
+          title: '设置激活和未激活样式',
+          child: Switch(
+            value: _switchValue2,
+            //设置激活状态下thumb及track颜色
+            activeColor: Colors.red,
+            activeTrackColor: Colors.blue,
+            //设置未激活样式
+            inactiveThumbColor: Colors.black54,
+            inactiveTrackColor: Colors.grey,
+            onChanged: (value) {
+              setState(() {
+                _switchValue2 = value;
+              });
+            },
+          ),
+        ),
+        TitleLayout(
+          title: '设置图片',
+          child: Switch(
+            value: _switchValue3,
+            inactiveThumbImage: const AssetImage('images/bird.png'),
+            activeThumbImage: const AssetImage('images/bird.png'),
+            onChanged: (value) {
+              setState(() {
+                _switchValue3 = value;
+              });
+            },
+          ),
+        ),
+        //SwitchListTile是Switch和ListTile组合控件
+        TitleLayout(
+          title: 'SwitchListTile',
+          child: SwitchListTile(
+            title: const Text('是否允许4G下载'),
+            value: _switchValue4,
+            onChanged: (value) {
+              setState(() {
+                _switchValue4 = value;
+              });
+            },
+          ),
+        ),
+        //CupertinoSwitch是ios风格控件
+        TitleLayout(
+          title: 'CupertinoSwitch',
+          child: CupertinoSwitch(
+            value: _switchValue5,
+            onChanged: (value) {
+              setState(() {
+                _switchValue5 = value;
               });
             },
           ),
