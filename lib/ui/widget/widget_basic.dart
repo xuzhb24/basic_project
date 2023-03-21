@@ -720,3 +720,61 @@ class SwitchPageState extends State<SwitchPage> {
     );
   }
 }
+
+class ProgressIndicatorPage extends BaseStatelessWidget {
+  ProgressIndicatorPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      centerContent: true,
+      children: [
+        TitleLayout(
+          title: 'LinearProgressIndicator—基础用法',
+          centerTitle: false,
+          child: const LinearProgressIndicator(),
+        ),
+        TitleLayout(
+          title: 'LinearProgressIndicator—设置具体进度值',
+          centerTitle: false,
+          child: const LinearProgressIndicator(
+            //value的值范围是0-1
+            value: 0.6,
+          ),
+        ),
+        TitleLayout(
+          title: 'LinearProgressIndicator—设置背景颜色及进度值',
+          centerTitle: false,
+          child: const LinearProgressIndicator(
+            value: 0.6,
+            backgroundColor: Colors.greenAccent,
+            valueColor: AlwaysStoppedAnimation(Colors.red),
+          ),
+        ),
+        TitleLayout(
+          title: 'CircularProgressIndicator—基础用法',
+          centerTitle: false,
+          child: const CircularProgressIndicator(),
+        ),
+        TitleLayout(
+          title: 'CircularProgressIndicator—设置进度值及颜色值',
+          centerTitle: false,
+          child: const CircularProgressIndicator(
+            value: 0.6,
+            backgroundColor: Colors.greenAccent,
+            valueColor: AlwaysStoppedAnimation(Colors.red),
+          ),
+        ),
+        //CupertinoActivityIndicator是ios风格的指示器，CupertinoActivityIndicator不能设置进度，只能一直转“菊花”
+        TitleLayout(
+          title: 'CupertinoActivityIndicator',
+          child: const CupertinoActivityIndicator(
+            //radius参数是半径，值越大，控件越大。
+            radius: 20,
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -22,6 +22,7 @@ class RouterTable {
   static String checkbox = 'Checkbox';
   static String slider = 'Slider';
   static String Switch = 'Switch';
+  static String progressIndicator = 'ProgressIndicator';
 
   static String row_column = 'Row&Column';
   static String stack = 'Stack';
@@ -88,6 +89,8 @@ class RouterTable {
     checkbox: (context) => CheckboxPage(title: checkbox),
     slider: (context) => SliderPage(title: slider),
     Switch: (context) => SwitchPage(title: Switch),
+    progressIndicator: (context) =>
+        ProgressIndicatorPage(title: progressIndicator),
 
     row_column: (context) => RowColumnPage(title: row_column),
     stack: (context) => StackPage(title: stack),
