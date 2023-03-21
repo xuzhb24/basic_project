@@ -20,6 +20,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.slider,
     RouterTable.Switch,
     RouterTable.progressIndicator,
+    RouterTable.image_icon,
     '布局组件',
     RouterTable.row_column,
     RouterTable.stack,

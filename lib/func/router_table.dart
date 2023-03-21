@@ -23,6 +23,7 @@ class RouterTable {
   static String slider = 'Slider';
   static String Switch = 'Switch';
   static String progressIndicator = 'ProgressIndicator';
+  static String image_icon = 'Image&Icon';
 
   static String row_column = 'Row&Column';
   static String stack = 'Stack';
@@ -91,6 +92,7 @@ class RouterTable {
     Switch: (context) => SwitchPage(title: Switch),
     progressIndicator: (context) =>
         ProgressIndicatorPage(title: progressIndicator),
+    image_icon: (context) => ImageIconPage(title: image_icon),
 
     row_column: (context) => RowColumnPage(title: row_column),
     stack: (context) => StackPage(title: stack),

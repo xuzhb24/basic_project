@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:basic_project/func/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -772,6 +775,204 @@ class ProgressIndicatorPage extends BaseStatelessWidget {
           child: const CupertinoActivityIndicator(
             //radius参数是半径，值越大，控件越大。
             radius: 20,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ImageIconPage extends BaseStatelessWidget {
+  ImageIconPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    //在项目中建议优先使用Icon组件，Icon本质上是一种字体，只不过显示的不是文字，而是图标，
+    //而Image组件先通过图片解码器将图片解码，所以Icon有如下优点：
+    //1.通常情况下，图标比图片体积更小，显著的减少App包体积。
+    //2.图标不会出现失真或者模糊的现象，例如将20x20的图片，渲染在200x200的屏幕上，图片会失真或模糊，而图标是矢量图，不会失真，就像字体一样。
+    //3.多个图标可以存放在一个文件中，方便管理。
+    //4.全平台通用。
+    return ScrollLayout(
+      title: title,
+      children: [
+        SpaceDivider(),
+        TitleLayout(
+          title: '加载网络图片',
+          child: Image.network(Constant.imageUrl, height: 100),
+        ),
+        //当加载图片的时候回调frameBuilder，当此参数为null时，此控件将会在图片加载完成后显示，
+        //未加载完成时显示空白，尤其在加载网络图片时会更明显。
+        //因此此参数可以用于处理图片加载时显示占位图片和加载图片的过渡效果，比如淡入淡出效果。
+        TitleLayout(
+          title: '加载网络图片：实现淡入淡出效果',
+          child: Image.network(
+            Constant.bannerImageUrl1,
+            height: 100,
+            frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+              if (wasSynchronouslyLoaded) {
+                return child;
+              }
+              return AnimatedOpacity(
+                opacity: frame == null ? 0 : 1,
+                duration: const Duration(seconds: 2),
+                curve: Curves.easeOut,
+                child: child,
+              );
+            },
+          ),
+        ),
+        //loadingBuilder参数比frameBuilder控制的力度更细，可以获取图片加载的进度
+        TitleLayout(
+          title: '加载网络图片：显示进度条',
+          child: Image.network(
+            Constant.bannerImageUrl2,
+            height: 100,
+            loadingBuilder: (context, child, progress) {
+              if (progress == null) {
+                return child;
+              }
+              return Center(
+                child: CircularProgressIndicator(
+                  value: progress.expectedTotalBytes != null
+                      ? progress.cumulativeBytesLoaded /
+                          progress.expectedTotalBytes!
+                      : null,
+                ),
+              );
+            },
+          ),
+        ),
+        //在项目根目录下新建images目录，然后拷贝图片到images目录，在pubspec.yaml的flutter根节点下配置文件
+        //第一种方式：
+        //assets:
+        //   - images/
+        //第二种方式：
+        //assets:
+        //   - images/bird.png
+        //通常情况下，使用第一种方式，因为图片会有很多张，增加一张就这里配置一个太麻烦。
+        TitleLayout(
+          title: '加载项目中图片',
+          child: Image.asset('images/aa.png'),
+        ),
+        //要加载设备（手机）上的图片首先需要获取设备图片的路径，由于不同平台的路径不同，因此路径的获取必须依靠原生支持，
+        //如果了解原生（Android和iOS）开发，可以直接使用MethodChannel获取路径,
+        //如果不懂原生（Android和iOS）开发，可以使用第三方插件获取路径，这里推荐官方的path_provider
+        //安卓需要申请权限"android.permission.READ_EXTERNAL_STORAGE"
+        TitleLayout(
+          title: '加载设备上的图片',
+          child: Image.file(File('/sdcard/aa.png')),
+        ),
+        TitleLayout(
+          title: '设置图片大小',
+          child: Container(
+            color: Colors.green.withOpacity(.3),
+            child: Image.asset('images/aa.png', width: 100, height: 100),
+          ),
+        ),
+        //填充模式BoxFit取值：
+        //fill：完全填充，宽高比可能会变。
+        //contain：等比拉伸，直到一边填充满。
+        //cover：等比拉伸，直到2边都填充满，此时一边可能超出范围。
+        //fitWidth：等比拉伸，宽填充满。
+        //fitHeight：等比拉伸，高填充满。
+        //none：当组件比图片小时，不拉伸，超出范围截取。
+        //scaleDown：当组件比图片小时，图片等比缩小，效果和contain一样。
+        TitleLayout(
+          title: '设置填充模式BoxFit.fill',
+          child: Container(
+            color: Colors.green.withOpacity(.3),
+            child: Image.asset(
+              'images/aa.png',
+              width: 100,
+              height: 100,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        TitleLayout(
+          title: '设置填充模式BoxFit.cover',
+          child: Container(
+            color: Colors.green.withOpacity(.3),
+            child: Image.asset(
+              'images/aa.png',
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        //BoxFit.none的裁减和alignment相关，默认居中
+        TitleLayout(
+          title: '设置填充模式BoxFit.none',
+          child: Container(
+            color: Colors.green.withOpacity(.3),
+            child: Image.asset(
+              'images/aa.png',
+              width: 30,
+              height: 60,
+              fit: BoxFit.none,
+              alignment: Alignment.centerLeft,
+            ),
+          ),
+        ),
+        //repeat表示当组件有空余位置时，将会重复显示图片
+        //重复的模式有：
+        //repeat：x,y方向都充满。
+        //repeatX：x方向充满。
+        //repeatY：y方向充满。
+        //noRepeat：不重复。
+        TitleLayout(
+          title: '重复显示图片',
+          child: Container(
+            color: Colors.green.withOpacity(.3),
+            child: Image.asset(
+              'images/aa.png',
+              width: double.infinity,
+              height: 60,
+              repeat: ImageRepeat.repeatX,
+            ),
+          ),
+        ),
+        //matchTextDirection设置为true时，图片的绘制方向为TextDirection设置的方向，其父组件必须为Directionality
+        TitleLayout(
+          title: '设置图片绘制方向从右到左',
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Image.asset(
+              'images/aa.png',
+              matchTextDirection: true,
+              //filterQuality表示绘制图像的质量，从高到低为：high->medium->low->none。越高效果越好，越平滑，当然性能损耗越大，
+              //默认是low，如果发现图片有锯齿，可以设置此参数。
+              filterQuality: FilterQuality.high,
+            ),
+          ),
+        ),
+        //centerSlice用于.9图，.9图用于拉伸图片的特定区域，centerSlice设置的区域（Rect）就是拉伸的区域。
+        //.9图通常用于控件大小、宽高比不固定的场景，比如聊天背景图片等。
+        //如果使用centerSlice属性，图片必须比组件的尺寸小
+        TitleLayout(
+          title: '使用centerSlice拉伸图片的特定区域',
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                centerSlice: Rect.fromLTWH(20, 20, 10, 10),
+                image: AssetImage('images/bb.9.png'),
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+        ),
+        //Icon是图标组件，Icon不具有交互属性，如果想要交互，可以使用IconButton
+        //Icons官网地址：https://api.flutter.dev/flutter/material/Icons-class.html
+        TitleLayout(
+          title: '设置图标的大小和颜色',
+          child: const Icon(
+            Icons.add,
+            size: 100,
+            color: Colors.red,
           ),
         ),
       ],
