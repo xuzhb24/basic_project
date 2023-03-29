@@ -1,3 +1,4 @@
+import 'package:basic_project/ui/practice/practice_basic.dart';
 import 'package:basic_project/ui/widget/widget_text.dart';
 import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,6 +25,7 @@ class RouterTable {
   static String Switch = 'Switch';
   static String progressIndicator = 'ProgressIndicator';
   static String image_icon = 'Image&Icon';
+  static String basicPractice = '基础组件实战';
 
   static String row_column = 'Row&Column';
   static String stack = 'Stack';
@@ -93,6 +95,7 @@ class RouterTable {
     progressIndicator: (context) =>
         ProgressIndicatorPage(title: progressIndicator),
     image_icon: (context) => ImageIconPage(title: image_icon),
+    basicPractice: (context) => BasicPracticePage(title: basicPractice),
 
     row_column: (context) => RowColumnPage(title: row_column),
     stack: (context) => StackPage(title: stack),

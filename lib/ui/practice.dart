@@ -9,6 +9,7 @@ class PracticePage extends StatelessWidget {
 
   List<String> practiceList = [
     RouterTable.textPractice,
+    RouterTable.basicPractice,
   ];
 
   @override
