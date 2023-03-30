@@ -1,4 +1,5 @@
 import 'package:basic_project/ui/practice/practice_basic.dart';
+import 'package:basic_project/ui/practice/practice_layout.dart';
 import 'package:basic_project/ui/widget/widget_text.dart';
 import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,6 +32,10 @@ class RouterTable {
   static String stack = 'Stack';
   static String wrap = 'Wrap';
   static String flow = 'Flow';
+  static String layoutPractice = '布局组件实战';
+  static String layoutPractice1 = '布局组件实战$div仿掘金-我';
+  static String layoutPractice2 = '布局组件实战$div水平展开/收起菜单';
+  static String layoutPractice3 = '布局组件实战$div半圆菜单展开/收起';
 
   static String container = 'Container';
   static String box = 'Box';
@@ -102,6 +107,13 @@ class RouterTable {
     stack: (context) => StackPage(title: stack),
     wrap: (context) => WrapPage(title: wrap),
     flow: (context) => FlowPage(title: flow),
+    layoutPractice: (context) => LayoutPracticePage(title: layoutPractice),
+    layoutPractice1: (context) =>
+        LayoutPracticePage1(title: pickTitle(layoutPractice1)),
+    layoutPractice2: (context) =>
+        LayoutPracticePage2(title: pickTitle(layoutPractice2)),
+    layoutPractice3: (context) =>
+        LayoutPracticePage3(title: pickTitle(layoutPractice3)),
 
     container: (context) => ContainerPage(title: container),
     box: (context) => BoxPage(title: box),
