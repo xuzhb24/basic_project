@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/practice/practice_text.dart';
 import '../ui/widget/widget_basic.dart';
+import '../ui/widget/widget_layout.dart';
 import '../ui/widget_container.dart';
 import '../ui/widget_element.dart';
 
@@ -26,10 +27,11 @@ class RouterTable {
   static String progressIndicator = 'ProgressIndicator';
   static String image_icon = 'Image&Icon';
   static String basicPractice = '基础组件实战';
-
   static String row_column = 'Row&Column';
   static String stack = 'Stack';
   static String wrap = 'Wrap';
+  static String flow = 'Flow';
+
   static String container = 'Container';
   static String box = 'Box';
   static String inkWell = 'InkWell';
@@ -96,10 +98,11 @@ class RouterTable {
         ProgressIndicatorPage(title: progressIndicator),
     image_icon: (context) => ImageIconPage(title: image_icon),
     basicPractice: (context) => BasicPracticePage(title: basicPractice),
-
     row_column: (context) => RowColumnPage(title: row_column),
     stack: (context) => StackPage(title: stack),
     wrap: (context) => WrapPage(title: wrap),
+    flow: (context) => FlowPage(title: flow),
+
     container: (context) => ContainerPage(title: container),
     box: (context) => BoxPage(title: box),
     inkWell: (context) => InkWellPage(title: inkWell),

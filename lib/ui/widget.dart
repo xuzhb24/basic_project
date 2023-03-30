@@ -25,6 +25,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.row_column,
     RouterTable.stack,
     RouterTable.wrap,
+    RouterTable.flow,
     '定位装饰权重组件',
     RouterTable.container,
     RouterTable.box,
