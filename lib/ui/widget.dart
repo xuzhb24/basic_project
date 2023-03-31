@@ -31,6 +31,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.sizedBox,
     RouterTable.aspectRatio,
     RouterTable.fractionallySizedBox,
+    RouterTable.expanded_flexible_spacer,
     RouterTable.box,
     '手势识别组件',
     RouterTable.inkWell,

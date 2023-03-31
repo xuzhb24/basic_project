@@ -224,3 +224,171 @@ class FractionallySizedBoxPage extends BaseStatelessWidget {
     );
   }
 }
+
+class ExpandedFlexibleSpacerPage extends BaseStatelessWidget {
+  ExpandedFlexibleSpacerPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    //Expanded、Flexible和Spacer都是具有权重属性的组件，可以控制Row、Column、Flex的子控件如何布局的组件。
+    //1.Spacer是通过Expanded实现的，Expanded继承自Flexible。
+    //2.填满剩余空间直接使用Expanded更方便。
+    //3.Spacer用于撑开Row、Column、Flex的子组件的空隙。
+    return ScrollLayout(
+      title: title,
+      children: [
+        SpaceDivider(),
+        TitleLayout(
+          title: 'Flexible中间填充',
+          child: Row(
+            children: [
+              Container(color: Colors.blue, height: 50, width: 100),
+              Flexible(child: Container(color: Colors.red, height: 50)),
+              Container(color: Colors.blue, height: 50, width: 100),
+            ],
+          ),
+        ),
+        TitleLayout(
+          title: 'Flexible按1、2、3摆放',
+          child: Row(
+            children: [
+              Flexible(
+                flex: 1,
+                child: Container(
+                  color: Colors.blue,
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    '1 Flex/ 6 Total',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 2,
+                child: Container(
+                  color: Colors.red,
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    '2 Flex/ 6 Total',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 3,
+                child: Container(
+                  color: Colors.green,
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    '3 Flex/ 6 Total',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        TitleLayout(
+          title: 'Flexible中间填充，添加了Text子控件',
+          child: Row(
+            children: [
+              Container(color: Colors.blue, width: 100, height: 50),
+              Flexible(
+                child: Container(
+                  color: Colors.red,
+                  height: 50,
+                  child: const Text(
+                    'Container',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Container(color: Colors.blue, width: 100, height: 50),
+            ],
+          ),
+        ),
+        TitleLayout(
+          title: 'Flexible中间填充，添加了Text子控件，设置Flexible的fit为FlexFit.tight',
+          child: Row(
+            children: [
+              Container(color: Colors.blue, width: 100, height: 50),
+              Flexible(
+                //Flexible中fit参数表示填满剩余空间的方式，说明如下：
+                //tight：必须（强制）填满剩余空间。
+                //loose：尽可能大的填满剩余空间，但是可以不填满（默认）。
+                fit: FlexFit.tight,
+                child: Container(
+                  color: Colors.red,
+                  height: 50,
+                  child: const Text(
+                    'Container',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Container(color: Colors.blue, width: 100, height: 50),
+            ],
+          ),
+        ),
+        TitleLayout(
+          title: 'Flexible中间填充，添加了Text子控件并设置Text的alignment为Alignment.center',
+          child: Row(
+            children: [
+              Container(color: Colors.blue, width: 100, height: 50),
+              Flexible(
+                child: Container(
+                  color: Colors.red,
+                  //Container 默认是适配子控件大小的，但当设置对齐方式时 Container 将会填满父组件，因此是否填满剩余空间取决于子组件是否需要填满父组件。
+                  alignment: Alignment.center,
+                  height: 50,
+                  child: const Text(
+                    'Container',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Container(color: Colors.blue, width: 100, height: 50),
+            ],
+          ),
+        ),
+        //Expanded继承自Flexible，fit参数固定为FlexFit.tight，也就是说Expanded必须（强制）填满剩余空间。
+        TitleLayout(
+          title: 'Expanded中间填充，添加了Text子控件',
+          child: Row(
+            children: [
+              Container(color: Colors.blue, width: 100, height: 50),
+              Expanded(
+                child: Container(
+                  color: Colors.red,
+                  height: 50,
+                  child: const Text(
+                    'Container',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Container(color: Colors.blue, width: 100, height: 50),
+            ],
+          ),
+        ),
+        //Spacer的本质也是Expanded实现的，和Expanded的区别是：Expanded可以设置子控件，而Spacer的子控件尺寸是0，
+        //因此Spacer适用于撑开 Row、Column、Flex 的子控件的空隙
+        TitleLayout(
+          title: 'Spacer',
+          child: Row(
+            children: [
+              Container(color: Colors.green, width: 100, height: 50),
+              const Spacer(flex: 2),
+              Container(color: Colors.red, width: 100, height: 50),
+              Container(color: Colors.blue, width: 100, height: 50),
+              const Spacer(flex: 1),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
