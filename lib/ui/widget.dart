@@ -29,6 +29,7 @@ class WidgetPage extends StatelessWidget {
     '定位装饰权重组件',
     RouterTable.container,
     RouterTable.sizedBox,
+    RouterTable.aspectRatio,
     RouterTable.box,
     '手势识别组件',
     RouterTable.inkWell,

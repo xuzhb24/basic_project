@@ -129,6 +129,7 @@ class SizedBoxPage extends BaseStatelessWidget {
   Widget build(BuildContext context) {
     return ScrollLayout(
       title: title,
+      centerContent: true,
       children: [
         SpaceDivider(),
         SizedBox(
@@ -154,6 +155,31 @@ class SizedBoxPage extends BaseStatelessWidget {
       color: Colors.blue,
       alignment: Alignment.center,
       child: Text(title, style: const TextStyle(color: Colors.white)),
+    );
+  }
+}
+
+class AspectRatioPage extends BaseStatelessWidget {
+  AspectRatioPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      centerContent: true,
+      children: [
+        Container(
+          width: 300,
+          height: 300,
+          color: Colors.blue,
+          alignment: Alignment.center,
+          child: AspectRatio(
+            //宽高比，可以直接写成分数的形式，也可以写成小数的形式，但建议写成分数的形式，可读性更高
+            aspectRatio: 2 / 1,
+            child: Container(color: Colors.red),
+          ),
+        )
+      ],
     );
   }
 }

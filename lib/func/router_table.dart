@@ -39,6 +39,7 @@ class RouterTable {
   static String layoutPractice3 = '布局组件实战$div半圆菜单展开/收起';
   static String container = 'Container';
   static String sizedBox = 'SizedBox ';
+  static String aspectRatio = 'AspectRatio ';
 
   static String box = 'Box';
   static String inkWell = 'InkWell';
@@ -118,6 +119,7 @@ class RouterTable {
         LayoutPracticePage3(title: pickTitle(layoutPractice3)),
     container: (context) => ContainerPage(title: container),
     sizedBox: (context) => SizedBoxPage(title: sizedBox),
+    aspectRatio: (context) => AspectRatioPage(title: sizedBox),
 
     box: (context) => BoxPage(title: box),
     inkWell: (context) => InkWellPage(title: inkWell),
