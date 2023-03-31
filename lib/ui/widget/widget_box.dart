@@ -176,9 +176,50 @@ class AspectRatioPage extends BaseStatelessWidget {
           child: AspectRatio(
             //宽高比，可以直接写成分数的形式，也可以写成小数的形式，但建议写成分数的形式，可读性更高
             aspectRatio: 2 / 1,
-            child: Container(color: Colors.red),
+            child: Container(
+              color: Colors.red,
+              alignment: Alignment.center,
+              child: const Text(
+                '宽高比为2：1',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           ),
         )
+      ],
+    );
+  }
+}
+
+class FractionallySizedBoxPage extends BaseStatelessWidget {
+  FractionallySizedBoxPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      centerContent: true,
+      children: [
+        Container(
+          width: 200,
+          height: 200,
+          color: Colors.blue,
+          //FractionallySizedBox是一个相对父组件尺寸的组件，比如占父组件的70%
+          child: FractionallySizedBox(
+            //通过alignment参数控制子组件显示的位置，默认为居中
+            alignment: Alignment.center,
+            widthFactor: .8,
+            heightFactor: .3,
+            child: Container(
+              color: Colors.red,
+              alignment: Alignment.center,
+              child: const Text(
+                '宽度80%，高度30%',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

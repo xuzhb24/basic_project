@@ -40,6 +40,7 @@ class RouterTable {
   static String container = 'Container';
   static String sizedBox = 'SizedBox ';
   static String aspectRatio = 'AspectRatio ';
+  static String fractionallySizedBox = 'FractionallySizedBox ';
 
   static String box = 'Box';
   static String inkWell = 'InkWell';
@@ -120,6 +121,8 @@ class RouterTable {
     container: (context) => ContainerPage(title: container),
     sizedBox: (context) => SizedBoxPage(title: sizedBox),
     aspectRatio: (context) => AspectRatioPage(title: sizedBox),
+    fractionallySizedBox: (context) =>
+        FractionallySizedBoxPage(title: fractionallySizedBox),
 
     box: (context) => BoxPage(title: box),
     inkWell: (context) => InkWellPage(title: inkWell),
