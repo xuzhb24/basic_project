@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/practice/practice_text.dart';
 import '../ui/widget/widget_basic.dart';
+import '../ui/widget/widget_box.dart';
 import '../ui/widget/widget_layout.dart';
 import '../ui/widget_container.dart';
 import '../ui/widget_element.dart';
@@ -36,8 +37,9 @@ class RouterTable {
   static String layoutPractice1 = '布局组件实战$div仿掘金-我';
   static String layoutPractice2 = '布局组件实战$div水平展开/收起菜单';
   static String layoutPractice3 = '布局组件实战$div半圆菜单展开/收起';
-
   static String container = 'Container';
+  static String sizedBox = 'SizedBox ';
+
   static String box = 'Box';
   static String inkWell = 'InkWell';
   static String listView = 'ListView';
@@ -114,8 +116,9 @@ class RouterTable {
         LayoutPracticePage2(title: pickTitle(layoutPractice2)),
     layoutPractice3: (context) =>
         LayoutPracticePage3(title: pickTitle(layoutPractice3)),
-
     container: (context) => ContainerPage(title: container),
+    sizedBox: (context) => SizedBoxPage(title: sizedBox),
+
     box: (context) => BoxPage(title: box),
     inkWell: (context) => InkWellPage(title: inkWell),
     listView: (context) => ListViewPage(title: listView),

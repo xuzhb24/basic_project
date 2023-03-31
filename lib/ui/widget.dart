@@ -28,6 +28,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.flow,
     '定位装饰权重组件',
     RouterTable.container,
+    RouterTable.sizedBox,
     RouterTable.box,
     '手势识别组件',
     RouterTable.inkWell,
