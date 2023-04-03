@@ -33,13 +33,13 @@ class GestureDetectorPageState extends State<GestureDetectorPage> {
         TitleLayout(
           title: '点击事件',
           child: GestureDetector(
-            onTapDown: (detail) {
+            onTapDown: (v) {
               print('onTapDown');
               setState(() {
                 tip1 = 'onTapDown';
               });
             },
-            onTapUp: (detail) {
+            onTapUp: (v) {
               print('onTapUp');
               setState(() {
                 tip1 = 'onTapUp';
@@ -226,5 +226,125 @@ class GestureDetectorPageState extends State<GestureDetectorPage> {
         ),
       ],
     );
+  }
+}
+
+class InkWellPage extends BaseStatelessWidget {
+  InkWellPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      centerContent: true,
+      children: [
+        SpaceDivider(),
+        TitleLayout(
+          title: "InkWell",
+          child: InkWell(
+            //onTap是点击事件回调，如果不设置无法出现“水波纹”效果
+            onTap: () {
+              print('点击回调');
+            },
+            //设置水波纹颜色
+            splashColor: Colors.red,
+            //设置高亮颜色颜色，高亮颜色是按住时显示的颜色
+            highlightColor: Colors.blue,
+            child: const Text(
+              '这是InkWell点击效果',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+        ),
+        TitleLayout(
+          title: 'Ink',
+          child: Ink(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Color(0xFFDE2F21), Color(0xFFEC592F)]),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            child: InkWell(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                child: const Text(
+                  '这是Ink的点击效果',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+              onTap: () {},
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ListenerPage extends BaseStatefulWidget {
+  ListenerPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => ListenerPageState();
+}
+
+class ListenerPageState extends State<ListenerPage> {
+  String tip = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      centerContent: true,
+      children: [
+        Listener(
+          onPointerDown: (v) {
+            print('onPointerDown');
+            setState(() {
+              tip = getInfo('onPointerDown', v);
+            });
+          },
+          onPointerMove: (v) {
+            print('onPointerMove');
+            setState(() {
+              tip = getInfo('onPointerMove', v);
+            });
+          },
+          onPointerUp: (v) {
+            print('onPointerUp');
+            setState(() {
+              tip = getInfo('onPointerUp', v);
+            });
+          },
+          child: Container(
+            width: 330,
+            height: 500,
+            color: Colors.blue,
+            child: Text(tip, style: const TextStyle(color: Colors.white)),
+          ),
+        ),
+      ],
+    );
+  }
+
+  String getInfo(String type, PointerEvent? event) {
+    if (event == null) {
+      return "";
+    }
+    //常用属性说明如下：
+    //position：相对屏幕的坐标的偏移。
+    //localPosition：相对当前控件的偏移。
+    //pressure：按压力度。
+    //delta：2次指针移动事件的偏移。
+    //orientation：指针移动方向
+    return "$type\n相对屏幕的坐标的偏移：${event.position}\n"
+        "相对当前控件的偏移：${event.localPosition}\n"
+        "按压力度：${event.pressure}\n"
+        "2次指针移动事件的偏移：${event.delta}\n"
+        "指针移动方向：${event.orientation}";
   }
 }

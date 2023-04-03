@@ -48,9 +48,10 @@ class RouterTable {
   static String boxPractice1 = '定位装饰权重组件实战$div仿掘金-我-头部的效果';
   static String boxPractice2 = '定位装饰权重组件实战$div柱状图';
   static String gestureDetector = 'GestureDetector ';
+  static String inkWell = 'InkWell';
+  static String listener = 'Listener';
 
   static String box = 'Box';
-  static String inkWell = 'InkWell';
   static String listView = 'ListView';
   static String listView1 = 'ListView$div数据较少时一次加载';
   static String listView2 = 'ListView${div}ListView.builder';
@@ -136,9 +137,10 @@ class RouterTable {
     boxPractice1: (context) => BoxPracticePage1(title: pickTitle(boxPractice1)),
     boxPractice2: (context) => BoxPracticePage2(title: pickTitle(boxPractice2)),
     gestureDetector: (context) => GestureDetectorPage(title: gestureDetector),
+    inkWell: (context) => InkWellPage(title: inkWell),
+    listener: (context) => ListenerPage(title: listener),
 
     box: (context) => BoxPage(title: box),
-    inkWell: (context) => InkWellPage(title: inkWell),
     listView: (context) => ListViewPage(title: listView),
     listView1: (context) => ListViewPage1(title: pickTitle(listView1)),
     listView2: (context) => ListViewPage2(title: pickTitle(listView2)),
