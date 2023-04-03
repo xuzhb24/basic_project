@@ -34,6 +34,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.expanded_flexible_spacer,
     RouterTable.box,
     '手势识别组件',
+    RouterTable.gestureDetector,
     RouterTable.inkWell,
     '滚动和大数据组件',
     RouterTable.listView,

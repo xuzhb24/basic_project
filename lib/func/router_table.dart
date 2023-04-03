@@ -1,6 +1,7 @@
 import 'package:basic_project/ui/practice/practice_basic.dart';
 import 'package:basic_project/ui/practice/practice_box.dart';
 import 'package:basic_project/ui/practice/practice_layout.dart';
+import 'package:basic_project/ui/widget/widget_gesture.dart';
 import 'package:basic_project/ui/widget/widget_text.dart';
 import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,6 +47,7 @@ class RouterTable {
   static String boxPractice = '定位装饰权重组件实战';
   static String boxPractice1 = '定位装饰权重组件实战$div仿掘金-我-头部的效果';
   static String boxPractice2 = '定位装饰权重组件实战$div柱状图';
+  static String gestureDetector = 'GestureDetector ';
 
   static String box = 'Box';
   static String inkWell = 'InkWell';
@@ -133,6 +135,7 @@ class RouterTable {
     boxPractice: (context) => BoxPracticePage(title: boxPractice),
     boxPractice1: (context) => BoxPracticePage1(title: pickTitle(boxPractice1)),
     boxPractice2: (context) => BoxPracticePage2(title: pickTitle(boxPractice2)),
+    gestureDetector: (context) => GestureDetectorPage(title: gestureDetector),
 
     box: (context) => BoxPage(title: box),
     inkWell: (context) => InkWellPage(title: inkWell),
