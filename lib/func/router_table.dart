@@ -1,4 +1,5 @@
 import 'package:basic_project/ui/practice/practice_basic.dart';
+import 'package:basic_project/ui/practice/practice_box.dart';
 import 'package:basic_project/ui/practice/practice_layout.dart';
 import 'package:basic_project/ui/widget/widget_text.dart';
 import 'package:basic_project/ui/widget_function.dart';
@@ -40,8 +41,11 @@ class RouterTable {
   static String container = 'Container';
   static String sizedBox = 'SizedBox ';
   static String aspectRatio = 'AspectRatio ';
-  static String fractionallySizedBox = 'FractionallySizedBox ';
-  static String expanded_flexible_spacer = 'Expanded&Flexible&Spacer ';
+  static String fractionallySizedBox = 'FractionallySizedBox';
+  static String expanded_flexible_spacer = 'Expanded&Flexible&Spacer';
+  static String boxPractice = '定位装饰权重组件实战';
+  static String boxPractice1 = '定位装饰权重组件实战$div仿掘金-我-头部的效果';
+  static String boxPractice2 = '定位装饰权重组件实战$div柱状图';
 
   static String box = 'Box';
   static String inkWell = 'InkWell';
@@ -126,6 +130,9 @@ class RouterTable {
         FractionallySizedBoxPage(title: fractionallySizedBox),
     expanded_flexible_spacer: (context) =>
         ExpandedFlexibleSpacerPage(title: expanded_flexible_spacer),
+    boxPractice: (context) => BoxPracticePage(title: boxPractice),
+    boxPractice1: (context) => BoxPracticePage1(title: pickTitle(boxPractice1)),
+    boxPractice2: (context) => BoxPracticePage2(title: pickTitle(boxPractice2)),
 
     box: (context) => BoxPage(title: box),
     inkWell: (context) => InkWellPage(title: inkWell),
