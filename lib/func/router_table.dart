@@ -12,6 +12,7 @@ import '../ui/practice/practice_text.dart';
 import '../ui/widget/widget_basic.dart';
 import '../ui/widget/widget_box.dart';
 import '../ui/widget/widget_layout.dart';
+import '../ui/widget/widget_scroll.dart';
 import '../ui/widget_container.dart';
 import '../ui/widget_element.dart';
 
@@ -45,6 +46,7 @@ class RouterTable {
   static String aspectRatio = 'AspectRatio ';
   static String fractionallySizedBox = 'FractionallySizedBox';
   static String expanded_flexible_spacer = 'Expanded&Flexible&Spacer';
+  static String box = 'Box';
   static String boxPractice = '定位装饰权重组件实战';
   static String boxPractice1 = '定位装饰权重组件实战$div仿掘金-我-头部的效果';
   static String boxPractice2 = '定位装饰权重组件实战$div柱状图';
@@ -54,12 +56,18 @@ class RouterTable {
   static String gesturePractice = '手势识别组件实战';
   static String gesturePractice1 = '手势识别组件实战$div登录进度按钮';
   static String gesturePractice2 = '手势识别组件实战$div画板';
-
-  static String box = 'Box';
   static String listView = 'ListView';
   static String listView1 = 'ListView$div数据较少时一次加载';
   static String listView2 = 'ListView${div}ListView.builder';
   static String listView3 = 'ListView${div}ListView.separated';
+  static String gridView = 'GridView ';
+  static String gridView1 = 'GridView$div基础用法';
+  static String gridView2 = 'GridView$div水平滚动';
+  static String gridView3 = 'GridView${div}GridView.builder';
+  static String gridView4 = 'GridView${div}GridView.custom';
+  static String gridView5 = 'GridView${div}GridView.count';
+  static String gridView6 = 'GridView${div}GridView.extent';
+
   static String pageView = 'PageView';
   static String pageView1 = 'PageView$div基础用法';
   static String pageView2 = 'PageView$div无限滚动';
@@ -137,6 +145,7 @@ class RouterTable {
         FractionallySizedBoxPage(title: fractionallySizedBox),
     expanded_flexible_spacer: (context) =>
         ExpandedFlexibleSpacerPage(title: expanded_flexible_spacer),
+    box: (context) => BoxPage(title: box),
     boxPractice: (context) => BoxPracticePage(title: boxPractice),
     boxPractice1: (context) => BoxPracticePage1(title: pickTitle(boxPractice1)),
     boxPractice2: (context) => BoxPracticePage2(title: pickTitle(boxPractice2)),
@@ -148,12 +157,18 @@ class RouterTable {
         GesturePracticePage1(title: pickTitle(gesturePractice1)),
     gesturePractice2: (context) =>
         GesturePracticePage2(title: pickTitle(gesturePractice2)),
-
-    box: (context) => BoxPage(title: box),
     listView: (context) => ListViewPage(title: listView),
     listView1: (context) => ListViewPage1(title: pickTitle(listView1)),
     listView2: (context) => ListViewPage2(title: pickTitle(listView2)),
     listView3: (context) => ListViewPage3(title: pickTitle(listView3)),
+    gridView: (context) => GridViewPage(title: gridView),
+    gridView1: (context) => GridViewPage1(title: pickTitle(gridView1)),
+    gridView2: (context) => GridViewPage2(title: pickTitle(gridView2)),
+    gridView3: (context) => GridViewPage3(title: pickTitle(gridView3)),
+    gridView4: (context) => GridViewPage4(title: pickTitle(gridView4)),
+    gridView5: (context) => GridViewPage5(title: pickTitle(gridView5)),
+    gridView6: (context) => GridViewPage6(title: pickTitle(gridView6)),
+
     pageView: (context) => PageViewPage(title: pageView),
     pageView1: (context) => PageViewPage1(title: pickTitle(pageView1)),
     pageView2: (context) => PageViewPage2(title: pickTitle(pageView2)),
