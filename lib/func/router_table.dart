@@ -1,5 +1,6 @@
 import 'package:basic_project/ui/practice/practice_basic.dart';
 import 'package:basic_project/ui/practice/practice_box.dart';
+import 'package:basic_project/ui/practice/practice_gesture.dart';
 import 'package:basic_project/ui/practice/practice_layout.dart';
 import 'package:basic_project/ui/widget/widget_gesture.dart';
 import 'package:basic_project/ui/widget/widget_text.dart';
@@ -50,6 +51,9 @@ class RouterTable {
   static String gestureDetector = 'GestureDetector ';
   static String inkWell = 'InkWell';
   static String listener = 'Listener';
+  static String gesturePractice = '手势识别组件实战';
+  static String gesturePractice1 = '手势识别组件实战$div登录进度按钮';
+  static String gesturePractice2 = '手势识别组件实战$div画板';
 
   static String box = 'Box';
   static String listView = 'ListView';
@@ -139,6 +143,11 @@ class RouterTable {
     gestureDetector: (context) => GestureDetectorPage(title: gestureDetector),
     inkWell: (context) => InkWellPage(title: inkWell),
     listener: (context) => ListenerPage(title: listener),
+    gesturePractice: (context) => GesturePracticePage(title: gesturePractice),
+    gesturePractice1: (context) =>
+        GesturePracticePage1(title: pickTitle(gesturePractice1)),
+    gesturePractice2: (context) =>
+        GesturePracticePage2(title: pickTitle(gesturePractice2)),
 
     box: (context) => BoxPage(title: box),
     listView: (context) => ListViewPage(title: listView),

@@ -23,6 +23,7 @@ class GestureDetectorPageState extends State<GestureDetectorPage> {
       title: widget.title,
       children: [
         SpaceDivider(),
+        //GestureDetector是手势识别的组件，可以识别点击、双击、长按事件、拖动、缩放等手势。
         //点击相关事件包括：
         //onTapDown：按下时回调。
         //onTapUp：抬起时回调。
@@ -301,6 +302,9 @@ class ListenerPageState extends State<ListenerPage> {
       title: widget.title,
       centerContent: true,
       children: [
+        //Listener是一个监听指针事件的控件，比如按下、移动、释放、取消等指针事件，
+        //但Listener无法监听鼠标特有的事件，比如：移入、悬停、移出事件，鼠标事件使用MouseRegion监听。
+        //通常情况下，监听手势事件使用GestureDetector，GestureDetector是更高级的手势事件。
         Listener(
           onPointerDown: (v) {
             print('onPointerDown');
