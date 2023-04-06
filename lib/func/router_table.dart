@@ -79,6 +79,7 @@ class RouterTable {
   static String scrollPractice1 = '滚动和大数据组件实战$div自定义PageView切换动画';
   static String sliverList = 'SliverList';
   static String sliverGrid = 'SliverGrid';
+  static String sliverPersistentHeader = 'SliverPersistentHeader';
 
   static String sliverAppBar = 'SliverAppBar';
   static String customScrollView = 'CustomScrollView';
@@ -186,6 +187,8 @@ class RouterTable {
         ScrollPracticePage1(title: pickTitle(scrollPractice1)),
     sliverList: (context) => SliverListPage(title: sliverList),
     sliverGrid: (context) => SliverGridPage(title: sliverGrid),
+    sliverPersistentHeader: (context) =>
+        SliverPersistentHeaderPage(title: sliverPersistentHeader),
 
     sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     customScrollView: (context) =>

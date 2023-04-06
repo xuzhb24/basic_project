@@ -12,6 +12,7 @@ class SliverListPage extends BaseStatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(title),
+          centerTitle: true,
         ),
         body: CustomScrollView(
           slivers: [
@@ -37,6 +38,7 @@ class SliverGridPage extends BaseStatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        centerTitle: true,
       ),
       body: CustomScrollView(
         slivers: [
@@ -110,4 +112,68 @@ class SliverAppBarPage extends BaseStatelessWidget {
       ],
     );
   }
+}
+
+class SliverPersistentHeaderPage extends BaseStatelessWidget {
+  SliverPersistentHeaderPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: CustomScrollView(
+        slivers: [
+          //SliverPersistentHeader控件当滚动到边缘时根据滚动的距离缩小高度，有点类似SliverAppBar的背景效果。
+          SliverPersistentHeader(
+            delegate: MySliverPersistentHeaderDelegate(),
+            //floating设置为true时，向下滑动时，即使当前CustomScrollView不在顶部，SliverAppBar也会跟着一起向下出现
+            // floating: true,
+            //pinned设置为true时，当SliverAppBar内容滑出屏幕时，将始终渲染一个固定在顶部的收起状态
+            // pinned: true,
+          ),
+          SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 3,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Container(
+                color: Colors.primaries[index % Colors.primaries.length],
+              ),
+              childCount: 30,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MySliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Colors.blue,
+      alignment: Alignment.center,
+      child: const Text(
+        '我是一个SliverPersistentHeader',
+        style: TextStyle(color: Colors.white),
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 200.0;
+
+  @override
+  double get minExtent => 100.0;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false; //如果内容需要更新，设置为true
 }
