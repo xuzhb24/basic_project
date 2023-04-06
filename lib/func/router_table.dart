@@ -80,6 +80,7 @@ class RouterTable {
   static String sliverList = 'SliverList';
   static String sliverGrid = 'SliverGrid';
   static String sliverPersistentHeader = 'SliverPersistentHeader';
+  static String sliverToBoxAdapter = 'SliverToBoxAdapter';
 
   static String sliverAppBar = 'SliverAppBar';
   static String customScrollView = 'CustomScrollView';
@@ -189,6 +190,8 @@ class RouterTable {
     sliverGrid: (context) => SliverGridPage(title: sliverGrid),
     sliverPersistentHeader: (context) =>
         SliverPersistentHeaderPage(title: sliverPersistentHeader),
+    sliverToBoxAdapter: (context) =>
+        SliverToBoxAdapterPage(title: sliverToBoxAdapter),
 
     sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     customScrollView: (context) =>

@@ -177,3 +177,41 @@ class MySliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
       false; //如果内容需要更新，设置为true
 }
+
+class SliverToBoxAdapterPage extends BaseStatelessWidget {
+  SliverToBoxAdapterPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: CustomScrollView(
+        slivers: [
+          //CustomScrollView只能包含sliver系列组件，如果包含普通的组件如何处理？使用SliverToBoxAdapter包裹。
+          SliverToBoxAdapter(
+            child: Container(
+              height: 100,
+              color: Colors.blue,
+              alignment: Alignment.center,
+              child: const Text(
+                '我是一个Container',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Container(
+                height: 65,
+                color: Colors.primaries[index % Colors.primaries.length],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
