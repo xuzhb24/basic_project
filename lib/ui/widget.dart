@@ -40,6 +40,7 @@ class WidgetPage extends StatelessWidget {
     '滚动和大数据组件',
     RouterTable.listView,
     RouterTable.gridView,
+    RouterTable.singleChildScrollView,
     RouterTable.pageView,
     RouterTable.dataTable,
     'Sliver系列组件',

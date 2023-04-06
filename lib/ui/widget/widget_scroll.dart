@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../entity/User.dart';
+import '../../func/constant.dart';
 import '../../func/router_table.dart';
 import '../base.dart';
 
@@ -337,6 +339,517 @@ class GridViewPage6 extends BaseStatelessWidget {
             color: Colors.primaries[index % Colors.primaries.length],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SingleChildScrollViewPage extends BaseStatelessWidget {
+  SingleChildScrollViewPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      //当遇到内容较多时，需要滚动组件进行展示，SingleChildScrollView是一个只能包含单个组件的滚动组件，
+      //如果内容较多，建议使用ListView等，因为SingleChildScrollView没有“懒加载”模式，性能不如ListView。
+      body: SingleChildScrollView(
+        //滚动方向，默认垂直方向
+        scrollDirection: Axis.vertical,
+        //reverse参数表示反转滚动方向，并不是有垂直转为水平，而是垂直方向滚动时，默认向下滚动，
+        //reverse设置false，滚动方向改为向上，同理水平滚动改为水平向左。
+        reverse: true,
+        //设置内边距Padding
+        padding: const EdgeInsets.all(10),
+        //primary设置为true时，不能设置controller，因为primarytrue时，controller使用PrimaryScrollController，
+        //这种机制带来的好处是父组件可以控制子树中可滚动组件的滚动行为，
+        //例如，Scaffold正是使用这种机制在iOS中实现了点击导航栏回到顶部的功能。
+        primary: true,
+        //也可以设置其他controller，controller和physics属性用法同ListView中一样。
+        // controller: ScrollController(),
+        child: Column(
+          children: List.generate(
+            50,
+            (index) => Container(
+              height: 150,
+              color: Colors.primaries[index % Colors.primaries.length],
+            ),
+          ).toList(),
+        ),
+      ),
+    );
+  }
+}
+
+class PageViewPage extends BaseStatelessWidget {
+  PageViewPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      centerContent: true,
+      widgetList: [
+        RouterTable.pageView1,
+        RouterTable.pageView2,
+        RouterTable.pageView3,
+        RouterTable.pageView4,
+      ],
+    );
+  }
+}
+
+class PageViewPage1 extends BaseStatelessWidget {
+  PageViewPage1({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    //PageView控件可以实现一个“图片轮播”的效果
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: PageView(
+        //滚动方向默认是水平，可以设置其为垂直方向
+        scrollDirection: Axis.horizontal,
+        controller: PageController(
+          viewportFraction: 0.9,
+          //initialPage表示当前加载第几页,默认第一页
+          initialPage: 1,
+        ),
+        //onPageChanged属性是页面发生变化时的回调
+        onPageChanged: (index) {
+          print('$index');
+        },
+        children: [
+          _buildItem('PageView1', Colors.red),
+          _buildItem('PageView2', Colors.green),
+          _buildItem('PageView3', Colors.blue),
+        ],
+      ),
+    );
+  }
+
+  _buildItem(String txt, Color color) {
+    return Container(
+      color: color,
+      alignment: Alignment.center,
+      child:
+          Text(txt, style: const TextStyle(fontSize: 20, color: Colors.white)),
+    );
+  }
+}
+
+class PageViewPage2 extends BaseStatelessWidget {
+  PageViewPage2({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> pageList = [
+      _buildItem('PageView1', Colors.red),
+      _buildItem('PageView2', Colors.green),
+      _buildItem('PageView3', Colors.blue),
+    ];
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: PageView.builder(
+        //巧妙的利用取余（%）重复构建页面实现PageView无限滚动的效果
+        itemCount: 10000,
+        itemBuilder: (context, index) => pageList[index % pageList.length],
+      ),
+    );
+  }
+
+  _buildItem(String txt, Color color) {
+    return Container(
+      color: color,
+      alignment: Alignment.center,
+      child:
+          Text(txt, style: const TextStyle(fontSize: 20, color: Colors.white)),
+    );
+  }
+}
+
+class PageViewPage3 extends BaseStatefulWidget {
+  PageViewPage3({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => PageViewPage3State();
+}
+
+class PageViewPage3State extends State<PageViewPage3> {
+  final List<String> _pageList = [
+    'PageView1',
+    'PageView2',
+    'PageView3',
+    'PageView4',
+    'PageView5'
+  ];
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Container(
+          height: 230,
+          child: Stack(
+            children: [
+              PageView.builder(
+                itemCount: 10000,
+                itemBuilder: (context, index) => _buildItem(
+                  _pageList[index % _pageList.length],
+                  Colors.blue,
+                ),
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentIndex = index % _pageList.length;
+                  });
+                },
+              ),
+              Positioned(
+                bottom: 10,
+                left: 0,
+                right: 0,
+                child: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      _pageList.length,
+                      (index) => Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _currentIndex == index
+                              ? Colors.white
+                              : Colors.grey,
+                        ),
+                      ),
+                    ).toList(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  _buildItem(String txt, Color color) {
+    return Container(
+      color: color,
+      alignment: Alignment.center,
+      child:
+          Text(txt, style: const TextStyle(fontSize: 20, color: Colors.white)),
+    );
+  }
+}
+
+class PageViewPage4 extends BaseStatefulWidget {
+  PageViewPage4({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => PageViewPage4State();
+}
+
+class PageViewPage4State extends State<PageViewPage4> {
+  var imgList = [
+    Constant.bannerImageUrl1,
+    Constant.bannerImageUrl2,
+    Constant.bannerImageUrl3,
+  ];
+
+  PageController? _controller;
+  var _curPageValue = 0.0;
+
+  //缩放系数
+  final double _scaleFactor = 0.8;
+  final double _height = 200;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PageController(viewportFraction: 0.9);
+    _controller?.addListener(() {
+      setState(() {
+        if (_controller != null) {
+          _curPageValue = _controller!.page!;
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller?.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: SizedBox(
+          height: _height,
+          child: PageView.builder(
+            itemBuilder: (context, index) => _buildItem(index),
+            itemCount: 12,
+            controller: _controller,
+          ),
+        ),
+      ),
+    );
+  }
+
+  _buildItem(int index) {
+    Matrix4 matrix4 = Matrix4.identity();
+    if (index == _curPageValue.floor()) {
+      //当前的item
+      var currScale = 1 - (_curPageValue - index) * (1 - _scaleFactor);
+      var currTrans = _height * (1 - currScale) / 2;
+      matrix4 = Matrix4.diagonal3Values(1.0, currScale, 1.0)
+        ..setTranslationRaw(0.0, currTrans, 0.0);
+    } else if (index == _curPageValue.floor() + 1) {
+      //右边的item
+      var currScale =
+          _scaleFactor + (_curPageValue - index + 1) * (1 - _scaleFactor);
+      var currTrans = _height * (1 - currScale) / 2;
+      matrix4 = Matrix4.diagonal3Values(1.0, currScale, 1.0)
+        ..setTranslationRaw(0.0, currTrans, 0.0);
+    } else if (index == _curPageValue.floor() - 1) {
+      //左边的item
+      var currScale = 1 - (_curPageValue - index) * (1 - _scaleFactor);
+      var currTrans = _height * (1 - currScale) / 2;
+      matrix4 = Matrix4.diagonal3Values(1.0, currScale, 1.0)
+        ..setTranslationRaw(0.0, currTrans, 0.0);
+    } else {
+      //其他，不在屏幕显示的item
+      matrix4 = Matrix4.diagonal3Values(1.0, _scaleFactor, 1.0)
+        ..setTranslationRaw(0.0, _height * (1 - _scaleFactor) / 2, 0.0);
+    }
+    return Transform(
+      transform: matrix4,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            image: DecorationImage(
+              image: NetworkImage(imgList[index % imgList.length]),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DataTablePage extends BaseStatefulWidget {
+  DataTablePage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => DataTablePageState();
+}
+
+class DataTablePageState extends State<DataTablePage> {
+  List<User> selectedData = [
+    User('小明1', 18),
+    User('小明2', 19, selected: true),
+    User('小明3', 20),
+    User('小明4', 21),
+    User('小明5', 22),
+  ];
+  List<User> sortData = [
+    User('小明1', 18),
+    User('小明2', 19),
+    User('小明3', 20),
+    User('小明4', 21),
+    User('小明5', 22),
+  ];
+
+  var _sortAscending = true;
+  var _sortColumnIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      children: [
+        SpaceDivider(),
+        TitleLayout(
+          title: '基础用法',
+          child: DataTable(
+            //sortColumnIndex参数表示表格显示排序图标的索引，仅仅是外观上的控制
+            sortColumnIndex: 1,
+            //sortAscending参数表示升序或者降序，仅仅是外观上的控制
+            sortAscending: true,
+            //columns参数是DataTable的列
+            columns: [
+              const DataColumn(
+                label: Text('姓名'),
+                //tooltip参数表示当长按此表头时显示提示
+                tooltip: '长按提示',
+              ),
+              DataColumn(
+                label: const Text('年龄'),
+                //默认情况下数据是左对齐的，让某一列右对齐只需设置DataColumn中numeric参数true
+                numeric: false,
+                //onSort回调是用户点击表头（DataColumn）时的回调，onSort中第一个参数columnIndex表示索引，ascending参数表示升序或者降序
+                onSort: (columnIndex, ascending) {},
+              ),
+            ],
+            //rows参数是DataTable的每一行数据
+            rows: [
+              DataRow(
+                cells: [
+                  DataCell(
+                    const Text('小明'),
+                    //设置编辑图标，当然仅仅是一个图标
+                    showEditIcon: true,
+                    //placeholder参数也是一样的，设置为true，仅仅是文字的样式变化了
+                    placeholder: true,
+                    //onTap为点击回调
+                    onTap: () {
+                      print('DataCell onTap');
+                    },
+                  ),
+                  const DataCell(Text('18')),
+                ],
+              ),
+              const DataRow(
+                //显示其中一行被选中
+                selected: true,
+                cells: [
+                  DataCell(Text('大黄')),
+                  DataCell(Text('20')),
+                ],
+              ),
+            ],
+          ),
+        ),
+        TitleLayout(
+          title: '显示勾选框',
+          child: createSelectDataTable(),
+        ),
+        TitleLayout(
+          title: '排序',
+          child: DataTable(
+            sortColumnIndex: _sortColumnIndex,
+            sortAscending: _sortAscending,
+            columns: [
+              DataColumn(
+                label: Text('姓名'),
+                onSort: (columnIndex, ascending) {
+                  setState(() {
+                    _sortColumnIndex = columnIndex;
+                    _sortAscending = ascending;
+                    if (ascending) {
+                      sortData.sort((a, b) => a.name.compareTo(b.name));
+                    } else {
+                      sortData.sort((a, b) => b.name.compareTo(a.name));
+                    }
+                  });
+                },
+              ),
+              DataColumn(
+                label: const Text('年龄'),
+                onSort: (columnIndex, ascending) {
+                  setState(() {
+                    _sortColumnIndex = columnIndex;
+                    _sortAscending = ascending;
+                    if (ascending) {
+                      sortData.sort((a, b) => a.age.compareTo(b.age));
+                    } else {
+                      sortData.sort((a, b) => b.age.compareTo(a.age));
+                    }
+                  });
+                },
+              )
+            ],
+            rows: sortData
+                .map((user) => DataRow(cells: [
+                      DataCell(Text(user.name)),
+                      DataCell(Text('${user.age}')),
+                    ]))
+                .toList(),
+          ),
+        ),
+        TitleLayout(
+          title: '处理数据显示不全问题',
+          child: createMultiData(),
+        ),
+      ],
+    );
+  }
+
+  Widget createSelectDataTable() {
+    List<DataRow> dateRows = [];
+    for (int i = 0; i < selectedData.length; i++) {
+      dateRows.add(DataRow(
+        selected: selectedData[i].selected,
+        //onSelectChanged参数是点击每一行数据时的回调，设置了onSelectChanged参数，在数据的每一行和表头的前面显示勾选框
+        onSelectChanged: (selected) {
+          setState(() {
+            selectedData[i].selected = selected!;
+          });
+        },
+        cells: [
+          DataCell(Text(selectedData[i].name)),
+          DataCell(Text('${selectedData[i].age}')),
+        ],
+      ));
+    }
+    return DataTable(
+      columns: const [
+        //表头的点击全选/取消全选勾选框，每一行的onSelectChanged都被回调了一次。
+        DataColumn(label: Text('姓名')),
+        DataColumn(label: Text('年龄'), numeric: true),
+      ],
+      rows: dateRows,
+    );
+  }
+
+  Widget createMultiData() {
+    List<DataRow> dataRows = [];
+    for (int i = 0; i < selectedData.length; i++) {
+      dataRows.add(DataRow(cells: [
+        DataCell(Text(selectedData[i].name)),
+        DataCell(Text('${selectedData[i].age}')),
+        const DataCell(Text('男')),
+        const DataCell(Text('2020')),
+        const DataCell(Text('10')),
+      ]));
+    }
+    //当表格列比较多的时候，可以使用SingleChildScrollView包裹DataTable，显示不全时滚动显示
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: DataTable(
+        columns: const [
+          DataColumn(label: Text('姓名')),
+          DataColumn(label: Text('年龄')),
+          DataColumn(label: Text('性别')),
+          DataColumn(label: Text('出生年份')),
+          DataColumn(label: Text('出生月份')),
+        ],
+        rows: dataRows,
       ),
     );
   }

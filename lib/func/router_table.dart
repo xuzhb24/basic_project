@@ -67,13 +67,14 @@ class RouterTable {
   static String gridView4 = 'GridView${div}GridView.custom';
   static String gridView5 = 'GridView${div}GridView.count';
   static String gridView6 = 'GridView${div}GridView.extent';
-
+  static String singleChildScrollView = 'SingleChildScrollView';
   static String pageView = 'PageView';
   static String pageView1 = 'PageView$div基础用法';
   static String pageView2 = 'PageView$div无限滚动';
   static String pageView3 = 'PageView$div实现指示器';
   static String pageView4 = 'PageView$div切换动画';
   static String dataTable = 'DataTable';
+
   static String sliverAppBar = 'SliverAppBar';
   static String customScrollView = 'CustomScrollView';
   static String nestedScrollView = 'NestedScrollView';
@@ -168,13 +169,15 @@ class RouterTable {
     gridView4: (context) => GridViewPage4(title: pickTitle(gridView4)),
     gridView5: (context) => GridViewPage5(title: pickTitle(gridView5)),
     gridView6: (context) => GridViewPage6(title: pickTitle(gridView6)),
-
+    singleChildScrollView: (context) =>
+        SingleChildScrollViewPage(title: singleChildScrollView),
     pageView: (context) => PageViewPage(title: pageView),
     pageView1: (context) => PageViewPage1(title: pickTitle(pageView1)),
     pageView2: (context) => PageViewPage2(title: pickTitle(pageView2)),
     pageView3: (context) => PageViewPage3(title: pickTitle(pageView3)),
     pageView4: (context) => PageViewPage4(title: pickTitle(pageView4)),
     dataTable: (context) => DataTablePage(title: dataTable),
+
     sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     customScrollView: (context) =>
         CustomScrollViewPage(title: customScrollView),
