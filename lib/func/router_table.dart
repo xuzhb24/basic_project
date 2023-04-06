@@ -3,6 +3,7 @@ import 'package:basic_project/ui/practice/practice_box.dart';
 import 'package:basic_project/ui/practice/practice_gesture.dart';
 import 'package:basic_project/ui/practice/practice_layout.dart';
 import 'package:basic_project/ui/widget/widget_gesture.dart';
+import 'package:basic_project/ui/widget/widget_sliver.dart';
 import 'package:basic_project/ui/widget/widget_text.dart';
 import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,6 +77,8 @@ class RouterTable {
   static String dataTable = 'DataTable';
   static String scrollPractice = '滚动和大数据组件实战';
   static String scrollPractice1 = '滚动和大数据组件实战$div自定义PageView切换动画';
+  static String sliverList = 'SliverList';
+  static String sliverGrid = 'SliverGrid';
 
   static String sliverAppBar = 'SliverAppBar';
   static String customScrollView = 'CustomScrollView';
@@ -181,6 +184,8 @@ class RouterTable {
     scrollPractice: (context) => ScrollPracticePage(title: scrollPractice),
     scrollPractice1: (context) =>
         ScrollPracticePage1(title: pickTitle(scrollPractice1)),
+    sliverList: (context) => SliverListPage(title: sliverList),
+    sliverGrid: (context) => SliverGridPage(title: sliverGrid),
 
     sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     customScrollView: (context) =>
