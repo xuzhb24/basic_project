@@ -8,6 +8,7 @@ import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../ui/practice/practice_scroll.dart';
 import '../ui/practice/practice_text.dart';
 import '../ui/widget/widget_basic.dart';
 import '../ui/widget/widget_box.dart';
@@ -72,8 +73,9 @@ class RouterTable {
   static String pageView1 = 'PageView$div基础用法';
   static String pageView2 = 'PageView$div无限滚动';
   static String pageView3 = 'PageView$div实现指示器';
-  static String pageView4 = 'PageView$div切换动画';
   static String dataTable = 'DataTable';
+  static String scrollPractice = '滚动和大数据组件实战';
+  static String scrollPractice1 = '滚动和大数据组件实战$div自定义PageView切换动画';
 
   static String sliverAppBar = 'SliverAppBar';
   static String customScrollView = 'CustomScrollView';
@@ -175,8 +177,10 @@ class RouterTable {
     pageView1: (context) => PageViewPage1(title: pickTitle(pageView1)),
     pageView2: (context) => PageViewPage2(title: pickTitle(pageView2)),
     pageView3: (context) => PageViewPage3(title: pickTitle(pageView3)),
-    pageView4: (context) => PageViewPage4(title: pickTitle(pageView4)),
     dataTable: (context) => DataTablePage(title: dataTable),
+    scrollPractice: (context) => ScrollPracticePage(title: scrollPractice),
+    scrollPractice1: (context) =>
+        ScrollPracticePage1(title: pickTitle(scrollPractice1)),
 
     sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     customScrollView: (context) =>

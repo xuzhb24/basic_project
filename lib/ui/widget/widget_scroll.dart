@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../entity/User.dart';
-import '../../func/constant.dart';
 import '../../func/router_table.dart';
 import '../base.dart';
 
@@ -395,7 +394,6 @@ class PageViewPage extends BaseStatelessWidget {
         RouterTable.pageView1,
         RouterTable.pageView2,
         RouterTable.pageView3,
-        RouterTable.pageView4,
       ],
     );
   }
@@ -554,110 +552,6 @@ class PageViewPage3State extends State<PageViewPage3> {
       alignment: Alignment.center,
       child:
           Text(txt, style: const TextStyle(fontSize: 20, color: Colors.white)),
-    );
-  }
-}
-
-class PageViewPage4 extends BaseStatefulWidget {
-  PageViewPage4({required super.title});
-
-  @override
-  State<StatefulWidget> createState() => PageViewPage4State();
-}
-
-class PageViewPage4State extends State<PageViewPage4> {
-  var imgList = [
-    Constant.bannerImageUrl1,
-    Constant.bannerImageUrl2,
-    Constant.bannerImageUrl3,
-  ];
-
-  PageController? _controller;
-  var _curPageValue = 0.0;
-
-  //缩放系数
-  final double _scaleFactor = 0.8;
-  final double _height = 200;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PageController(viewportFraction: 0.9);
-    _controller?.addListener(() {
-      setState(() {
-        if (_controller != null) {
-          _curPageValue = _controller!.page!;
-        }
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller?.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: SizedBox(
-          height: _height,
-          child: PageView.builder(
-            itemBuilder: (context, index) => _buildItem(index),
-            itemCount: 12,
-            controller: _controller,
-          ),
-        ),
-      ),
-    );
-  }
-
-  _buildItem(int index) {
-    Matrix4 matrix4 = Matrix4.identity();
-    if (index == _curPageValue.floor()) {
-      //当前的item
-      var currScale = 1 - (_curPageValue - index) * (1 - _scaleFactor);
-      var currTrans = _height * (1 - currScale) / 2;
-      matrix4 = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-        ..setTranslationRaw(0.0, currTrans, 0.0);
-    } else if (index == _curPageValue.floor() + 1) {
-      //右边的item
-      var currScale =
-          _scaleFactor + (_curPageValue - index + 1) * (1 - _scaleFactor);
-      var currTrans = _height * (1 - currScale) / 2;
-      matrix4 = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-        ..setTranslationRaw(0.0, currTrans, 0.0);
-    } else if (index == _curPageValue.floor() - 1) {
-      //左边的item
-      var currScale = 1 - (_curPageValue - index) * (1 - _scaleFactor);
-      var currTrans = _height * (1 - currScale) / 2;
-      matrix4 = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-        ..setTranslationRaw(0.0, currTrans, 0.0);
-    } else {
-      //其他，不在屏幕显示的item
-      matrix4 = Matrix4.diagonal3Values(1.0, _scaleFactor, 1.0)
-        ..setTranslationRaw(0.0, _height * (1 - _scaleFactor) / 2, 0.0);
-    }
-    return Transform(
-      transform: matrix4,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            image: DecorationImage(
-              image: NetworkImage(imgList[index % imgList.length]),
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

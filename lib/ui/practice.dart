@@ -13,6 +13,7 @@ class PracticePage extends StatelessWidget {
     RouterTable.layoutPractice,
     RouterTable.boxPractice,
     RouterTable.gesturePractice,
+    RouterTable.scrollPractice,
   ];
 
   @override
