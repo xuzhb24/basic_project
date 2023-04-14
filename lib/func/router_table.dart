@@ -13,6 +13,7 @@ import '../ui/practice/practice_scroll.dart';
 import '../ui/practice/practice_text.dart';
 import '../ui/widget/widget_basic.dart';
 import '../ui/widget/widget_box.dart';
+import '../ui/widget/widget_function.dart';
 import '../ui/widget/widget_layout.dart';
 import '../ui/widget/widget_scroll.dart';
 import '../ui/widget_container.dart';
@@ -79,10 +80,9 @@ class RouterTable {
   static String scrollPractice1 = '滚动和大数据组件实战$div自定义PageView切换动画';
   static String sliverList = 'SliverList';
   static String sliverGrid = 'SliverGrid';
+  static String sliverAppBar = 'SliverAppBar';
   static String sliverPersistentHeader = 'SliverPersistentHeader';
   static String sliverToBoxAdapter = 'SliverToBoxAdapter';
-
-  static String sliverAppBar = 'SliverAppBar';
   static String customScrollView = 'CustomScrollView';
   static String nestedScrollView = 'NestedScrollView';
   static String nestedScrollView1 = 'NestedScrollView$div滚动隐藏AppBar';
@@ -90,6 +90,8 @@ class RouterTable {
   static String nestedScrollView3 = 'NestedScrollView$div与TabBar配合使用';
   static String dateTime = 'DateTime';
   static String dialog = 'Dialog';
+  static String shape = 'Shape';
+
   static String draggable = 'Draggable';
   static String willPopScope = 'WillPopScope';
   static String willPopScope1 = 'WillPopScope$div询问用户是否退出(弹出对话框)';
@@ -188,12 +190,11 @@ class RouterTable {
         ScrollPracticePage1(title: pickTitle(scrollPractice1)),
     sliverList: (context) => SliverListPage(title: sliverList),
     sliverGrid: (context) => SliverGridPage(title: sliverGrid),
+    sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     sliverPersistentHeader: (context) =>
         SliverPersistentHeaderPage(title: sliverPersistentHeader),
     sliverToBoxAdapter: (context) =>
         SliverToBoxAdapterPage(title: sliverToBoxAdapter),
-
-    sliverAppBar: (context) => SliverAppBarPage(title: sliverAppBar),
     customScrollView: (context) =>
         CustomScrollViewPage(title: customScrollView),
     nestedScrollView: (context) =>
@@ -205,7 +206,9 @@ class RouterTable {
     // nestedScrollView3: (context) => NestedScrollViewPage3(title: '与TabBar配合使用'),
     dateTime: (context) => DateTimePage(title: dateTime),
     dialog: (context) => DialogPage(title: dialog),
+    shape: (context) => ShapePage(title: shape),
     draggable: (context) => DraggablePage(title: draggable),
+
     willPopScope: (context) => WillPopScopePage(title: willPopScope),
     willPopScope1: (context) =>
         WillPopScopePage1(title: pickTitle(willPopScope1)),

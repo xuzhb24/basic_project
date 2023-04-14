@@ -54,6 +54,7 @@ class WidgetPage extends StatelessWidget {
     '功能型组件',
     RouterTable.dateTime,
     RouterTable.dialog,
+    RouterTable.shape,
     RouterTable.draggable,
     RouterTable.willPopScope,
     RouterTable.navigator,

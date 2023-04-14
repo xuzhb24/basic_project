@@ -1,4 +1,6 @@
+import 'package:basic_project/func/router_table.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../../func/constant.dart';
 import '../base.dart';
@@ -211,6 +213,221 @@ class SliverToBoxAdapterPage extends BaseStatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomScrollViewPage extends BaseStatefulWidget {
+  CustomScrollViewPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => CustomScrollViewPageState();
+}
+
+class CustomScrollViewPageState extends State<CustomScrollViewPage> {
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    //监听滚动位置
+    _scrollController.addListener(() {
+      print('${_scrollController.position}');
+    });
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      //滚动到指定位置
+      _scrollController.jumpTo(150);
+      //滚动到底
+      // _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //CustomScrollView是使用Sliver组件创建自定义滚动效果的滚动组件，就像一个粘合剂，将多个组件粘合在一起，具统一的滚动效果。
+      //使用场景：
+      //1、ListView和GridView相互嵌套场景，ListView嵌套GridView时，需要给GridView指定高度，但我们希望高度随内容而变化（不指定），ListView和GridView作为整体滚动效果。
+      //2、一个页面顶部是AppBar，然后是GridView，最后是ListView，这3个区域以整体来滚动，AppBar具有吸顶效果。
+      body: CustomScrollView(
+        //scrollDirection为滚动方向，分为垂直和水平方向
+        scrollDirection: Axis.vertical,
+        //reverse参数表示是否反转滚动方向，并不是垂直转为水平，而是垂直方向滚动时，默认向下滚动，reverse设置false，滚动方向改为向上，同理水平滚动改为水平向左。
+        reverse: false,
+        //primary设置为true时，不能设置controller，因为primary为true时，controller使用PrimaryScrollController，
+        //这种机制带来的好处是父组件可以控制子树中可滚动组件的滚动行为
+        primary: false,
+        //controller为滚动控制器，可以监听滚到的位置，设置滚动的位置等
+        controller: _scrollController,
+        //physics表示可滚动组件的物理滚动特性，系统提供的ScrollPhysics有：
+        //1、AlwaysScrollableScrollPhysics：总是可以滑动
+        //2、NeverScrollableScrollPhysics：禁止滚动
+        //3、BouncingScrollPhysics ：内容超过一屏 上拉有回弹效果
+        //4、ClampingScrollPhysics ：包裹内容 不会有回弹
+        physics: const AlwaysScrollableScrollPhysics(),
+        //Sliver系列组件有很多，比如SliverList、SliverGrid、SliverFixedExtentList、SliverPadding、SliverAppBar等。
+        slivers: [
+          //场景二：顶部是AppBar场景
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 230,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(widget.title),
+              background: Image.network(
+                Constant.imageUrl,
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          ),
+          //场景一：相互嵌套场景
+          SliverGrid.count(
+            crossAxisCount: 4,
+            children: List.generate(
+              8,
+              (index) => Container(
+                color: Colors.primaries[index % Colors.primaries.length],
+                alignment: Alignment.center,
+                child: Text('$index',
+                    style: const TextStyle(color: Colors.white, fontSize: 20)),
+              ),
+            ).toList(),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Container(
+                height: 85,
+                alignment: Alignment.center,
+                color: Colors.primaries[index % Colors.primaries.length],
+                child: Text('$index',
+                    style: const TextStyle(color: Colors.white, fontSize: 20)),
+              ),
+              childCount: 25,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class NestedScrollViewPage extends BaseStatelessWidget {
+  NestedScrollViewPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      widgetList: [
+        RouterTable.nestedScrollView1,
+        RouterTable.nestedScrollView2,
+      ],
+      centerContent: true,
+    );
+  }
+}
+
+class NestedScrollViewPage1 extends BaseStatefulWidget {
+  NestedScrollViewPage1({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => NestedScrollViewPage1State();
+}
+
+class NestedScrollViewPage1State extends State<NestedScrollViewPage1> {
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    //监听滚动位置
+    _scrollController.addListener(() {
+      print('${_scrollController.position}');
+    });
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      //滚动到指定位置
+      _scrollController.jumpTo(150);
+      //滚动到底
+      // _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //NestedScrollView可以在其内部嵌套其他滚动视图的组件，其滚动位置是固有链接的。
+    return NestedScrollView(
+      //scrollDirection：滚动方向，分为垂直和水平方向
+      scrollDirection: Axis.vertical,
+      //reverse参数表示反转滚动方向，并不是由垂直转为水平，而是垂直方向滚动时，默认向下滚动，reverse设置false，滚动方向改为向上，同理水平滚动改为水平向左
+      reverse: false,
+      //controller为滚动控制器，可以监听滚到的位置，设置滚动的位置等
+      controller: _scrollController,
+      //physics表示可滚动组件的物理滚动特性，系统提供的ScrollPhysics有：
+      //1、AlwaysScrollableScrollPhysics：总是可以滑动
+      //2、NeverScrollableScrollPhysics：禁止滚动
+      //3、BouncingScrollPhysics ：内容超过一屏 上拉有回弹效果
+      //4、ClampingScrollPhysics ：包裹内容 不会有回弹
+      physics: const AlwaysScrollableScrollPhysics(),
+      //场景一：滚动隐藏AppBar
+      headerSliverBuilder: (context, innerBoxIsScrolled) =>
+          [SliverAppBar(title: Text(widget.title))],
+      body: Container(
+        color: Colors.white,
+        child: ListView.builder(
+          padding: const EdgeInsets.all(0.0),
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (context, index) => Container(
+            height: 80,
+            color: Colors.primaries[index % Colors.primaries.length],
+            alignment: Alignment.center,
+            child: Text(
+              '$index',
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+          itemCount: 20,
+        ),
+      ),
+    );
+  }
+}
+
+class NestedScrollViewPage2 extends BaseStatelessWidget {
+  NestedScrollViewPage2({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    //场景二：SliverAppBar展开折叠
+    return NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+        SliverAppBar(
+          expandedHeight: 230,
+          pinned: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Text(
+              title,
+              style: const TextStyle(fontSize: 18),
+            ),
+            background: Image.network(Constant.imageUrl, fit: BoxFit.fitHeight),
+          ),
+        )
+      ],
+      body: Container(
+        color: Colors.white,
+        child: ListView.builder(
+          padding: const EdgeInsets.all(0.0),
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (context, index) => Container(
+            height: 80,
+            color: Colors.primaries[index % Colors.primaries.length],
+            alignment: Alignment.center,
+            child: Text(
+              '$index',
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          ),
+          itemCount: 20,
+        ),
       ),
     );
   }
