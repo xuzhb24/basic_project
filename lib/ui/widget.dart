@@ -56,6 +56,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.dialog,
     RouterTable.shape,
     RouterTable.draggable,
+    RouterTable.interactiveViewer,
     RouterTable.willPopScope,
     RouterTable.navigator,
     RouterTable.futureBuilder,

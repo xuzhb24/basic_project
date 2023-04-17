@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:basic_project/func/router_table.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -774,6 +775,154 @@ class DraggablePageState extends State<DraggablePage> {
         text,
         style: TextStyle(color: textColor, fontSize: 18),
       ),
+    );
+  }
+}
+
+class InteractiveViewerPage extends BaseStatelessWidget {
+  InteractiveViewerPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      centerContent: true,
+      widgetList: [
+        RouterTable.interactiveViewer1,
+        RouterTable.interactiveViewer2,
+      ],
+    );
+  }
+}
+
+class InteractiveViewerPage1 extends BaseStatelessWidget {
+  InteractiveViewerPage1({required super.title});
+
+  final int _rowCount = 20;
+  final int _columnCount = 10;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: SizedBox(
+          width: 300,
+          height: 300,
+          //InteractiveViewer是Flutter 1.20新增的组件，用户可以通过拖动以平移、缩放和拖放子组件。
+          child: InteractiveViewer(
+            //alignPanAxis参数表示是否只在水平和垂直方向上拖拽，默认为false，设置为true，无法沿着对角线（斜着）方向移动。
+            alignPanAxis: false,
+            //maxScale、minScale、scaleEnabled是缩放相关参数，分别表示最大缩放倍数、最小缩放倍数、是否可以缩放
+            minScale: 0.5,
+            maxScale: 5,
+            scaleEnabled: true,
+            //constrained参数表示组件树中的约束是否应用于子组件，默认为true，如果设为true，表示子组件是无限制约束，
+            //这对子组件的尺寸比InteractiveViewer大时非常有用，比如子组件为滚动系列组件。
+            //如下的案例，子组件为Table，Table尺寸大于屏幕，必须将constrained设置为false以便将其绘制为完整尺寸。
+            //超出的屏幕尺寸可以平移到视图中。
+            constrained: false,
+            //onInteractionStart：当用户开始平移或缩放手势时调用。
+            onInteractionStart: (v) {
+              print('onInteractionStart:$v');
+            },
+            //onInteractionUpdate：当用户更新组件上的平移或缩放手势时调用。
+            onInteractionUpdate: (v) {
+              print('onInteractionUpdate:$v');
+            },
+            //onInteractionEnd：当用户在组件上结束平移或缩放手势时调用。
+            onInteractionEnd: (v) {
+              print('onInteractionEnd:$v');
+            },
+            child: Table(
+              columnWidths: <int, TableColumnWidth>{
+                for (int column = 0; column < _columnCount; column += 1)
+                  column: const FixedColumnWidth(100.0),
+              },
+              children: [
+                for (int row = 0; row < _rowCount; row++)
+                  TableRow(
+                    children: [
+                      for (int column = 0; column < _columnCount; column++)
+                        Container(
+                          height: 50,
+                          color: row % 2 + column % 2 == 1
+                              ? Colors.red
+                              : Colors.green,
+                        )
+                    ],
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class InteractiveViewerPage2 extends BaseStatefulWidget {
+  InteractiveViewerPage2({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => InteractiveViewerPage2State();
+}
+
+class InteractiveViewerPage2State extends State<InteractiveViewerPage2> {
+  final TransformationController _controller = TransformationController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Column(children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          child: Center(
+            child: InteractiveViewer(
+              transformationController: _controller,
+              child: Image.asset('images/cc.png'),
+            ),
+          ),
+        ),
+        const SizedBox(height: 50),
+        Row(
+          children: [
+            Expanded(child: Container()),
+            ElevatedButton(
+              onPressed: () {
+                _controller.value = Matrix4.identity();
+              },
+              child: const Text('重置'),
+            ),
+            const SizedBox(width: 20),
+            ElevatedButton(
+              onPressed: () {
+                var matrix = _controller.value.clone();
+                matrix.translate(-5.0);
+                _controller.value = matrix;
+              },
+              child: const Text('左移'),
+            ),
+            const SizedBox(width: 20),
+            ElevatedButton(
+              onPressed: () {
+                var matrix = _controller.value.clone();
+                matrix.scale(1.5, 1.0, 1.0);
+                _controller.value = matrix;
+              },
+              child: const Text('放大'),
+            ),
+            Expanded(child: Container()),
+          ],
+        )
+      ]),
     );
   }
 }

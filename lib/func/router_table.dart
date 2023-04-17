@@ -91,8 +91,11 @@ class RouterTable {
   static String dateTime = 'DateTime';
   static String dialog = 'Dialog';
   static String shape = 'Shape';
-
   static String draggable = 'Draggable';
+  static String interactiveViewer = 'InteractiveViewer';
+  static String interactiveViewer1 = 'InteractiveViewer$div平移、缩放和拖放';
+  static String interactiveViewer2 = 'InteractiveViewer$div通过Matrix4矩阵变换';
+
   static String willPopScope = 'WillPopScope';
   static String willPopScope1 = 'WillPopScope$div询问用户是否退出(弹出对话框)';
   static String willPopScope2 = 'WillPopScope$div询问用户是否退出(再次点击退出)';
@@ -208,6 +211,12 @@ class RouterTable {
     dialog: (context) => DialogPage(title: dialog),
     shape: (context) => ShapePage(title: shape),
     draggable: (context) => DraggablePage(title: draggable),
+    interactiveViewer: (context) =>
+        InteractiveViewerPage(title: interactiveViewer),
+    interactiveViewer1: (context) =>
+        InteractiveViewerPage1(title: pickTitle(interactiveViewer1)),
+    interactiveViewer2: (context) =>
+        InteractiveViewerPage2(title: pickTitle(interactiveViewer2)),
 
     willPopScope: (context) => WillPopScopePage(title: willPopScope),
     willPopScope1: (context) =>
