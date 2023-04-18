@@ -363,3 +363,55 @@ class BottomNavigationBarPageXState extends State<BottomNavigationBarPageX> {
 
   MyPage() => Container(color: Colors.yellow);
 }
+
+class DrawerPage extends BaseStatelessWidget {
+  DrawerPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    //Drawer是一个抽屉导航组件，导航一般使用底部导航BottomNavigationBar或者抽屉导航。
+    //Drawer一般和Scaffold组合使用
+    return Scaffold(
+      //如果设置了AppBar，而没有设置AppBar的leading属性，在AppBar的左侧默认出现抽屉的图标，
+      //可以通过点击这个抽屉图标或者从屏幕左侧向右侧滑动打开抽屉
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      drawer: Drawer(
+        //Drawer里面可以放置任何组件，但是一般使用ListView，分为DrawerHeader和ListTiles
+        child: ListView(
+          children: [
+            const ListTile(title: Text('选项一')),
+            const ListTile(title: Text('选项二')),
+            const ListTile(title: Text('选项三')),
+            const ListTile(title: Text('选项四')),
+            const ListTile(title: Text('选项五')),
+            const ListTile(title: Text('选项六')),
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('隐藏Drawer'),
+              ),
+            ),
+          ],
+        ),
+      ),
+      //也可以设置Scaffold的endDrawer属性，在右侧显示一个Drawer
+      endDrawer: const Drawer(),
+      body: Center(
+        child: Builder(
+          builder: (context) => ElevatedButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: const Text('弹出Drawer'),
+          ),
+        ),
+      ),
+    );
+  }
+}
