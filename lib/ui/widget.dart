@@ -61,6 +61,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.navigator,
     RouterTable.futureBuilder,
     'App级别组件',
+    RouterTable.scaffold,
     RouterTable.appBar,
     RouterTable.tabBar,
     RouterTable.bottomNavigationBar,

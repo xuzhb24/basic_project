@@ -2,6 +2,7 @@ import 'package:basic_project/ui/practice/practice_basic.dart';
 import 'package:basic_project/ui/practice/practice_box.dart';
 import 'package:basic_project/ui/practice/practice_gesture.dart';
 import 'package:basic_project/ui/practice/practice_layout.dart';
+import 'package:basic_project/ui/widget/widget_app.dart';
 import 'package:basic_project/ui/widget/widget_gesture.dart';
 import 'package:basic_project/ui/widget/widget_sliver.dart';
 import 'package:basic_project/ui/widget/widget_text.dart';
@@ -95,7 +96,6 @@ class RouterTable {
   static String interactiveViewer = 'InteractiveViewer';
   static String interactiveViewer1 = 'InteractiveViewer$div平移、缩放和拖放';
   static String interactiveViewer2 = 'InteractiveViewer$div通过Matrix4矩阵变换';
-
   static String willPopScope = 'WillPopScope';
   static String willPopScope1 = 'WillPopScope$div询问用户是否退出(弹出对话框)';
   static String willPopScope2 = 'WillPopScope$div询问用户是否退出(再次点击退出)';
@@ -108,11 +108,13 @@ class RouterTable {
   static String futureBuilder2 = 'FutureBuilder$div模拟加载失败';
   static String futureBuilder3 = 'FutureBuilder$div模拟列表数据加载完成';
   static String futureBuilder4 = 'FutureBuilder$div模拟列表数据加载失败';
+  static String scaffold = 'Scaffold';
   static String appBar = 'AppBar';
   static String tabBar = 'TabBar';
   static String bottomNavigationBar = 'BottomNavigationBar';
   static String bottomNavigationBar1 = 'BottomNavigationBar${div}fixed';
   static String bottomNavigationBar2 = 'BottomNavigationBar${div}shifting';
+
   static String animatedList = 'AnimatedList';
   static String chip = 'Chip';
   static String opacity = 'Opacity';
@@ -217,7 +219,6 @@ class RouterTable {
         InteractiveViewerPage1(title: pickTitle(interactiveViewer1)),
     interactiveViewer2: (context) =>
         InteractiveViewerPage2(title: pickTitle(interactiveViewer2)),
-
     willPopScope: (context) => WillPopScopePage(title: willPopScope),
     willPopScope1: (context) =>
         WillPopScopePage1(title: pickTitle(willPopScope1)),
@@ -237,6 +238,7 @@ class RouterTable {
         FutureBuilderPage3(title: pickTitle(futureBuilder3)),
     futureBuilder4: (context) =>
         FutureBuilderPage4(title: pickTitle(futureBuilder4)),
+    scaffold: (context) => ScaffoldPage(title: scaffold),
     appBar: (context) => AppBarPage(title: appBar),
     tabBar: (context) => TabBarPage(title: tabBar),
     bottomNavigationBar: (context) =>
@@ -245,6 +247,7 @@ class RouterTable {
         title: bottomNavigationBar, type: BottomNavigationBarType.fixed),
     bottomNavigationBar2: (context) => BottomNavigationBarPageX(
         title: bottomNavigationBar, type: BottomNavigationBarType.shifting),
+
     animatedList: (context) => AnimatedListPage(title: animatedList),
     chip: (context) => ChipPage(title: chip),
     opacity: (context) => OpacityPage(title: opacity),
