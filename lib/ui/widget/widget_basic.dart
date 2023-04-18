@@ -281,6 +281,114 @@ class ButtonPageState extends State<ButtonPage> {
   }
 }
 
+class FormPage extends BaseStatefulWidget {
+  FormPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => FormPageState();
+}
+
+class FormPageState extends State<FormPage> {
+  var _name = '';
+  var _pwd = '';
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      children: [
+        SpaceDivider(),
+        //TextFormField继承自FormField，是一个输入框表单
+        TitleLayout(
+          title: 'TextFormField',
+          centerTitle: false,
+          child: TextFormField(
+            //可选参数，当Form调用FormState.save时才会回调此方法
+            onSaved: (value) {
+              print(value);
+            },
+            //枚举类型，disabled不自动验证，always实时验证，onUserInteraction，用户输入完成验证
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            //验证函数，输入的值不匹配的时候返回的字符串显示在TextField的errorText属性位置，返回nul1，表示没有错误
+            validator: (value) =>
+                value != null && value.length >= 6 ? null : '账号最少6个字符',
+          ),
+        ),
+        TitleLayout(
+          title: 'Form',
+          child: Form(
+            key: _formKey,
+            //在输入表单时点击返回按钮提示用户"确认退出吗？"
+            //onWillPop回调决定Form所在的路由是否可以直接返回，该回调需要返回Future<bool>，返回false表示当前路由不会返回；
+            //为true，则会返回到上一个路由。此属性通常用于拦截返回按钮。
+            onWillPop: () async {
+              return await showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('提示'),
+                  content: const Text('确认退出吗？'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: const Text('取消'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      child: const Text('确认'),
+                    )
+                  ],
+                ),
+              );
+            },
+            //onChanged：当子表单控件发生变化时回调
+            onChanged: () {
+              print('onChanged,name:$_name,pwd:$_pwd');
+            },
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(hintText: '输入账号'),
+                  onSaved: (value) {
+                    if (value != null) {
+                      _name = value;
+                    }
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) =>
+                      value != null && value.length >= 6 ? null : '账号最少6个字符',
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(hintText: '输入密码'),
+                  onSaved: (value) {
+                    if (value != null) {
+                      _pwd = value;
+                    }
+                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) =>
+                      value != null && value.length >= 6 ? null : '密码最少6个字符',
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _formKey.currentState?.save();
+                    print('name:$_name password:$_pwd');
+                  },
+                  child: const Text('登录'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class RadioPage extends BaseStatefulWidget {
   RadioPage({required super.title});
 

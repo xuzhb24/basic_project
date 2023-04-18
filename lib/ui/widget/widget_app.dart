@@ -415,3 +415,89 @@ class DrawerPage extends BaseStatelessWidget {
     );
   }
 }
+
+class SnackBarPage extends BaseStatelessWidget {
+  SnackBarPage({required super.title});
+
+  _buildButton(String title, VoidCallback onPressed) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Text(title),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: title,
+      centerContent: true,
+      children: [
+        _buildButton('基础用法', () {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text('SnackBar')));
+        }),
+        _buildButton('设置背景和形状', () {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: const Text('SnackBar'),
+            backgroundColor: Colors.blue,
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100),
+            ),
+          ));
+        }),
+        _buildButton('设置content为组件', () {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Row(
+            children: const [
+              Icon(Icons.check, color: Colors.green),
+              SizedBox(width: 10),
+              Text('下载成功')
+            ],
+          )));
+        }),
+        //设置显示时间，默认是4秒
+        _buildButton('设置显示时间', () {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('SnackBar'),
+            duration: Duration(seconds: 2),
+          ));
+        }),
+        //SnackBar的有2种弹出形式，默认是fixed，直接在底部弹出，另一种是floating,悬浮在底部
+        _buildButton('设置悬浮在底部', () {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Row(
+              children: const [
+                Icon(Icons.check, color: Colors.green),
+                SizedBox(width: 10),
+                Text('下载成功')
+              ],
+            ),
+            behavior: SnackBarBehavior.floating,
+          ));
+        }),
+        _buildButton('SnackBarAction', () {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: const Text('SnackBar'),
+            action: SnackBarAction(
+              label: '确定',
+              onPressed: () {
+                print('确定');
+              },
+            ),
+          ));
+        }),
+        //当短时间内多次调用SnackBar方法时，SnackBar消息将会以队列的形式一个一个的弹出
+        _buildButton('短时间内弹出多个', () {
+          List.generate(
+              10,
+              (index) => ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('我是第${index + 1}条消息'))));
+        }),
+        _buildButton('移除SnackBar', () {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        })
+      ],
+    );
+  }
+}

@@ -115,6 +115,7 @@ class RouterTable {
   static String bottomNavigationBar1 = 'BottomNavigationBar${div}fixed';
   static String bottomNavigationBar2 = 'BottomNavigationBar${div}shifting';
   static String drawer = 'Drawer';
+  static String snackBar = 'SnackBar';
 
   static String animatedList = 'AnimatedList';
   static String chip = 'Chip';
@@ -249,6 +250,7 @@ class RouterTable {
     bottomNavigationBar2: (context) => BottomNavigationBarPageX(
         title: bottomNavigationBar, type: BottomNavigationBarType.shifting),
     drawer: (context) => DrawerPage(title: drawer),
+    snackBar: (context) => SnackBarPage(title: snackBar),
 
     animatedList: (context) => AnimatedListPage(title: animatedList),
     chip: (context) => ChipPage(title: chip),
