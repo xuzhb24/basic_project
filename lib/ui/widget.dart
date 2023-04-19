@@ -70,6 +70,7 @@ class WidgetPage extends StatelessWidget {
     '动画组件',
     RouterTable.animationController,
     RouterTable.animatedList,
+    RouterTable.hero,
     '其他组件',
     RouterTable.chip,
     RouterTable.opacity,

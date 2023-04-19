@@ -117,6 +117,7 @@ class RouterTable {
   static String snackBar = 'SnackBar';
   static String animationController = 'AnimationController';
   static String animatedList = 'AnimatedList';
+  static String hero = 'Hero';
   static String chip = 'Chip';
   static String opacity = 'Opacity';
   static String customPaint = 'CustomPaint';
@@ -253,6 +254,7 @@ class RouterTable {
     animationController: (context) =>
         AnimationControllerPage(title: animationController),
     animatedList: (context) => AnimatedListPage(title: animatedList),
+    hero: (context) => HeroPage(title: hero),
     chip: (context) => ChipPage(title: chip),
     opacity: (context) => OpacityPage(title: opacity),
     customPaint: (context) => CustomPaintPage(title: customPaint),

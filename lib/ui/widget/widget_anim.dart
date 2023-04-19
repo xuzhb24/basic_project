@@ -180,3 +180,75 @@ class AnimatedListPageState extends State<AnimatedListPage>
     );
   }
 }
+
+class HeroPage extends BaseStatefulWidget {
+  HeroPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => HeroPageState();
+}
+
+class HeroPageState extends State<HeroPage> {
+  @override
+  Widget build(BuildContext context) {
+    //Hero是我们常用的过渡动画，当用户点击一张图片，切换到另一个页面时，
+    //这个页面也有此图，那么使用Hero组件就在合适不过了
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: GridView(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, crossAxisSpacing: 5, mainAxisSpacing: 3),
+        children: List.generate(10, (index) {
+          if (index == 6) {
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HeroDetailPage(title: '详情页')));
+              },
+              child: Hero(
+                tag: 'hero',
+                child: Container(
+                  child: Image.asset(
+                    'images/cc.png',
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+            );
+          }
+          return Container(color: Colors.red);
+        }),
+      ),
+    );
+  }
+}
+
+class HeroDetailPage extends BaseStatelessWidget {
+  HeroDetailPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Hero(
+            tag: 'hero',
+            child: Image.asset('images/cc.png'),
+          ),
+        ),
+      ),
+    );
+  }
+}
