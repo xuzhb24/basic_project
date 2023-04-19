@@ -1,56 +1,12 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:basic_project/ui/base.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/**
- * 元素类组件合集
- * AppBar：标题栏
- * BottomNavigatorBar：底部导航栏
- * Text：文本
- * ElevatedButton：按钮，下同
- * TextButton
- * OutlineButton
- * DropdownButton
- * RawMaterialButton
- * PopupMenuButton
- * IconButton
- * BackButton
- * CloseButton
- * ButtonBar
- * ToggleButtons
- * Form/FormField/TextFormField：文本输入框，下同
- * RawChip：标签，下同
- * Chip
- * InputChip
- * ChoiceChip
- * FilterChip
- * ActionChip
- * Ink/InkWell：按钮，下同
- * CustomPaint：自定义绘制组件
- * ClipRect：裁剪类组件，下同
- * ClipRRect
- * ClipOval
- * ClipPath
- * CustomClipper
- * AnimatedList：列表动画
- * AlertDialog：对话框，下同
- * CupertinoAlertDialog
- * SimpleDialog
- * Dialog
- * CalendarDatePicker：日期类组件，下同
- * showDatePicker
- * CupertinoDatePicker
- * showTimePicker
- * CupertinoTimerPicker
- * Opacity/AnimatedOpacity：占位
- * DataTable：表格控件
- * Draggable：拖动组件
- */
+import '../../func/router_table.dart';
+import '../base.dart';
 
-///元素类组件
+///其他组件
 class ChipPage extends BaseStatefulWidget {
   ChipPage({required super.title});
 
@@ -234,6 +190,100 @@ class ChipPageState extends State<ChipPage> {
   }
 }
 
+class OpacityPage extends BaseStatefulWidget {
+  OpacityPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => OpacityPageState();
+}
+
+class OpacityPageState extends State<OpacityPage> {
+  bool _click = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScrollLayout(
+      title: widget.title,
+      children: [
+        SpaceDivider(),
+        TitleLayout(
+          title: 'Opacity',
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                color: Colors.red,
+                alignment: Alignment.center,
+                child: const Text('1', style: TextStyle(color: Colors.white)),
+              ),
+              Opacity(
+                opacity: 0.2,
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  color: Colors.green,
+                  alignment: Alignment.center,
+                  child: const Text('2', style: TextStyle(color: Colors.white)),
+                ),
+              ),
+              Container(
+                width: 80,
+                height: 80,
+                color: Colors.blue,
+                alignment: Alignment.center,
+                child: const Text('3', style: TextStyle(color: Colors.white)),
+              ),
+            ],
+          ),
+        ),
+        TitleLayout(
+          title: 'AnimatedOpacity',
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _click = !_click;
+                  });
+                },
+                child: const Text('开始动画'),
+              ),
+              Stack(
+                children: [
+                  Image.network(
+                      'https://img2.baidu.com/it/u=1003272215,1878948666&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800'),
+                  Positioned.fill(
+                    child: AnimatedOpacity(
+                      onEnd: () {
+                        setState(() {
+                          _click = !_click;
+                        });
+                      },
+                      duration: const Duration(seconds: 3),
+                      opacity: _click ? 0.2 : 0.8,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Colors.white, Colors.grey],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class CustomPaintPage extends BaseStatelessWidget {
   CustomPaintPage({required super.title});
 
@@ -409,176 +459,230 @@ class RRectPainter extends CustomPainter {
   }
 }
 
-class OpacityPage extends BaseStatefulWidget {
-  OpacityPage({required super.title});
+class ReorderableListViewPage extends BaseStatefulWidget {
+  ReorderableListViewPage({required super.title});
 
   @override
-  State<StatefulWidget> createState() => OpacityPageState();
+  State<StatefulWidget> createState() => ReorderableListViewPageState();
 }
 
-class OpacityPageState extends State<OpacityPage> {
-  bool _click = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return ScrollLayout(
-      title: widget.title,
-      children: [
-        SpaceDivider(),
-        TitleLayout(
-          title: 'Opacity',
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                color: Colors.red,
-                alignment: Alignment.center,
-                child: const Text('1', style: TextStyle(color: Colors.white)),
-              ),
-              Opacity(
-                opacity: 0.2,
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  color: Colors.green,
-                  alignment: Alignment.center,
-                  child: const Text('2', style: TextStyle(color: Colors.white)),
-                ),
-              ),
-              Container(
-                width: 80,
-                height: 80,
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: const Text('3', style: TextStyle(color: Colors.white)),
-              ),
-            ],
-          ),
-        ),
-        TitleLayout(
-          title: 'AnimatedOpacity',
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _click = !_click;
-                  });
-                },
-                child: const Text('开始动画'),
-              ),
-              Stack(
-                children: [
-                  Image.network(
-                      'https://img2.baidu.com/it/u=1003272215,1878948666&fm=253&fmt=auto&app=120&f=JPEG?w=1280&h=800'),
-                  Positioned.fill(
-                    child: AnimatedOpacity(
-                      onEnd: () {
-                        setState(() {
-                          _click = !_click;
-                        });
-                      },
-                      duration: const Duration(seconds: 3),
-                      opacity: _click ? 0.2 : 0.8,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Colors.white, Colors.grey],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class AnimatedListPage extends BaseStatefulWidget {
-  AnimatedListPage({required super.title});
-
-  @override
-  State<StatefulWidget> createState() => AnimatedListPageState();
-}
-
-class AnimatedListPageState extends State<AnimatedListPage>
-    with SingleTickerProviderStateMixin {
-  List<int> _list = [];
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
-
-  void _addItem() {
-    final int index = _list.length;
-    _list.insert(index, index);
-    _listKey.currentState?.insertItem(index);
-  }
-
-  void _removeItem() {
-    final int index = _list.length - 1;
-    var item = _list[index].toString();
-    _listKey.currentState?.removeItem(
-        index, (context, animation) => _buildItem(item, animation));
-    _list.removeAt(index);
-  }
-
-  Widget _buildItem(String item, Animation<double> animation) {
-    //实现“左进右出”的动画效果
-    // return SlideTransition(
-    //   position: animation
-    //       .drive(CurveTween(curve: Curves.easeIn))
-    //       .drive(Tween(begin: const Offset(1, 1), end: const Offset(0, 1))),
-    //   child: Card(
-    //     color: Colors.blue,
-    //     child: ListTile(
-    //       title: Text(item),
-    //     ),
-    //   ),
-    // );
-    //实现从上掉落的效果
-    return SizeTransition(
-      sizeFactor: animation,
-      child: Card(
-        color: Colors.blue,
-        child: ListTile(title: Text(item)),
-      ),
-    );
-  }
+class ReorderableListViewPageState extends State<ReorderableListViewPage> {
+  final List<String> _items = List.generate(20, (index) => '$index');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        centerTitle: true,
       ),
-      body: AnimatedList(
-        key: _listKey,
-        //item的个数
-        initialItemCount: _list.length,
-        //一个函数，列表的每一个索引会调用，这个函数有一个animation参数，可以设置成任何一个动画
-        itemBuilder: (context, index, animation) =>
-            _buildItem(_list[index].toString(), animation),
-      ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          FloatingActionButton(
-            onPressed: () => _addItem(),
-            child: const Icon(Icons.add),
+      //ReorderableListView是通过长按拖动某一项到另一个位置来重新排序的列表组件，没有“懒加载”模式，需要一次构建所有的子组件，
+      //所以ReorderableListView并不适合加载大量数据的列表，它适用于有限集合且需要排序的情况，比如手机系统里面设置语言的功能，通过拖动对语言排序。
+      body: ReorderableListView(
+        //header参数显示在列表的顶部
+        header: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          alignment: Alignment.center,
+          child: const Text(
+            'ReorderableListView头部',
+            style: TextStyle(fontSize: 20, color: Colors.red),
           ),
-          const SizedBox(width: 60),
-          FloatingActionButton(
-            onPressed: () => _removeItem(),
-            child: const Icon(Icons.remove),
+        ),
+        //scrollDirection参数表示滚动到方向，默认为垂直
+        scrollDirection: Axis.vertical,
+        //reverse参数设置为true且ReorderableListView的滚动方向为垂直时，滚动条直接滑动到底部，如果是水平方向则滚动条直接滑动到右边，默认为false
+        reverse: false,
+        //ReorderableListView需要设置children和onReorder属性，children是子控件，onReorder是拖动完成后的回调
+        children: [
+          for (String item in _items)
+            Container(
+              //每个子控件必须设置唯一的key
+              key: ValueKey(item),
+              height: 100,
+              margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              decoration: BoxDecoration(
+                color:
+                    Colors.primaries[int.parse(item) % Colors.primaries.length],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                item,
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            )
+        ],
+        //onReorder是拖动完成的回调，第一个参数是旧的数据索引，第二个参数是拖动到位置的索引，回调里面需要对数据进行排序并通过setState刷新数据。
+        onReorder: (oldIndex, newIndex) {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          var child = _items.removeAt(oldIndex);
+          _items.insert(newIndex, child);
+          setState(() {});
+        },
+      ),
+    );
+  }
+}
+
+class ExpansionPanelListPage extends BaseStatefulWidget {
+  ExpansionPanelListPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => ExpansionPanelListPageState();
+}
+
+class ExpansionPanelListPageState extends State<ExpansionPanelListPage> {
+  List<bool> _dataList = List.generate(20, (index) => false).toList();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      //注意ExpansionPanelList要被SingleChildScrollView包裹，否则抛出异常
+      body: SingleChildScrollView(
+        child: _buildExpansionPanelList(),
+      ),
+    );
+  }
+
+  _buildExpansionPanelList() {
+    return ExpansionPanelList(
+      //expansionCallback为展开/关闭回调，返回展开/关闭子控件的索引及状态
+      expansionCallback: (index, isExpanded) {
+        setState(() {
+          _dataList[index] = !isExpanded;
+        });
+      },
+      children: _dataList
+          .map(
+            (value) => ExpansionPanel(
+              isExpanded: value,
+              //头部
+              headerBuilder: (context, isExpanded) =>
+                  const ListTile(title: Text('ExpansionPanel')),
+              //展开/关闭子控件
+              body: Container(height: 100, color: Colors.greenAccent),
+            ),
           )
+          .toList(),
+    );
+  }
+}
+
+class MergeableMaterialPage extends BaseStatelessWidget {
+  MergeableMaterialPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      centerContent: true,
+      widgetList: [
+        RouterTable.mergeableMaterial1,
+        RouterTable.mergeableMaterial2,
+      ],
+    );
+  }
+}
+
+class MergeableMaterialPage1 extends BaseStatelessWidget {
+  MergeableMaterialPage1({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        //MergeableMaterial，它展示多个MergeableMaterialItem组件，当子组件发生变化时，以动画的方式打开或者关闭子组件，
+        //MergeableMaterial的父控件需要在主轴方向是一个没有限制的控件，比如SingleChildScrollView、Row、Column等
+        child: MergeableMaterial(
+          //增加分割线和阴影
+          hasDividers: true,
+          dividerColor: Colors.blue,
+          //阴影值不能随便设置，只能设置如下值：1, 2, 3, 4, 6, 8, 9, 12, 16, 24
+          elevation: 24,
+          //MergeableMaterial的子控件只能是MaterialSlice和MaterialGap
+          children: [
+            //MaterialSlice是带子控件的控件，显示实际内容，MaterialGap用于分割，只能放在MaterialSlice中间。
+            MaterialSlice(key: const ValueKey(1), child: _buildItem(1)),
+            const MaterialGap(key: ValueKey(2)),
+            MaterialSlice(key: const ValueKey(3), child: _buildItem(3)),
+            const MaterialGap(key: ValueKey(4)),
+            MaterialSlice(key: const ValueKey(5), child: _buildItem(5)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildItem(int index) {
+    return Container(
+      height: 45,
+      color: Colors.primaries[index % Colors.primaries.length],
+    );
+  }
+}
+
+class MergeableMaterialPage2 extends BaseStatefulWidget {
+  MergeableMaterialPage2({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => MergeableMaterialPage2State();
+}
+
+class MergeableMaterialPage2State extends State<MergeableMaterialPage2> {
+  bool _expand = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Container(
+            height: 45,
+            color: Colors.green.withOpacity(.3),
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              icon: Icon(Icons.arrow_drop_down),
+              onPressed: () {
+                setState(() {
+                  _expand = !_expand;
+                });
+              },
+            ),
+          ),
+          //系统控件ExpansionPanelList就是使用此控件实现的。
+          _expand
+              ? MergeableMaterial(
+                  hasDividers: true,
+                  elevation: 24,
+                  children: [
+                    MaterialSlice(
+                      key: const ValueKey(1),
+                      child: Container(
+                        height: 200,
+                        color: Colors.green.withOpacity(.3),
+                      ),
+                    ),
+                  ],
+                )
+              : Container(),
+          Container(
+            height: 45,
+            color: Colors.red.withOpacity(.3),
+          ),
         ],
       ),
     );

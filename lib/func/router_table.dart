@@ -6,19 +6,18 @@ import 'package:basic_project/ui/widget/widget_app.dart';
 import 'package:basic_project/ui/widget/widget_gesture.dart';
 import 'package:basic_project/ui/widget/widget_sliver.dart';
 import 'package:basic_project/ui/widget/widget_text.dart';
-import 'package:basic_project/ui/widget_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../ui/practice/practice_scroll.dart';
 import '../ui/practice/practice_text.dart';
+import '../ui/widget/widget_anim.dart';
 import '../ui/widget/widget_basic.dart';
 import '../ui/widget/widget_box.dart';
 import '../ui/widget/widget_function.dart';
 import '../ui/widget/widget_layout.dart';
+import '../ui/widget/widget_other.dart';
 import '../ui/widget/widget_scroll.dart';
-import '../ui/widget_container.dart';
-import '../ui/widget_element.dart';
 
 ///页面跳转管理
 class RouterTable {
@@ -116,7 +115,7 @@ class RouterTable {
   static String bottomNavigationBar2 = 'BottomNavigationBar${div}shifting';
   static String drawer = 'Drawer';
   static String snackBar = 'SnackBar';
-
+  static String animationController = 'AnimationController';
   static String animatedList = 'AnimatedList';
   static String chip = 'Chip';
   static String opacity = 'Opacity';
@@ -251,7 +250,8 @@ class RouterTable {
         title: bottomNavigationBar, type: BottomNavigationBarType.shifting),
     drawer: (context) => DrawerPage(title: drawer),
     snackBar: (context) => SnackBarPage(title: snackBar),
-
+    animationController: (context) =>
+        AnimationControllerPage(title: animationController),
     animatedList: (context) => AnimatedListPage(title: animatedList),
     chip: (context) => ChipPage(title: chip),
     opacity: (context) => OpacityPage(title: opacity),
