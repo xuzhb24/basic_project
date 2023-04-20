@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:basic_project/func/router_table.dart';
 import 'package:basic_project/ui/base.dart';
 import 'package:flutter/material.dart';
@@ -596,6 +597,210 @@ class HeroDetailPage extends BaseStatelessWidget {
             child: Image.asset('images/cc.png'),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AnimationsPage extends BaseStatelessWidget {
+  AnimationsPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      centerContent: true,
+      widgetList: [
+        RouterTable.animations1,
+        RouterTable.animations2,
+        RouterTable.animations3,
+      ],
+    );
+  }
+}
+
+class AnimationsPage1 extends BaseStatelessWidget {
+  AnimationsPage1({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, crossAxisSpacing: 2, mainAxisSpacing: 4),
+        //使用OpenContainer组件，closedBuilder表示关闭状态时到组件，在这里表示GridView Item，openBuilder表示点击要跳转的页面，这里表示详情页面。
+        itemBuilder: (context, index) => OpenContainer(
+          transitionDuration: const Duration(milliseconds: 500),
+          closedBuilder: (context, openContainer) =>
+              Image.asset('images/cc.png', fit: BoxFit.fitWidth),
+          openBuilder: (context, _) => OpenContainerDetailPage(title: '详情页'),
+        ),
+        itemCount: 50,
+      ),
+    );
+  }
+}
+
+class OpenContainerDetailPage extends BaseStatelessWidget {
+  OpenContainerDetailPage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Image.asset('images/cc.png'),
+      ),
+    );
+  }
+}
+
+class AnimationsPage2 extends BaseStatefulWidget {
+  AnimationsPage2({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => AnimationsPage2State();
+}
+
+class AnimationsPage2State extends State<AnimationsPage2> {
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child = const HomePage();
+    switch (_currentIndex) {
+      case 1:
+        child = const MinePage();
+        break;
+    }
+    return Scaffold(
+      //共享轴模式用于具有空间或导航关系的UI元素之间的过渡。
+      //此模式在x，y或z轴上使用共享的变换来加强元素之间的关系。
+      body: PageTransitionSwitcher(
+        duration: const Duration(seconds: 1),
+        reverse: false,
+        transitionBuilder: (child, animation, secondaryAnimation) =>
+            SharedAxisTransition(
+          animation: animation,
+          secondaryAnimation: secondaryAnimation,
+          //x轴：SharedAxisTransitionType.horizontal
+          //y轴：SharedAxisTransitionType.vertical
+          //z轴：SharedAxisTransitionType.scaled
+          transitionType: SharedAxisTransitionType.horizontal,
+          child: child,
+        ),
+        child: child,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        currentIndex: _currentIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
+          BottomNavigationBarItem(icon: Icon(Icons.perm_identity), label: '我的'),
+        ],
+      ),
+    );
+  }
+}
+
+class AnimationsPage3 extends BaseStatefulWidget {
+  AnimationsPage3({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => AnimationsPage3State();
+}
+
+class AnimationsPage3State extends State<AnimationsPage3> {
+  int _pageIndex = 0;
+  final List<Widget> _pageList = const [
+    HomePage(),
+    BookPage(),
+    MinePage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PageTransitionSwitcher(
+        duration: const Duration(seconds: 1),
+        //淡入模式用于彼此之间没有密切关系的UI元素之间的过渡
+        //效果适用于：
+        //1.底部导航切换
+        //2.刷新列表
+        //3.切换器
+        transitionBuilder: (child, animation, secondaryAnimation) =>
+            FadeThroughTransition(
+          animation: animation,
+          secondaryAnimation: secondaryAnimation,
+          child: child,
+        ),
+        child: _pageList[_pageIndex],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            _pageIndex = index;
+          });
+        },
+        currentIndex: _pageIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: '书籍'),
+          BottomNavigationBarItem(icon: Icon(Icons.perm_identity), label: '我的'),
+        ],
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('首页'),
+        centerTitle: true,
+      ),
+    );
+  }
+}
+
+class BookPage extends StatelessWidget {
+  const BookPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('书籍'),
+        centerTitle: true,
+      ),
+    );
+  }
+}
+
+class MinePage extends StatelessWidget {
+  const MinePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('我的'),
+        centerTitle: true,
       ),
     );
   }

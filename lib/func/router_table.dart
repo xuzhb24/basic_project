@@ -124,6 +124,10 @@ class RouterTable {
   static String tweenSequence = 'TweenSequence';
   static String animatedList = 'AnimatedList';
   static String hero = 'Hero';
+  static String animations = 'Animations';
+  static String animations1 = 'Animations${div}OpenContainer';
+  static String animations2 = 'Animations${div}SharedAxis';
+  static String animations3 = 'Animations${div}FadeThrough';
   static String chip = 'Chip';
   static String opacity = 'Opacity';
   static String customPaint = 'CustomPaint';
@@ -267,6 +271,10 @@ class RouterTable {
     tweenSequence: (context) => TweenSequencePage(title: tweenSequence),
     animatedList: (context) => AnimatedListPage(title: animatedList),
     hero: (context) => HeroPage(title: hero),
+    animations: (context) => AnimationsPage(title: animations),
+    animations1: (context) => AnimationsPage1(title: pickTitle(animations1)),
+    animations2: (context) => AnimationsPage2(title: pickTitle(animations2)),
+    animations3: (context) => AnimationsPage3(title: pickTitle(animations3)),
     chip: (context) => ChipPage(title: chip),
     opacity: (context) => OpacityPage(title: opacity),
     customPaint: (context) => CustomPaintPage(title: customPaint),
