@@ -99,6 +99,64 @@ class AnimationControllerPageState extends State<AnimationControllerPage>
   }
 }
 
+class TweenPage extends BaseStatefulWidget {
+  TweenPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => TweenPageState();
+}
+
+class TweenPageState extends State<TweenPage> with TickerProviderStateMixin {
+  AnimationController? _controller;
+  Animation<Color?>? _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..addListener(() {
+            setState(() {});
+          });
+    //Tween仅仅是映射，动画的控制依然由AnimationController控制，因此需要Tween.animate(_controller)将控制器传递给Tween。
+    _animation =
+        ColorTween(begin: Colors.blue, end: Colors.red).animate(_controller!);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller?.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            _controller?.forward();
+          },
+          child: Container(
+            width: 200,
+            height: 200,
+            color: _animation!.value,
+            alignment: Alignment.center,
+            child: const Text(
+              '点我变色',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class AnimatedListPage extends BaseStatefulWidget {
   AnimatedListPage({required super.title});
 

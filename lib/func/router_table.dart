@@ -116,6 +116,7 @@ class RouterTable {
   static String drawer = 'Drawer';
   static String snackBar = 'SnackBar';
   static String animationController = 'AnimationController';
+  static String tween = 'Tween ';
   static String animatedList = 'AnimatedList';
   static String hero = 'Hero';
   static String chip = 'Chip';
@@ -253,6 +254,7 @@ class RouterTable {
     snackBar: (context) => SnackBarPage(title: snackBar),
     animationController: (context) =>
         AnimationControllerPage(title: animationController),
+    tween: (context) => TweenPage(title: tween),
     animatedList: (context) => AnimatedListPage(title: animatedList),
     hero: (context) => HeroPage(title: hero),
     chip: (context) => ChipPage(title: chip),
