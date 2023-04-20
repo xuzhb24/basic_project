@@ -448,6 +448,54 @@ class TweenSequencePageState extends State<TweenSequencePage>
   }
 }
 
+class ScaleTransitionPage extends BaseStatefulWidget {
+  ScaleTransitionPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => ScaleTransitionPageState();
+}
+
+class ScaleTransitionPageState extends State<ScaleTransitionPage>
+    with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _animation = Tween(begin: .5, end: .1).animate(_controller);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: ScaleTransition(
+          scale: _animation,
+          child: Container(
+            width: 200,
+            height: 200,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class AnimatedListPage extends BaseStatefulWidget {
   AnimatedListPage({required super.title});
 
