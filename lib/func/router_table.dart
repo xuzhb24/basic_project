@@ -120,6 +120,7 @@ class RouterTable {
   static String curve = 'Curve';
   static String curve1 = 'Curve$div基础用法';
   static String curve2 = 'Curve$div自定义Curve';
+  static String interval = 'Interval';
   static String animatedList = 'AnimatedList';
   static String hero = 'Hero';
   static String chip = 'Chip';
@@ -261,6 +262,7 @@ class RouterTable {
     curve: (context) => CurvePage(title: curve),
     curve1: (context) => CurvePage1(title: pickTitle(curve1)),
     curve2: (context) => CurvePage2(title: pickTitle(curve2)),
+    interval: (context) => IntervalPage(title: pickTitle(interval)),
     animatedList: (context) => AnimatedListPage(title: animatedList),
     hero: (context) => HeroPage(title: hero),
     chip: (context) => ChipPage(title: chip),

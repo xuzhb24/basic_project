@@ -318,6 +318,70 @@ class StairsCurve extends Curve {
   }
 }
 
+class IntervalPage extends BaseStatefulWidget {
+  IntervalPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => IntervalPageState();
+}
+
+class IntervalPageState extends State<IntervalPage>
+    with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation _colorAnimation;
+  late Animation _sizeAanimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5))
+          ..addListener(() {
+            setState(() {});
+          });
+    //Flutter中组合动画使用Interval，Interval继承自Curve，
+    //Interval中begin和end参数值的范围是0.0到1.0，下面实现一个先执行颜色变化，再执行大小变化
+    //也可以设置同时动画，只需将2个Interval的值都改为Interval(0.0, 1.0)
+    _colorAnimation = ColorTween(begin: Colors.red, end: Colors.blue).animate(
+        CurvedAnimation(parent: _controller, curve: const Interval(0.0, 0.5)));
+    _sizeAanimation = Tween(begin: 100.0, end: 300.0).animate(
+        CurvedAnimation(parent: _controller, curve: const Interval(0.5, 1.0)));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            _controller.forward();
+          },
+          child: Container(
+            width: _sizeAanimation.value,
+            height: _sizeAanimation.value,
+            color: _colorAnimation.value,
+            alignment: Alignment.center,
+            child: const Text(
+              '开始动画',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class AnimatedListPage extends BaseStatefulWidget {
   AnimatedListPage({required super.title});
 
