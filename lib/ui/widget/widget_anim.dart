@@ -1,3 +1,4 @@
+import 'package:basic_project/func/router_table.dart';
 import 'package:basic_project/ui/base.dart';
 import 'package:flutter/material.dart';
 
@@ -154,6 +155,166 @@ class TweenPageState extends State<TweenPage> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+}
+
+class CurvePage extends BaseStatelessWidget {
+  CurvePage({required super.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListLayout(
+      title: title,
+      centerContent: true,
+      widgetList: [
+        RouterTable.curve1,
+        RouterTable.curve2,
+      ],
+    );
+  }
+}
+
+class CurvePage1 extends BaseStatefulWidget {
+  CurvePage1({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => CurvePage1State();
+}
+
+class CurvePage1State extends State<CurvePage1> with TickerProviderStateMixin {
+  AnimationController? _controller;
+  Animation? _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..addListener(() {
+            setState(() {});
+          });
+    //蓝色盒子大小100变大到200，动画曲线设置为bounceIn（弹簧效果）
+    //系统已经提供了38种常用到动画曲线：linear、decelerate、bounceIn、bounceOut、elasticIn
+    _animation = Tween(begin: 100.0, end: 200.0)
+        .chain(CurveTween(curve: Curves.bounceIn))
+        .animate(_controller!);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller?.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //动画中还有一个重要的概念就是Curve，即动画执行曲线。Curve的作用和Android中的Interpolator（差值器）是一样的，
+    //负责控制动画变化的速率，通俗地讲就是使动画的效果能够以匀速、加速、减速、抛物线等各种速率变化。
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            _controller?.forward();
+          },
+          child: Container(
+            width: _animation!.value,
+            height: _animation!.value,
+            color: Colors.blue,
+            alignment: Alignment.center,
+            child: const Text(
+              '点我变大',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CurvePage2 extends BaseStatefulWidget {
+  CurvePage2({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => CurvePage2State();
+}
+
+class CurvePage2State extends State<CurvePage2> with TickerProviderStateMixin {
+  AnimationController? _controller;
+  Animation? _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..addListener(() {
+            setState(() {});
+          });
+    //蓝色盒子大小100变大到200，动画曲线设置为bounceIn（弹簧效果）
+    //系统已经提供了38种常用到动画曲线：linear、decelerate、bounceIn、bounceOut、elasticIn
+    _animation = Tween(begin: 100.0, end: 200.0)
+        .chain(CurveTween(curve: StairsCurve(6)))
+        .animate(_controller!);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller?.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //动画中还有一个重要的概念就是Curve，即动画执行曲线。Curve的作用和Android中的Interpolator（差值器）是一样的，
+    //负责控制动画变化的速率，通俗地讲就是使动画的效果能够以匀速、加速、减速、抛物线等各种速率变化。
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            _controller?.forward();
+          },
+          child: Container(
+            width: _animation!.value,
+            height: _animation!.value,
+            color: Colors.blue,
+            alignment: Alignment.center,
+            child: const Text(
+              '点我变大',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class StairsCurve extends Curve {
+  //阶梯的数量
+  final int num;
+  double? _perStairX;
+  double? _perStairY;
+
+  StairsCurve(this.num) {
+    _perStairX = 1.0 / num;
+    _perStairY = 1.0 / (num - 1);
+  }
+
+  @override
+  double transformInternal(double t) {
+    //自定义动画曲线需要继承Curve重写transformInternal方法即可
+    //下面是一个楼梯效 的动画曲线
+    return _perStairY! *
+        (t / _perStairX!).floor(); //直接返回t其实就是线性动画，即Curves.linear
   }
 }
 
