@@ -72,6 +72,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.tween,
     RouterTable.curve,
     RouterTable.interval,
+    RouterTable.tweenSequence,
     RouterTable.animatedList,
     RouterTable.hero,
     '其他组件',

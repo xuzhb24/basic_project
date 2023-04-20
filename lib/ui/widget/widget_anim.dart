@@ -382,6 +382,71 @@ class IntervalPageState extends State<IntervalPage>
   }
 }
 
+class TweenSequencePage extends BaseStatefulWidget {
+  TweenSequencePage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => TweenSequencePageState();
+}
+
+class TweenSequencePageState extends State<TweenSequencePage>
+    with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 6))
+          ..addListener(() {
+            setState(() {});
+          });
+    //前40%的时间大小从100->200，然后保持200不变20%的时间，最后40%的时间大小从200->300
+    _animation = TweenSequence([
+      TweenSequenceItem(
+          tween: Tween(begin: 100.0, end: 200.0)
+              .chain(CurveTween(curve: Curves.easeIn)),
+          weight: 40),
+      TweenSequenceItem(tween: ConstantTween(200.0), weight: 20),
+      TweenSequenceItem(tween: Tween(begin: 200.0, end: 300.0), weight: 40)
+    ]).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            _controller.forward();
+          },
+          child: Container(
+            width: _animation.value,
+            height: _animation.value,
+            color: Colors.blue,
+            alignment: Alignment.center,
+            child: const Text(
+              '点我变大',
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class AnimatedListPage extends BaseStatefulWidget {
   AnimatedListPage({required super.title});
 
