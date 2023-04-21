@@ -496,6 +496,47 @@ class ScaleTransitionPageState extends State<ScaleTransitionPage>
   }
 }
 
+class AnimatedOpacityPage extends BaseStatefulWidget {
+  AnimatedOpacityPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => AnimatedOpacityPageState();
+}
+
+class AnimatedOpacityPageState extends State<AnimatedOpacityPage> {
+  double _opacity = 1.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaffoldLayout(
+      title: widget.title,
+      child: Center(
+        child: AnimatedOpacity(
+          opacity: _opacity,
+          duration: const Duration(seconds: 2),
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _opacity = 0;
+              });
+            },
+            child: Container(
+              width: 200,
+              height: 200,
+              color: Colors.blue,
+              alignment: Alignment.center,
+              child: const Text(
+                '点我隐藏',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class AnimatedListPage extends BaseStatefulWidget {
   AnimatedListPage({required super.title});
 

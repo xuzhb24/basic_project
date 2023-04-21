@@ -123,6 +123,7 @@ class RouterTable {
   static String interval = 'Interval';
   static String tweenSequence = 'TweenSequence';
   static String scaleTransition = 'ScaleTransition';
+  static String animatedOpacity = 'AnimatedOpacity';
   static String animatedList = 'AnimatedList';
   static String hero = 'Hero';
   static String animations = 'Animations';
@@ -271,6 +272,7 @@ class RouterTable {
     interval: (context) => IntervalPage(title: pickTitle(interval)),
     tweenSequence: (context) => TweenSequencePage(title: tweenSequence),
     scaleTransition: (context) => ScaleTransitionPage(title: scaleTransition),
+    animatedOpacity: (context) => AnimatedOpacityPage(title: animatedOpacity),
     animatedList: (context) => AnimatedListPage(title: animatedList),
     hero: (context) => HeroPage(title: hero),
     animations: (context) => AnimationsPage(title: animations),

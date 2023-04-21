@@ -74,6 +74,7 @@ class WidgetPage extends StatelessWidget {
     RouterTable.interval,
     RouterTable.tweenSequence,
     RouterTable.scaleTransition,
+    RouterTable.animatedOpacity,
     RouterTable.animatedList,
     RouterTable.hero,
     RouterTable.animations,

@@ -69,6 +69,16 @@ Widget ListLayout({
   );
 }
 
+Widget ScaffoldLayout({required String title, required Widget child}) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(title),
+      centerTitle: true,
+    ),
+    body: child,
+  );
+}
+
 ///列表滚动布局，通过SingleChildScrollView构建
 Widget ScrollLayout({
   required String title,
