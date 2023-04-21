@@ -4,6 +4,8 @@ import 'package:basic_project/ui/base.dart';
 import 'package:flutter/material.dart';
 
 ///动画组件
+//Flutter内置的动画组件分为两种：隐式动画组件和显示动画组件，显示动画组件只封装了setState方法，需要开发者创建AnimationController，并管理AnimationController。
+//隐式动画组件封装了AnimationController、Curve、Tween，只需提供给组件动画开始、结束值，其余由系统管理。
 class AnimationControllerPage extends BaseStatefulWidget {
   AnimationControllerPage({required super.title});
 
@@ -528,6 +530,68 @@ class AnimatedOpacityPageState extends State<AnimatedOpacityPage> {
               child: const Text(
                 '点我隐藏',
                 style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AnimatedBuilderPage extends BaseStatefulWidget {
+  AnimatedBuilderPage({required super.title});
+
+  @override
+  State<StatefulWidget> createState() => AnimatedBuilderPageState();
+}
+
+class AnimatedBuilderPageState extends State<AnimatedBuilderPage>
+    with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Color?> _colorAnimation;
+  late Animation<Size?> _sizeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _colorAnimation =
+        ColorTween(begin: Colors.blue, end: Colors.red).animate(_controller);
+    _sizeAnimation =
+        SizeTween(begin: const Size(100.0, 50.0), end: const Size(200.0, 100.0))
+            .animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaffoldLayout(
+      title: widget.title,
+      child: Center(
+        child: GestureDetector(
+          onTap: () {
+            _controller.forward();
+          },
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, widget) => Container(
+              width: _sizeAnimation.value?.width,
+              height: _sizeAnimation.value?.height,
+              color: _colorAnimation.value,
+              alignment: Alignment.center,
+              child: const Text(
+                '开始动画',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),
               ),
             ),
           ),
