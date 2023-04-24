@@ -56,8 +56,8 @@ class ScrollPracticePage1State extends State<ScrollPracticePage1> {
 
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    super.dispose();
   }
 
   @override

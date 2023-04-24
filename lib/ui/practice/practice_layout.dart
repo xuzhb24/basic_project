@@ -224,8 +224,8 @@ class LayoutPracticePage2State extends State<LayoutPracticePage2>
 
   @override
   void dispose() {
-    super.dispose();
     _controler?.dispose(); //销毁变量,释放资源
+    super.dispose();
   }
 
   @override
@@ -293,8 +293,8 @@ class LayoutPracticePage3State extends State<LayoutPracticePage3>
 
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    super.dispose();
   }
 
   @override

@@ -79,6 +79,17 @@ Widget ScaffoldLayout({required String title, required Widget child}) {
   );
 }
 
+Widget JumpButton(String title, VoidCallback onPressed) {
+  return ElevatedButton(
+    onPressed: onPressed,
+    style: ButtonStyle(
+      fixedSize: MaterialStateProperty.all(const Size(0, 50)),
+      textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 16)),
+    ),
+    child: Text(title),
+  );
+}
+
 ///列表滚动布局，通过SingleChildScrollView构建
 Widget ScrollLayout({
   required String title,

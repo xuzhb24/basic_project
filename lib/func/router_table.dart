@@ -1,3 +1,4 @@
+import 'package:basic_project/ui/practice/practice_anim.dart';
 import 'package:basic_project/ui/practice/practice_basic.dart';
 import 'package:basic_project/ui/practice/practice_box.dart';
 import 'package:basic_project/ui/practice/practice_gesture.dart';
@@ -131,6 +132,18 @@ class RouterTable {
   static String animations1 = 'Animations${div}OpenContainer';
   static String animations2 = 'Animations${div}SharedAxis';
   static String animations3 = 'Animations${div}FadeThrough';
+  static String animPractice = '动画组件实战';
+  static String animPractice1 = '动画组件实战$div动画核心';
+  static String animPractice2 = '动画组件实战$div路由动画';
+  static String animPractice3 = '动画组件实战$div孔雀开屏转场动画';
+  static String animPractice4 = '动画组件实战$div自定义渐变进度条';
+  static String animPractice5 = '动画组件实战$div酷炫的3D效果';
+  static String animPractice6 = '动画组件实战$div涟漪效果';
+  static String animPractice7 = '动画组件实战$div雷达扫描效果';
+
+  // static String animPractice8 = '动画组件实战$div自绘玫瑰';
+  // static String animPractice9 = '动画组件实战$div仿掘金点赞';
+
   static String chip = 'Chip';
   static String opacity = 'Opacity';
   static String customPaint = 'CustomPaint';
@@ -281,6 +294,21 @@ class RouterTable {
     animations1: (context) => AnimationsPage1(title: pickTitle(animations1)),
     animations2: (context) => AnimationsPage2(title: pickTitle(animations2)),
     animations3: (context) => AnimationsPage3(title: pickTitle(animations3)),
+    animPractice: (context) => AnimPracticePage(title: animPractice),
+    animPractice1: (context) =>
+        AnimPracticePage1(title: pickTitle(animPractice1)),
+    animPractice2: (context) =>
+        AnimPracticePage2(title: pickTitle(animPractice2)),
+    animPractice3: (context) =>
+        AnimPracticePage3(title: pickTitle(animPractice3)),
+    animPractice4: (context) =>
+        AnimPracticePage4(title: pickTitle(animPractice4)),
+    animPractice5: (context) =>
+        AnimPracticePage5(title: pickTitle(animPractice5)),
+    animPractice6: (context) =>
+        AnimPracticePage6(title: pickTitle(animPractice6)),
+    animPractice7: (context) =>
+        AnimPracticePage7(title: pickTitle(animPractice7)),
     chip: (context) => ChipPage(title: chip),
     opacity: (context) => OpacityPage(title: opacity),
     customPaint: (context) => CustomPaintPage(title: customPaint),

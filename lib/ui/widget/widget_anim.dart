@@ -69,8 +69,8 @@ class AnimationControllerPageState extends State<AnimationControllerPage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -129,8 +129,8 @@ class TweenPageState extends State<TweenPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -205,8 +205,8 @@ class CurvePage1State extends State<CurvePage1> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -267,8 +267,8 @@ class CurvePage2State extends State<CurvePage2> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -353,8 +353,8 @@ class IntervalPageState extends State<IntervalPage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -418,8 +418,8 @@ class TweenSequencePageState extends State<TweenSequencePage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -473,8 +473,8 @@ class ScaleTransitionPageState extends State<ScaleTransitionPage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -566,8 +566,8 @@ class AnimatedBuilderPageState extends State<AnimatedBuilderPage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
