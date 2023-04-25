@@ -17,6 +17,7 @@ import '../ui/widget/widget_basic.dart';
 import '../ui/widget/widget_box.dart';
 import '../ui/widget/widget_function.dart';
 import '../ui/widget/widget_layout.dart';
+import '../ui/widget/widget_navigator.dart';
 import '../ui/widget/widget_other.dart';
 import '../ui/widget/widget_scroll.dart';
 

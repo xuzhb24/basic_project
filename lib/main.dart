@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:basic_project/ui/practice.dart';
 import 'package:basic_project/ui/widget.dart';
+import 'package:basic_project/ui/widget/widget_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -12,6 +13,8 @@ void main() {
   runApp(MyApp());
   setAndroidSystemBar();
 }
+
+CustomRouteObserver<PageRoute> routeObserver = CustomRouteObserver<PageRoute>();
 
 //设置android状态栏为透明色
 void setAndroidSystemBar() {
@@ -41,6 +44,7 @@ class MyApp extends StatelessWidget {
         Locale('en', 'US'),
       ],
       locale: const Locale('zh'),
+      navigatorObservers: [routeObserver],
       //页面跳转管理
       navigatorKey: navigationKey,
       onGenerateRoute: RouterTable.onGenerateRoute,
