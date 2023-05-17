@@ -1,6 +1,7 @@
 import 'package:basic_project/ui/practice/practice_anim.dart';
 import 'package:basic_project/ui/practice/practice_basic.dart';
 import 'package:basic_project/ui/practice/practice_box.dart';
+import 'package:basic_project/ui/practice/practice_data_http.dart';
 import 'package:basic_project/ui/practice/practice_gesture.dart';
 import 'package:basic_project/ui/practice/practice_layout.dart';
 import 'package:basic_project/ui/widget/widget_app.dart';
@@ -154,6 +155,15 @@ class RouterTable {
   static String mergeableMaterial1 = 'MergeableMaterial$div基础用法';
   static String mergeableMaterial2 =
       'MergeableMaterial$div实现ExpansionPanelList效果';
+  static String dataHttpPractice = "数据存储和网络请求实战";
+  static String dataHttpPractice1 = "数据存储和网络请求实战$div文件系统目录-path_provider";
+  static String dataHttpPractice2 = "数据存储和网络请求实战$div文件读写";
+  static String dataHttpPractice3 = "数据存储和网络请求实战$div简单数据持久化";
+  static String dataHttpPractice4 = "数据存储和网络请求实战$div大量复杂数据持久化";
+  static String dataHttpPractice5 = "数据存储和网络请求实战$div网络请求-HttpClient";
+  static String dataHttpPractice6 = "数据存储和网络请求实战$div网络请求-http";
+  static String dataHttpPractice7 = "数据存储和网络请求实战$div网络请求-dio";
+  static String dataHttpPractice8 = "数据存储和网络请求实战${div}json数据转换为Model";
 
   static Map<String, WidgetBuilder> routerTables = {
     notFound: (context) => const NotFoundPage(),
@@ -323,6 +333,24 @@ class RouterTable {
         MergeableMaterialPage1(title: pickTitle(mergeableMaterial1)),
     mergeableMaterial2: (context) =>
         MergeableMaterialPage2(title: pickTitle(mergeableMaterial2)),
+    dataHttpPractice: (context) =>
+        DataHttpPracticePage(title: dataHttpPractice),
+    dataHttpPractice1: (context) =>
+        DataHttpPracticePage1(title: pickTitle(dataHttpPractice1)),
+    dataHttpPractice2: (context) =>
+        DataHttpPracticePage2(title: pickTitle(dataHttpPractice2)),
+    dataHttpPractice3: (context) =>
+        DataHttpPracticePage3(title: pickTitle(dataHttpPractice3)),
+    dataHttpPractice4: (context) =>
+        DataHttpPracticePage4(title: pickTitle(dataHttpPractice4)),
+    dataHttpPractice5: (context) =>
+        DataHttpPracticePage5(title: pickTitle(dataHttpPractice5)),
+    dataHttpPractice6: (context) =>
+        DataHttpPracticePage6(title: pickTitle(dataHttpPractice6)),
+    dataHttpPractice7: (context) =>
+        DataHttpPracticePage7(title: pickTitle(dataHttpPractice7)),
+    dataHttpPractice8: (context) =>
+        DataHttpPracticePage8(title: pickTitle(dataHttpPractice8)),
   };
 
   ///路由拦截
